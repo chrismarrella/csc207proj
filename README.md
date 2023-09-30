@@ -16,4 +16,4 @@ Waste management using recommended recipes
 - [Recipes API](https://spoonacular.com/food-api/docs)
 
 # Screenshot of using Hoppscotch
-- [alt text](https://github.com/samlukas/csc207proj/blob/main/hoppscotch_screenshot.jpg)
+![alt text](https://github.com/samlukas/csc207proj/blob/main/hoppscotch_screenshot.jpg)
