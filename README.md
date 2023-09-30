@@ -17,3 +17,7 @@ Waste management using recommended recipes
 
 # Screenshot of using Hoppscotch
 ![alt text](https://github.com/samlukas/csc207proj/blob/main/hoppscotch_screenshot.jpg)
+
+# Example of calling API from Java
+![alt text](https://github.com/samlukas/csc207proj/blob/main/api_demo.jpeg)
+![alt text](https://github.com/samlukas/csc207proj/blob/main/api_demo_output.jpeg)
