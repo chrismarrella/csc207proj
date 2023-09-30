@@ -13,4 +13,4 @@ Waste management using recommended recipes
 - Once the user selects a recipe, the required ingredients for that recipe that user has will be removed from the database to match the user’s current inventory
 
 # Documentation
-- [Recipes API](https://rapidapi.com/spoonaculaRecipe Search API Documentationr/api/recipe-food-nutrition)
+- [Recipes API](https://spoonacular.com/food-api/docs)
