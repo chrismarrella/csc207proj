@@ -22,3 +22,6 @@ Food waste management using recommended recipes
 # Example of calling API from Java
 ![alt text](https://github.com/samlukas/csc207proj/blob/main/api_demo.jpeg)
 ![alt text](https://github.com/samlukas/csc207proj/blob/main/api_demo_output.jpeg)
+
+# Core Use Case
+- Return recipes based on avaliable ingredients and soon to expire ingredients, and user preferences.
