@@ -13,6 +13,25 @@ Food waste management using recommended recipes
 - Once the user has selected a recipe, the required ingredients for that recipe will be removed from the database to match the user’s current inventory
 - The program will also automatically remove expired grocies from the database and notify the user about their expiration
 
+# Proposed Entities for the Domain:
+- FoodItem
+    - String name
+    - Date expirationDate
+    - float amount (units depend on the actual food item)
+- Recipe
+    - String name
+    - String instructions
+    - List<FoodItem> ingredients
+    - List<float> macros (proteins, calories etc.)
+    - Map<String, boolean> satisfiedDietaryRestrictions
+- UserInventory
+    - PriorityQueue<FoodItem> inventory 
+- User
+    - UserInventory inventory
+    - Map<String, boolean> dietaryRestrictions
+- ShoppingList
+    - List<FoodItem> shoppingList
+
 # Documentation
 - [Recipes API](https://spoonacular.com/food-api/docs)
 
