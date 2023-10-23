@@ -1,2 +1,3 @@
-package use_case.get_recipe;public class GetRecipeInteractor {
+package use_case.get_recipe;
+public class GetRecipeInteractor {
 }

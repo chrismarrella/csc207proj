@@ -1,2 +1,3 @@
-package use_case.get_recipe;public interface GetRecipeDataAccessInterface {
+package use_case.get_recipe;
+public interface GetRecipeDataAccessInterface {
 }

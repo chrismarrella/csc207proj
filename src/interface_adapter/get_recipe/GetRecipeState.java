@@ -1,2 +1,3 @@
-package interface_adapter.get_recipe;public class GetRecipeState {
+package interface_adapter.get_recipe;
+public class GetRecipeState {
 }
