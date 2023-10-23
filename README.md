@@ -25,5 +25,4 @@ Food waste management using recommended recipes
 
 # Core Use Case
 - Return recipes based on avaliable ingredients and soon to expire ingredients, and user preferences.
-- UML diagram
-![alt text](https://github.com/samlukas/csc207proj/blob/main/useCaseUml.jpeg)
+![alt text](https://github.com/samlukas/csc207proj/blob/main/useCaseUml.png)
