@@ -19,6 +19,7 @@ public class GetRecipePresenter implements use_case.get_recipe.GetRecipeOutputBo
         getRecipeState.setRecipe(name.getRecipe());
         this.getRecipeViewModel.setState(getRecipeState);
         clearViewModel.firePropertyChanged();
+        //change view or change state here
     }
 
     @Override
