@@ -1,3 +1,4 @@
 package use_case.get_recipe;
-public class GetRecipeInputBoundary {
+public interface GetRecipeInputBoundary {
+    void execute();
 }
