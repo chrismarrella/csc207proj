@@ -69,7 +69,7 @@ public class Recipe implements DietaryPreferences {
                 ", instructions='" + instructions + '\'' +
                 ", ingredients=" + ingredients +
                 ", macros=" + macros +
-                ", dietaryRestrictions=" + satisfiedDietaryRestrictions +
+                ", satisfiedDietaryRestrictions=" + satisfiedDietaryRestrictions +
                 '}';
     }
 }

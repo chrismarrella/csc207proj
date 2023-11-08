@@ -7,7 +7,7 @@ import java.util.PriorityQueue;
 
 public class User implements DietaryPreferences, UserInventory, Iterable<FoodItem> {
     private PriorityQueue<FoodItem> inventory;
-    Map<String, Boolean> dietaryRestrictions;
+    private Map<String, Boolean> dietaryRestrictions;
 
     public User(Map<String, Boolean> dietaryRestrictions) {
         this.inventory = new PriorityQueue<>(new FoodItemComparator());
@@ -34,7 +34,7 @@ public class User implements DietaryPreferences, UserInventory, Iterable<FoodIte
         return this.inventory.remove(item);
     }
 
-    class FoodItemComparator implements Comparator<FoodItem> {
+    private class FoodItemComparator implements Comparator<FoodItem> {
         @Override
         public int compare(FoodItem item1, FoodItem item2) {
             return item1.getExpirationDate().compareTo(item2.getExpirationDate());

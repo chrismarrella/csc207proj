@@ -1,13 +1,11 @@
 package entities.get_recipe;
-
-import java.time.LocalDateTime;
 import java.util.Calendar;
 public class FoodItem {
     private final String name;
     private final Calendar expirationDate;
     private Float amount;
 
-    FoodItem(String name, int year, int month, int day, float amount) {
+    public FoodItem(String name, int year, int month, int day, float amount) {
         this.name = name;
         this.expirationDate = Calendar.getInstance();
         this.expirationDate.set(year, month, day);
