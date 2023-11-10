@@ -1,6 +1,6 @@
 package interface_adapter.get_recipe;
-import interface_adapter.get_recipe.GetReceipeOutputBoundary;
-import interface_adapter.get_recipe.GetRecipeOutputData;
+import use_case.get_recipe.GetRecipeOutputBoundary;
+import use_case.get_recipe.GetRecipeOutputData;
 import interface_adapter.get_recipe.GetRecipeState;
 import interface_adapter.get_recipe.GetRecipeViewModel;
 import use_case.get_recipe.GetRecipeOutputData;
@@ -14,11 +14,10 @@ public class GetRecipePresenter implements use_case.get_recipe.GetRecipeOutputBo
     }
 
     @Override
-    public void prepareSuccessView(GetRecipeOutputData name) {
+    public void prepareSuccessView(GetRecipeOutputData recipes) {
         GetRecipeState getRecipeState = getRecipeViewModel.getState();
-        getRecipeState.setRecipe(name.getRecipe());
-        this.getRecipeViewModel.setState(getRecipeState);
-        clearViewModel.firePropertyChanged();
+        getRecipeState.updateState(recipes.getRecipeData(), null);
+        getRecipeViewModel.firePropertyChange();
         //change view or change state here
     }
 
