@@ -34,10 +34,22 @@ public class User implements DietaryPreferences, UserInventory, Iterable<FoodIte
         return this.inventory.remove(item);
     }
 
+    public void addRestriction(String restriction, Boolean res) {
+        this.dietaryRestrictions.put(restriction, res);
+    }
+
+    public Boolean removeRestriction(String restriction, Boolean res) {
+        return this.dietaryRestrictions.remove(restriction, res);
+    }
+
+    public PriorityQueue<FoodItem> getInventory() {
+        return this.inventory;
+    }
+
     private class FoodItemComparator implements Comparator<FoodItem> {
         @Override
         public int compare(FoodItem item1, FoodItem item2) {
-            return item1.getExpirationDate().compareTo(item2.getExpirationDate());
+            return item1.getCalendarObject().compareTo(item2.getCalendarObject());
         }
     }
 
