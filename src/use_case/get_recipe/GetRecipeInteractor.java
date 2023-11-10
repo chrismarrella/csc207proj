@@ -1,7 +1,7 @@
 package use_case.get_recipe;
 
-import entities.get_recipe.DietaryPreferences;
-import entities.get_recipe.Recipe;
+import entities.DietaryPreferences;
+import entities.Recipe;
 
 import java.util.List;
 

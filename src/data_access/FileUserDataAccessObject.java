@@ -1,8 +1,8 @@
 package data_access;
 
-import entities.get_recipe.FoodItem;
-import entities.get_recipe.User;
-import entities.get_recipe.UserFactory;
+import entities.FoodItem;
+import entities.User;
+import entities.UserFactory;
 
 import java.io.*;
 import java.util.*;
