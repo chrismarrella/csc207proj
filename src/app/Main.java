@@ -1,20 +1,39 @@
 package app;
 
+import entities.UserFactory;
+import interface_adapter.get_recipe.ViewManagerModel;
+import interface_adapter.get_recipe.GetRecipeViewModel;
+import view.GetRecipeView;
+import view.ViewManager;
+
 import javax.swing.*;
 import java.awt.*;
-
-class Main {
+public class Main {
     public static void main(String[] args) {
 
-        JFrame frame = new JFrame("CHEFFI");
-        JPanel panel = new JPanel();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1000, 1000);
-        JButton GenerateRecipe = new JButton("Generate Recipe");
-        frame.getContentPane().add(GenerateRecipe);
-        panel.add(GenerateRecipe);
-        frame.getContentPane().add(BorderLayout.SOUTH, panel);
-        frame.setVisible(true);
+        JFrame application = new JFrame("Get Recipe");
+        application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
+        int width = 800;
+        int height = 600;
+        application.setSize(width, height);
+
+        CardLayout cardLayout = new CardLayout();
+
+        JPanel views = new JPanel(cardLayout);
+        application.add(views);
+
+        ViewManagerModel viewManagerModel = new ViewManagerModel();
+        new ViewManager(views, cardLayout, viewManagerModel);
+
+        GetRecipeViewModel getrecipeViewModel = new GetRecipeViewModel();
+
+        GetRecipeView getRecipeView = new GetRecipeView(getrecipeViewModel);
+        views.add(getRecipeView, getRecipeView.viewName);
+
+        viewManagerModel.setActiveView(getRecipeView.viewName);
+        viewManagerModel.firePropertyChanged();
+
+        application.setVisible(true);
     }
 }
