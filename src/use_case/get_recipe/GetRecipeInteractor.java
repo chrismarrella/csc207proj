@@ -26,4 +26,5 @@ public class GetRecipeInteractor implements GetRecipeInputBoundary {
             GetRecipeOutputData getRecipeOutputData = new GetRecipeOutputData(recipes, false);
             getRecipePresenter.prepareSuccessView(getRecipeOutputData);
         }
+    }
 }
