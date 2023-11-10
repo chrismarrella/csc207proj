@@ -20,7 +20,7 @@ public class GetRecipeViewModel {
     }
 
     public void firePropertyChange() {
-        pcs.firePropertyChange("GetRecipeState", null, curr_state);
+        pcs.firePropertyChange("state", null, curr_state);
     }
 
     public List<String> getRecipes() {
