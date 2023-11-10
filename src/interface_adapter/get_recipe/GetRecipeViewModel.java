@@ -6,24 +6,24 @@ import java.beans.PropertyChangeSupport;
 import java.util.List;
 
 public class GetRecipeViewModel {
-    private GetRecipeState curr_state = new GetRecipeState();
+    private GetRecipeState currState = new GetRecipeState();
 
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
     public void setState(GetRecipeState state) {
-        this.curr_state = state;
+        this.currState = state;
     }
-    public GetRecipeState getState() { return curr_state; }
+    public GetRecipeState getState() { return currState; }
 
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         this.pcs.addPropertyChangeListener(listener);
     }
 
     public void firePropertyChange() {
-        pcs.firePropertyChange("state", null, curr_state);
+        pcs.firePropertyChange("state", null, currState);
     }
 
     public List<String> getRecipes() {
-        return curr_state.getRecipes();
+        return currState.getRecipes();
     }
 }
