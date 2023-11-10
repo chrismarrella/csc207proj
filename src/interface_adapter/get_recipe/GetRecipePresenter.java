@@ -15,7 +15,7 @@ public class GetRecipePresenter implements GetRecipeOutputBoundary {
     public void prepareSuccessView(GetRecipeOutputData recipes) {
         GetRecipeState getRecipeState = getRecipeViewModel.getState();
         getRecipeState.updateState(recipes.getRecipeData(), null);
-        getRecipeViewModel.firePropertyChange();
+        getRecipeViewModel.firePropertyChanged();
         //change view or change state here
     }
 
@@ -23,6 +23,6 @@ public class GetRecipePresenter implements GetRecipeOutputBoundary {
     public void prepareFailView(String error) {
         GetRecipeState getRecipeState = getRecipeViewModel.getState();
         getRecipeState.setRecipeError(error);
-        getRecipeViewModel.firePropertyChange();
+        getRecipeViewModel.firePropertyChanged();
     }
 }

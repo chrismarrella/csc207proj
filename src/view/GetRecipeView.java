@@ -8,51 +8,63 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.List;
 
 public class GetRecipeView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "get recipe";
 
-
     private final GetRecipeViewModel getRecipeViewModel;
     private final JButton generate;
+    private final JTextArea resultTextArea;
 
     public GetRecipeView(GetRecipeViewModel getRecipeViewModel) {
-
         this.getRecipeViewModel = getRecipeViewModel;
         getRecipeViewModel.addPropertyChangeListener(this);
 
         JLabel title = new JLabel(GetRecipeViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
+        add(title);
 
         JPanel buttons = new JPanel();
         generate = new JButton(GetRecipeViewModel.GET_RECIPE_BUTTON_LABEL);
         buttons.add(generate);
+        add(buttons);
 
-        generate.addActionListener(
+        resultTextArea = new JTextArea();
+        resultTextArea.setEditable(false);
+        resultTextArea.setLineWrap(true);
+        resultTextArea.setWrapStyleWord(true);
+        JScrollPane scrollPane = new JScrollPane(resultTextArea);
+        add(scrollPane);
 
-                new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent evt) {
-                        System.out.println("Cancel not implemented yet.");
-                    }
-                    //if (e.getSource().equals(generate)) {
-                    //GetRecipeState currentState = getRecipeViewModel.getState();
-                    //getrecipeController.execute(
-                    //currentState.getRecipe()
-                    //Will fix this when GetRecipeState is completed
-
-                }
-        );
-
-
+        generate.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                System.out.println("Generate button clicked.");
+                getRecipeViewModel.firePropertyChanged();
+            }
+        });
     }
 
+    private void showRecipes(List<String> recipes) {
+        resultTextArea.setText("");
+        for (String recipe : recipes) {
+            resultTextArea.append(recipe + "\n");
+        }
+    }
+
+    @Override
     public void actionPerformed(ActionEvent evt) {
         System.out.println("Cancel not implemented yet.");
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        System.out.println("Cancel not implemented yet.");
+        if ("state".equals(evt.getPropertyName())) {
+            List<String> recipes = getRecipeViewModel.getRecipes();
+            showRecipes(recipes);
+        }
     }
 }
+
+

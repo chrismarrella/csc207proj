@@ -11,7 +11,7 @@ import java.awt.*;
 public class Main {
     public static void main(String[] args) {
 
-        JFrame application = new JFrame("Get Recipe");
+        JFrame application = new JFrame("CHEFFI");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         int width = 800;
