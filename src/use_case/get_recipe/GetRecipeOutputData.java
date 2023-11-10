@@ -1,6 +1,6 @@
 package use_case.get_recipe;
 
-import entities.get_recipe.Recipe;
+import entities.Recipe;
 
 import java.util.ArrayList;
 import java.util.List;

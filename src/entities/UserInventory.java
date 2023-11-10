@@ -1,5 +1,4 @@
-package entities.get_recipe;
-import java.util.*;
+package entities;
 
 public interface UserInventory {
 
