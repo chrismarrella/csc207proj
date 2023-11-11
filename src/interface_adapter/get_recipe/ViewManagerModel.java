@@ -17,7 +17,7 @@ public class ViewManagerModel {
         this.activeViewName = activeView;
     }
 
-    public void firePropertyChanged() {
+    public void firePropertyChange() {
         support.firePropertyChange("view", null, this.activeViewName);
     }
 

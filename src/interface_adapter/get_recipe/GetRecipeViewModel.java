@@ -26,7 +26,7 @@ public class GetRecipeViewModel extends ViewModel {
         this.pcs.addPropertyChangeListener(listener);
     }
 
-    public void firePropertyChanged() {
+    public void firePropertyChange() {
         pcs.firePropertyChange("state", null, currState);
     }
 

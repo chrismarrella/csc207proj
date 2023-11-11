@@ -41,7 +41,7 @@ public class GetRecipeView extends JPanel implements ActionListener, PropertyCha
             @Override
             public void actionPerformed(ActionEvent evt) {
                 System.out.println("Generate button clicked.");
-                getRecipeViewModel.firePropertyChanged();
+                getRecipeViewModel.firePropertyChange();
             }
         });
     }

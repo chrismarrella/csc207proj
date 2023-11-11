@@ -32,7 +32,7 @@ public class Main {
         views.add(getRecipeView, getRecipeView.viewName);
 
         viewManagerModel.setActiveView(getRecipeView.viewName);
-        viewManagerModel.firePropertyChanged();
+        viewManagerModel.firePropertyChange();
 
         application.setVisible(true);
     }
