@@ -1,5 +1,6 @@
 package app;
 
+import entities.UserFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.get_recipe.GetRecipeViewModel;
 import view.GetRecipeView;
