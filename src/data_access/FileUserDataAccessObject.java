@@ -1,8 +1,6 @@
 package data_access;
 
-import entities.FoodItem;
-import entities.User;
-import entities.UserFactory;
+import entities.*;
 
 import java.io.*;
 import java.util.*;
@@ -47,7 +45,7 @@ public class FileUserDataAccessObject {
                                 Integer.parseInt(details[2]),
                                 Integer.parseInt(details[3]),
                                 Integer.parseInt(details[4]));
-                        user.addItem(newItem);
+                        user.getInventory().addItem(newItem);
                     }
 
                     // split dietary restrictions column like String:Boolean/String:Boolean...
@@ -57,7 +55,7 @@ public class FileUserDataAccessObject {
 
                     for (String item: restItems) {
                         String[] details = item.split(":");
-                        user.addRestriction(details[0], Boolean.parseBoolean(details[1]));
+                        user.getDietaryRestrictions().addRestriction(details[0], Boolean.parseBoolean(details[1]));
                     }
                     this.accounts.put(numUsers, user);
                     numUsers += 1;
@@ -93,7 +91,7 @@ public class FileUserDataAccessObject {
             for (User user : accounts.values()) {
                 // handle inventory
                 StringBuilder inv = new StringBuilder();
-                for (FoodItem item : user.getInventory()) {
+                for (FoodItem item : user.getInventory().getQueue()) {
                     // year/month/day
                     String[] expDate = item.getExpirationDate().split("/");
                     String food = String.format("%s:%s:%s:%s:%s",
@@ -106,9 +104,9 @@ public class FileUserDataAccessObject {
 
                 // handle DietaryRestrictions
                 StringBuilder rest = new StringBuilder();
-                for (String key : user.getDietaryRestrictions().keySet()) {
+                for (String key : user.getDietaryRestrictions().getAllKeys()) {
                     String restriction = String.format("%s:%s",
-                            key, String.valueOf(user.getDietaryRestrictions().get(key)));
+                            key, String.valueOf(user.getDietaryRestrictions().getRestriction(key)));
                     rest.append(restriction);
                     rest.append("/");
                 }
