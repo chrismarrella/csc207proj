@@ -10,15 +10,15 @@ public class FoodItem {
         this.name = name;
         this.expirationDate = Calendar.getInstance();
         this.expirationDate.set(Calendar.YEAR, year);
-        this.expirationDate.set(this.expirationDate.MONTH, month - 1);
-        this.expirationDate.set(this.expirationDate.DAY_OF_MONTH, day);
+        this.expirationDate.set(Calendar.MONTH, month - 1);
+        this.expirationDate.set(Calendar.DAY_OF_MONTH, day);
         this.amount = amount;
     }
 
     public String getExpirationDate() {
-        int year = this.expirationDate.get(this.expirationDate.YEAR);
-        int month = this.expirationDate.get(this.expirationDate.MONTH) + 1;
-        int day = this.expirationDate.get(this.expirationDate.DAY_OF_MONTH);
+        int year = this.expirationDate.get(Calendar.YEAR);
+        int month = this.expirationDate.get(Calendar.MONTH) + 1;
+        int day = this.expirationDate.get(Calendar.DAY_OF_MONTH);
         return year + "/" + month + "/" + day;
     }
 
@@ -36,10 +36,5 @@ public class FoodItem {
 
     public void setAmount(Float amount) {
         this.amount = amount;
-    }
-
-    public static void main(String[] args) {
-        FoodItem test = new FoodItem("pasta", 2023, 12, 5, 2);
-        System.out.println(test.getExpirationDate());
     }
 }
