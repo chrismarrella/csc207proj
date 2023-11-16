@@ -1,10 +1,60 @@
 package entities;
 
-public interface UserInventory {
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.PriorityQueue;
 
-    void addItem(FoodItem item);
+public class UserInventory implements Inventory, Iterable<FoodItem> {
+    private PriorityQueue<FoodItem> inventory;
 
-    FoodItem removeItem();
+    public UserInventory() {
+        this.inventory = new PriorityQueue<>(new FoodItemComparator());
+    }
 
-    boolean removeSpecificItem(FoodItem item);
+    public void addItem(FoodItem item) {
+        this.inventory.add(item);
+    }
+
+    public FoodItem removeItem() {
+        return this.inventory.remove();
+    }
+
+    public boolean removeSpecificItem(FoodItem item) {
+        return this.inventory.remove(item);
+    }
+
+    public PriorityQueue<FoodItem> getQueue() {
+        return this.inventory;
+    }
+
+    private class FoodItemComparator implements Comparator<FoodItem> {
+        @Override
+        public int compare(FoodItem item1, FoodItem item2) {
+            return item1.getCalendarObject().compareTo(item2.getCalendarObject());
+        }
+    }
+
+    @Override
+    public Iterator<FoodItem> iterator() {
+        return new Iter();
+    }
+
+    private class Iter implements Iterator<FoodItem>{
+        private int index = 0;
+        private FoodItem[] temp = inventory.toArray(new FoodItem[inventory.size()]);
+
+        @Override
+        public boolean hasNext() {
+            return index < inventory.size();
+        }
+
+        @Override
+        public FoodItem next() {
+            if (!hasNext()) {
+                throw new java.util.NoSuchElementException();
+            }
+            return temp[index++];
+        }
+    }
+
 }

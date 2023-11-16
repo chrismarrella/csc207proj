@@ -1,4 +1,4 @@
-package interface_adapter.get_recipe;
+package interface_adapter;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -25,3 +25,4 @@ public class ViewManagerModel {
         support.addPropertyChangeListener(listener);
     }
 }
+

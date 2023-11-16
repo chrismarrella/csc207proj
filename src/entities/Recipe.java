@@ -2,7 +2,7 @@ package entities;
 import java.util.List;
 import java.util.Map;
 
-public class Recipe implements DietaryPreferences {
+public class Recipe {
 
     // Temporary
     public String recipeText;
@@ -11,7 +11,7 @@ public class Recipe implements DietaryPreferences {
     private List<String> instructions;
     private List<FoodItem> ingredients;
     private List<Float> macros;
-    private Map<String, Boolean> satisfiedDietaryRestrictions;
+    private DietaryPreferences satisfiedDietaryRestrictions;
 
     public Recipe(String name, List<String> instructions, List<FoodItem> ingredients,
                   List<Float> macros, Map<String, Boolean> satisfiedDietaryRestrictions) {
@@ -19,7 +19,7 @@ public class Recipe implements DietaryPreferences {
         this.instructions = instructions;
         this.ingredients = ingredients;
         this.macros = macros;
-        this.satisfiedDietaryRestrictions = satisfiedDietaryRestrictions;
+        this.satisfiedDietaryRestrictions = new UserDietaryPreferences(satisfiedDietaryRestrictions);
     }
 
     public String getName() {
@@ -54,12 +54,8 @@ public class Recipe implements DietaryPreferences {
         this.macros = macros;
     }
 
-    public Map<String, Boolean> getDietaryRestrictions() {
+    public DietaryPreferences getDietaryRestrictions() {
         return this.satisfiedDietaryRestrictions;
-    }
-
-    public void setDietaryRestrictions(Map<String, Boolean> dietaryRestrictions) {
-        this.satisfiedDietaryRestrictions = dietaryRestrictions;
     }
 
     @Override
