@@ -3,7 +3,7 @@ package interface_adapter.get_recipe;
 import use_case.get_recipe.GetRecipeInputBoundary;
 
 public class GetRecipeController {
-    final GetRecipeInputBoundary getRecipeInteractor;
+    private final GetRecipeInputBoundary getRecipeInteractor;
 
     public GetRecipeController(GetRecipeInputBoundary getRecipeInteractor) {
         this.getRecipeInteractor = getRecipeInteractor;

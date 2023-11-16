@@ -1,8 +1,6 @@
 package data_access;
 
-import entities.FoodItem;
-import entities.User;
-import entities.UserFactory;
+import entities.*;
 
 import java.io.*;
 import java.util.*;
@@ -93,7 +91,7 @@ public class FileUserDataAccessObject {
             for (User user : accounts.values()) {
                 // handle inventory
                 StringBuilder inv = new StringBuilder();
-                for (FoodItem item : user.getInventory()) {
+                for (FoodItem item : user.getQueue()) {
                     // year/month/day
                     String[] expDate = item.getExpirationDate().split("/");
                     String food = String.format("%s:%s:%s:%s:%s",
@@ -106,9 +104,9 @@ public class FileUserDataAccessObject {
 
                 // handle DietaryRestrictions
                 StringBuilder rest = new StringBuilder();
-                for (String key : user.getDietaryRestrictions().keySet()) {
+                for (String key : user.getAllKeys()) {
                     String restriction = String.format("%s:%s",
-                            key, String.valueOf(user.getDietaryRestrictions().get(key)));
+                            key, String.valueOf(user.getRestriction(key)));
                     rest.append(restriction);
                     rest.append("/");
                 }

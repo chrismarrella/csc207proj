@@ -7,8 +7,8 @@ import java.util.List;
 
 public class GetRecipeInteractor implements GetRecipeInputBoundary {
 
-    GetRecipeOutputBoundary getRecipePresenter;
-    GetRecipeDataAccessInterface getRecipeDataAccessObject;
+    private GetRecipeOutputBoundary getRecipePresenter;
+    private GetRecipeDataAccessInterface getRecipeDataAccessObject;
 
     public GetRecipeInteractor(GetRecipeDataAccessInterface getRecipeDataAccessObject,
                                GetRecipeOutputBoundary getRecipePresenter) {

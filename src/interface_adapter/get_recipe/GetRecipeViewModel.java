@@ -1,5 +1,7 @@
 package interface_adapter.get_recipe;
 
+import interface_adapter.ViewModel;
+
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
