@@ -4,9 +4,9 @@ import java.util.Map;
 import java.util.Set;
 
 public class UserDietaryPreferences implements DietaryPreferences{
-    private Map<String, Boolean> dietaryRestrictions;
+    private Map<String, Float> dietaryRestrictions;
 
-    public UserDietaryPreferences(Map<String, Boolean> dietaryRestrictions) {
+    public UserDietaryPreferences(Map<String, Float> dietaryRestrictions) {
         this.dietaryRestrictions = dietaryRestrictions;
     }
 
@@ -14,19 +14,19 @@ public class UserDietaryPreferences implements DietaryPreferences{
         return this;
     }
 
-    public void setDietaryRestrictions(Map<String, Boolean> dietaryRestrictions) {
+    public void setDietaryRestrictions(Map<String, Float> dietaryRestrictions) {
         this.dietaryRestrictions = dietaryRestrictions;
     }
 
-    public void addRestriction(String restriction, Boolean res) {
+    public void addRestriction(String restriction, Float res) {
         this.dietaryRestrictions.put(restriction, res);
     }
 
-    public Boolean removeRestriction(String restriction, Boolean res) {
+    public Boolean removeRestriction(String restriction, Float res) {
         return this.dietaryRestrictions.remove(restriction, res);
     }
 
-    public Boolean getRestriction(String key) {
+    public Float getRestriction(String key) {
         return this.dietaryRestrictions.get(key);
     }
 
