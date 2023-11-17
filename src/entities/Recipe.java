@@ -14,7 +14,7 @@ public class Recipe {
     private DietaryPreferences satisfiedDietaryRestrictions;
 
     public Recipe(String name, List<String> instructions, List<FoodItem> ingredients,
-                  List<Float> macros, Map<String, Boolean> satisfiedDietaryRestrictions) {
+                  List<Float> macros, Map<String, Float> satisfiedDietaryRestrictions) {
         this.name = name;
         this.instructions = instructions;
         this.ingredients = ingredients;

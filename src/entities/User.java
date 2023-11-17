@@ -6,7 +6,7 @@ public class User {
     private Inventory inventory;
     private DietaryPreferences dietaryRestrictions;
 
-    public User(Map<String, Boolean> dietaryRestrictions) {
+    public User(Map<String, Float> dietaryRestrictions) {
         this.inventory = new UserInventory();
         this.dietaryRestrictions = new UserDietaryPreferences(dietaryRestrictions);
     }
@@ -35,19 +35,19 @@ public class User {
         return this.inventory.getQueue();
     }
 
-    public void setDietaryRestrictions(Map<String, Boolean> dietaryRestrictions) {
+    public void setDietaryRestrictions(Map<String, Float> dietaryRestrictions) {
         this.dietaryRestrictions.setDietaryRestrictions(dietaryRestrictions);
     }
 
-    public void addRestriction(String restriction, Boolean res) {
+    public void addRestriction(String restriction, Float res) {
         this.dietaryRestrictions.addRestriction(restriction, res);
     }
 
-    public Boolean removeRestriction(String restriction, Boolean res) {
+    public Boolean removeRestriction(String restriction, Float res) {
         return this.dietaryRestrictions.removeRestriction(restriction, res);
     }
 
-    public Boolean getRestriction(String key) {
+    public Float getRestriction(String key) {
         return this.dietaryRestrictions.getRestriction(key);
     }
 
