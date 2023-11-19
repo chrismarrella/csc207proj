@@ -30,7 +30,7 @@ public class FileUserDataAccessObject {
                 while ((row = reader.readLine()) != null) {
                     // set up user object
                     String[] col = row.split(",");
-                    Map<String, Boolean> dietaryRestrictions = new HashMap<>();
+                    Map<String, Float> dietaryRestrictions = new HashMap<>();
                     User user = userFactory.create(dietaryRestrictions);
 
                     // split inventory column like Name:Year:Month:Date:Amount/Name:Year:Month:Date:Amount...
@@ -55,7 +55,7 @@ public class FileUserDataAccessObject {
 
                     for (String item: restItems) {
                         String[] details = item.split(":");
-                        user.addRestriction(details[0], Boolean.parseBoolean(details[1]));
+                        user.addRestriction(details[0], Float.valueOf(details[1]));
                     }
                     this.accounts.put(numUsers, user);
                     numUsers += 1;
