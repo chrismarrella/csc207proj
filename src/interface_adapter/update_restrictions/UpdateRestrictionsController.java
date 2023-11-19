@@ -10,9 +10,12 @@ public class UpdateRestrictionsController {
         this.updateRestrictionsInteractor = updateRestrictionsInteractor;
     }
 
-    public void execute(Float protein, Float carbs, Float fat, Float cals, String fooditem){
+    public void execute(Float maxprotein, Float minprotein, Float maxcarbs ,Float mincarbs,
+                        Float maxfat, Float minfat, Float maxcals, Float mincals, String fooditem, Float vegan,
+                        Float vegetarian, Float keto){
         UpdateRestrictionsInputData updateRestrictionsInputData = new UpdateRestrictionsInputData(
-                protein, carbs, fat, cals, fooditem);
+                maxprotein, minprotein, maxcarbs, mincarbs, maxfat, minfat, maxcals, mincals,
+                fooditem, vegan, vegetarian, keto);
 
         updateRestrictionsInteractor.execute(updateRestrictionsInputData);
     }

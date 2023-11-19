@@ -1,6 +1,6 @@
 package interface_adapter.update_restrictions;
 
-import interface_adapter.get_recipe.ViewManagerModel;
+import interface_adapter.ViewManagerModel;
 import use_case.update_restrictions.UpdateRestrictionsOutputBoundary;
 import use_case.update_restrictions.UpdateRestrictionsOutputData;
 
@@ -18,6 +18,7 @@ public class UpdateRestrictionsPresenter implements UpdateRestrictionsOutputBoun
     public void prepareSuccessView(UpdateRestrictionsOutputData response) {
         UpdateRestrictionsState updateRestrictionsState = updateRestrictionsViewModel.getCurrState();
         updateRestrictionsViewModel.firePropertyChange();
+
     }
 
     @Override

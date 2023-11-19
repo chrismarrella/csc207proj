@@ -1,11 +1,9 @@
 package use_case.update_restrictions;
 
 import entities.DietaryPreferences;
+import entities.User;
 public interface UpdateRestrictionsDataAccessInterface {
+    boolean restrictionexist(String identifier);
 
-    boolean foodexists(String identifier);
-
-    void savepreference(DietaryPreferences dietaryPreference);
-
-    DietaryPreferences getpreference(String dietaryPreference);
+    void saverestriction(User user);
 }
