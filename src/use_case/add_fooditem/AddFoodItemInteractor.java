@@ -24,6 +24,9 @@ public class AddFoodItemInteractor implements AddFoodItemInputBoundary {
         if (ingredient.isEmpty()) {
             addFoodItemPresenter.prepareFailView("Ingredient is empty!");
         }
+        else if (month > 12 || day > 31 || day < 0 || month < 0|| year < 0) {
+            addFoodItemPresenter.prepareFailView("Invalid date!");
+        }
         else {
             addFoodItemDataAccessObject.addItem(foodItem);
             addFoodItemPresenter.prepareSuccessView();
