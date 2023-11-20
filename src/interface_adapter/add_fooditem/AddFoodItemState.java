@@ -11,7 +11,18 @@ public class AddFoodItemState {
     private String year = "";
     private String yearError = null;
     private String error = null;
-
+    public AddFoodItemState(AddFoodItemState copy) {
+        ingredient = copy.ingredient;
+        ingredientError = copy.ingredientError;
+        month = copy.month;
+        monthError = copy.monthError;
+        day = copy.day;
+        dayError = copy.dayError;
+        year = copy.year;
+        yearError = copy.dayError;
+    }
+    public AddFoodItemState() {
+    }
     public void setFoodItemError(String error) {
         this.error = error;
     }
