@@ -2,7 +2,6 @@ package use_case.add_fooditem;
 
 import entities.FoodItem;
 
-
 public class AddFoodItemInteractor implements AddFoodItemInputBoundary {
     AddFoodItemOutputBoundary addFoodItemPresenter;
     AddFoodItemDataAccessInterface addFoodItemDataAccessObject;
@@ -24,8 +23,8 @@ public class AddFoodItemInteractor implements AddFoodItemInputBoundary {
         if (ingredient.isEmpty()) {
             addFoodItemPresenter.prepareFailView("Ingredient is empty!");
         }
-        else if (month > 12 || day > 31 || day < 0 || month < 0|| year < 0) {
-            addFoodItemPresenter.prepareFailView("Invalid date!");
+        else if  (month > 12 || day > 31 || day < 0 || month < 0 || year < 0 || year > 3000 || amount <= 0.0) {
+            addFoodItemPresenter.prepareFailView("Something went wrong!");
         }
         else {
             addFoodItemDataAccessObject.addItem(foodItem);
