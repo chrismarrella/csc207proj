@@ -3,11 +3,12 @@ package data_access;
 import entities.FoodItem;
 import entities.User;
 import entities.UserFactory;
+import use_case.get_shopping_list.GetShoppingListDataAccessInterface;
 
 import java.io.*;
 import java.util.*;
 
-public class FileUserDataAccessObject {
+public class FileUserDataAccessObject implements GetShoppingListDataAccessInterface {
     private final File csvFile;
 
     private final Map<String, Integer> headers = new LinkedHashMap<>();
@@ -81,6 +82,11 @@ public class FileUserDataAccessObject {
             res.add(accounts.get(key));
         }
         return res;
+    }
+
+    public List<FoodItem> getInventory() {
+        User user = this.get(0);
+        return new ArrayList<FoodItem>(user.getInventory());
     }
 
     private void save() {

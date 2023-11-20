@@ -10,14 +10,18 @@ public class GetShoppingListOutputData {
     private final List<String> foodItemData;
     private final boolean useCaseFailed; // May not be necessary
 
-    public GetShoppingListOutputData(List<FoodItem> foodItems, boolean useCaseFailed) {
+    public GetShoppingListOutputData(List<FoodItem> recipeItems, List<FoodItem> userInventory, boolean useCaseFailed) {
         this.useCaseFailed = useCaseFailed;
 
         String foodItemString;
         foodItemData = new ArrayList<String>();
-        for (FoodItem foodItem : foodItems) {
-            foodItemString = foodItem.getName() + ": " + foodItem.getAmount().toString(); // "Name: Amount"
-            foodItemData.add(foodItemString);
+        for (FoodItem foodItem : recipeItems) {
+            int index = userInventory.indexOf(foodItem);
+            if (index != -1) {
+                float amount_difference = userInventory.get(index).getAmount() - foodItem.getAmount();
+                foodItemString = foodItem.getName() + ": " + amount_difference; // "Name: Amount"
+                foodItemData.add(foodItemString);
+            }
         }
     }
 
