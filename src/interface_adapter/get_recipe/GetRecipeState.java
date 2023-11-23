@@ -12,6 +12,8 @@ public class GetRecipeState {
         this.error = error;
     }
 
+    public String getError() {return error; }
+
     public void setRecipeError(String error) {
         this.error = error;
     }

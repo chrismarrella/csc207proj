@@ -1,9 +1,17 @@
 package app;
 
-import entities.UserFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.get_recipe.GetRecipeViewModel;
+import interface_adapter.main_menu.MainMenuController;
+import interface_adapter.update_restrictions.UpdateRestrictionsViewModel;
+import use_case.main_menu.MainMenuInteractor;
+import interface_adapter.main_menu.MainMenuViewModel;
+import app.MainMenuUseCaseFactory;
+
+import use_case.main_menu.MainMenuInputBoundary;
 import view.GetRecipeView;
+import view.MainMenuView;
+import view.UpdateRestrictionsView;
 import view.ViewManager;
 
 import javax.swing.*;
@@ -13,9 +21,8 @@ public class Main {
 
         JFrame application = new JFrame("CHEFFI");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
-        int width = 800;
-        int height = 600;
+        int width = 400;
+        int height = 400;
         application.setSize(width, height);
 
         CardLayout cardLayout = new CardLayout();
@@ -26,14 +33,24 @@ public class Main {
         ViewManagerModel viewManagerModel = new ViewManagerModel();
         new ViewManager(views, cardLayout, viewManagerModel);
 
+        UpdateRestrictionsViewModel updateRestrictionsViewModel = new UpdateRestrictionsViewModel();
+        MainMenuViewModel mainMenuViewModel = new MainMenuViewModel();
         GetRecipeViewModel getrecipeViewModel = new GetRecipeViewModel();
 
-        GetRecipeView getRecipeView = new GetRecipeView(getrecipeViewModel);
+        MainMenuView mainMenuView = MainMenuUseCaseFactory.create(viewManagerModel, mainMenuViewModel, getrecipeViewModel);
+        views.add(mainMenuView, mainMenuView.viewName);
+
+
+        GetRecipeView getRecipeView = new GetRecipeView(viewManagerModel, getrecipeViewModel);
         views.add(getRecipeView, getRecipeView.viewName);
 
-        viewManagerModel.setActiveView(getRecipeView.viewName);
+        UpdateRestrictionsView updateRestrictionsView = new UpdateRestrictionsView(updateRestrictionsController, updateRestrictionsViewModel);
+        views.add(updateRestrictionsView, updateRestrictionsView.viewName);
+
+        viewManagerModel.setActiveView(mainMenuView.viewName);
         viewManagerModel.firePropertyChange();
 
+        application.pack();
         application.setVisible(true);
     }
 }
