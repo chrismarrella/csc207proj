@@ -11,7 +11,6 @@ import java.util.List;
 public class UpdateRestrictionsViewModel extends ViewModel {
 
     public static final String TITLE_LABEL = "Update Your Dietary Restrictions";
-    public static final String MAIN_MENU = "Main Menu";
     public static final String UPDATE_FOODITEM = "Enter Restricted Food";
     public static final String UPDATE_MAXPROTEIN = "Enter Max Serving Protein Value";
     public static final String UPDATE_MAXCARBS = "Enter Max Serving Carbs Value";
@@ -25,8 +24,9 @@ public class UpdateRestrictionsViewModel extends ViewModel {
     public static final String VEGAN = "Vegan Diet";
     public static final String VEGETARIAN = "Vegetarian Diet";
 
-    public static final String BACK = "Back";
+    public static final String MAINMENU = "Main Menu";
     public static final String SAVE = "Save";
+    public static final String SET = "Set";
     private UpdateRestrictionsState currState = new UpdateRestrictionsState();
 
     public UpdateRestrictionsViewModel() {super("Update Dietary Restrictions");}

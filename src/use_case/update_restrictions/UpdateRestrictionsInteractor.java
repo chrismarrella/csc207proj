@@ -25,7 +25,7 @@ public class UpdateRestrictionsInteractor implements UpdateRestrictionsInputBoun
         String restriction = updateRestrictionsInputData.getRestriction();
         Float value = updateRestrictionsInputData.getValue();
         Set<String> RestrictedRestrictions = new HashSet<>(Arrays.asList(
-                "Ketogenic", "Vegan", "Vegetarian", "maxprotein", "minprotein",
+                "ketogenic", "vegan", "vegetarian", "maxprotein", "minprotein",
                 "maxcarbs", "mincarbs", "maxfat", "minfat", "maxcals", "mincals"));
 
         if (urDataAccessInterface.restrictionExist(restriction)) {

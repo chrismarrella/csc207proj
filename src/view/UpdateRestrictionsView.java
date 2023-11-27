@@ -1,8 +1,12 @@
 package view;
+import interface_adapter.main_menu.MainMenuViewModel;
+import interface_adapter.update_restrictions.UpdateRestrictionsState;
 import interface_adapter.update_restrictions.UpdateRestrictionsViewModel;
 import entities.User;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -20,12 +24,68 @@ public class UpdateRestrictionsView extends JPanel implements ActionListener, Pr
     private final JSpinner minfatspinner;
     private final JSpinner maxproteinspinner;
     private final JSpinner minproteinspinner;
+    private final JButton savecals;
+    private final JButton savefats;
+    private final JButton savecarbs;
+    private final JButton saveprotein;
+    private final JButton savefooditem;
+    private final JButton main_menu;
+    private final JTextField FoodItemTextBox;
+    private final JCheckBox enableKeto;
+    private final JCheckBox enableVegan;
+    private final JCheckBox enableVegetarian;
     public User user;
 
     public UpdateRestrictionsView(UpdateRestrictionsViewModel updateRestrictionsViewModel) {
         this.updateRestrictionsViewModel = updateRestrictionsViewModel;
         // Initialize user field
         updateRestrictionsViewModel.addPropertyChangeListener(this);
+
+        JLabel title = new JLabel(UpdateRestrictionsViewModel.TITLE_LABEL);
+        title.setAlignmentX(Component.CENTER_ALIGNMENT);
+        add(title);
+
+        //Buttons
+        JPanel buttons = new JPanel();
+
+        savecals = new JButton(UpdateRestrictionsViewModel.SET + " Calories Restrictions");
+        buttons.add(savecals);
+        add(buttons);
+
+        savefats = new JButton(UpdateRestrictionsViewModel.SET + " Fat Restrictions");
+        buttons.add(savefats);
+        add(buttons);
+
+        savecarbs = new JButton(UpdateRestrictionsViewModel.SET + " Carb Restrictions");
+        buttons.add(savecarbs);
+
+        saveprotein = new JButton(UpdateRestrictionsViewModel.SET + " Protein Restrictions");
+        buttons.add(saveprotein);
+        add(buttons);
+
+        savefooditem = new JButton(UpdateRestrictionsViewModel.SAVE);
+        buttons.add(savefooditem);
+        add(buttons);
+
+        main_menu = new JButton(UpdateRestrictionsViewModel.MAINMENU);
+        buttons.add(main_menu);
+        add(buttons);
+
+        //Check Boxes
+        enableKeto = new JCheckBox(UpdateRestrictionsViewModel.KETO);
+        enableVegan = new JCheckBox(UpdateRestrictionsViewModel.VEGAN);
+        enableVegetarian = new JCheckBox(UpdateRestrictionsViewModel.VEGETARIAN);
+
+        add(enableKeto);
+        add(enableVegan);
+        add(enableVegetarian);
+
+
+        //Add Food Item Text Box
+        FoodItemTextBox = new JTextField(10);
+
+        add(new JLabel("Enter Restricted Food Item:"));
+        add(FoodItemTextBox);
 
         // Create SpinnerNumberModel for each spinner with default values
         int defaultMaxCalValue = 100;
@@ -88,16 +148,61 @@ public class UpdateRestrictionsView extends JPanel implements ActionListener, Pr
         add(minproteinspinner);
 
         // Add a listener to handle changes in the spinners' values
-        maxcalspinner.addChangeListener(e -> handleSpinnerChange());
-        mincalspinner.addChangeListener(e -> handleSpinnerChange());
-        maxcarbspinner.addChangeListener(e -> handleSpinnerChange());
-        mincarbspinner.addChangeListener(e -> handleSpinnerChange());
-        maxfatspinner.addChangeListener(e -> handleSpinnerChange());
-        minfatspinner.addChangeListener(e -> handleSpinnerChange());
-        maxproteinspinner.addChangeListener(e -> handleSpinnerChange());
-        minproteinspinner.addChangeListener(e -> handleSpinnerChange());
+        maxcalspinner.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+
+            }
+        });
+
+        mincalspinner.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+
+            }
+        });
+
+        maxcarbspinner.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+
+            }
+        });
+
+        mincarbspinner.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+
+            }
+        });
+
+        maxfatspinner.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+            }
+        });
+
+        minfatspinner.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+            }
+        });
+
+        maxproteinspinner.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+            }
+        });
+
+        minproteinspinner.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+            }
+        });
     }
 
+
+    //Might have to move this somewhere else or adapt it elsewhere
     private void setSpinnerValue(JSpinner spinner, User user, String restriction) {
         try {
             Integer restrictionValue = Math.round(user.getRestriction(restriction));
@@ -108,11 +213,6 @@ public class UpdateRestrictionsView extends JPanel implements ActionListener, Pr
         } catch (Exception e) {
             spinner.setValue(0); // default to 0 if there is an exception (for example there isnt a user right now)
         }
-    }
-
-    private void handleSpinnerChange() {
-        // Handle the spinner value change here
-        // You can access the values using maxcalspinner.getValue(), mincalspinner.getValue(), etc.
     }
 
 

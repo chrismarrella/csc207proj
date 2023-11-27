@@ -22,8 +22,8 @@ public class Main {
 
         JFrame application = new JFrame("CHEFFI");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        int width = 400;
-        int height = 400;
+        int width = 1920;
+        int height = 500;
         application.setSize(width, height);
 
         CardLayout cardLayout = new CardLayout();
@@ -53,7 +53,6 @@ public class Main {
         viewManagerModel.setActiveView(mainMenuView.viewName);
         viewManagerModel.firePropertyChange();
 
-        application.pack();
         application.setVisible(true);
     }
 }
