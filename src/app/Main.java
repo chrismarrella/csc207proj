@@ -7,6 +7,7 @@ import interface_adapter.update_restrictions.UpdateRestrictionsViewModel;
 import use_case.main_menu.MainMenuInteractor;
 import interface_adapter.main_menu.MainMenuViewModel;
 import app.MainMenuUseCaseFactory;
+import entities.User;
 
 import use_case.main_menu.MainMenuInputBoundary;
 import view.GetRecipeView;
@@ -33,6 +34,7 @@ public class Main {
         ViewManagerModel viewManagerModel = new ViewManagerModel();
         new ViewManager(views, cardLayout, viewManagerModel);
 
+
         UpdateRestrictionsViewModel updateRestrictionsViewModel = new UpdateRestrictionsViewModel();
         MainMenuViewModel mainMenuViewModel = new MainMenuViewModel();
         GetRecipeViewModel getrecipeViewModel = new GetRecipeViewModel();
@@ -40,7 +42,7 @@ public class Main {
         MainMenuView mainMenuView = MainMenuUseCaseFactory.create(viewManagerModel, mainMenuViewModel, getrecipeViewModel);
         views.add(mainMenuView, mainMenuView.viewName);
 
-        UpdateRestrictionsView updateRestrictionsView = new UpdateRestrictionsView( updateRestrictionsViewModel);
+        UpdateRestrictionsView updateRestrictionsView = new UpdateRestrictionsView(updateRestrictionsViewModel);
         views.add(updateRestrictionsView, updateRestrictionsView.viewName);
 
 
