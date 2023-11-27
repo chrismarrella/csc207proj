@@ -10,6 +10,7 @@ import java.util.List;
 public class GetRecipeViewModel extends ViewModel {
     public static final String TITLE_LABEL = "Get Recipe";
     public static final String GET_RECIPE_BUTTON_LABEL = "Generate Recipe";
+    public static final String MAIN_MENU = "Main Menu";
     private GetRecipeState currState = new GetRecipeState();
 
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
