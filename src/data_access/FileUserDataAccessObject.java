@@ -27,6 +27,7 @@ public class FileUserDataAccessObject implements UpdateRestrictionsDataAccessInt
         } else {
             try (BufferedReader reader = new BufferedReader(new FileReader(csvFile))) {
                 String row;
+                reader.readLine();
                 int numUsers = 0;
                 while ((row = reader.readLine()) != null) {
                     // set up user object
