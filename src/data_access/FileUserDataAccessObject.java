@@ -1,11 +1,17 @@
 package data_access;
 
 import entities.*;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import org.json.JSONException;
+import org.json.JSONObject;
+import use_case.get_recipe.GetRecipeDataAccessInterface;
 
 import java.io.*;
 import java.util.*;
 
-public class FileUserDataAccessObject {
+public class FileUserDataAccessObject implements GetRecipeDataAccessInterface {
     private final File csvFile;
 
     private final Map<String, Integer> headers = new LinkedHashMap<>();
@@ -13,6 +19,8 @@ public class FileUserDataAccessObject {
     private final Map<Integer, User> accounts = new HashMap<>();
 
     private UserFactory userFactory;
+
+    private final String key = "1178e228ddeb4ba484e64911de9db1a8";
 
     public FileUserDataAccessObject(String csvPath, UserFactory userFactory) throws IOException {
         this.userFactory = userFactory;
@@ -123,5 +131,34 @@ public class FileUserDataAccessObject {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+    public DietaryPreferences retrievePreferences() {
+        User user = accounts.get(0);
+        return user.getDietaryRestrictions();
+    }
+
+    public List<Recipe> retrieveRecipes(DietaryPreferences preferences) {
+        User user = accounts.get(0);
+        InventoryChecker checker = new InventoryChecker();
+        RecipeGetter getter = new RecipeGetter();
+        RecipeParser parser = new RecipeParser();
+
+        List<FoodItem> expiresSoon = checker.weekCheck(user.getInventory());
+        List<Object> settings = getter.preferenceConverter(expiresSoon, preferences);
+        JSONObject recipeInfo = getter.getRecipe(key, settings);
+        List<String> titles = parser.getNames(recipeInfo);
+        List<Integer> ids = parser.getIds(recipeInfo);
+        List<Recipe> res = new ArrayList<>();
+
+        int i = 0;
+        for (Integer id: ids) {
+            List<FoodItem> ingredients = parser.parseIngredients(getter.getIngredients(id, key));
+            Map<String, Float> macros = parser.parseMacros(getter.getNutrients(id, key));
+            List<String> instructions = parser.parseInstructions(getter.getInstructions(id, key));
+            res.add(new Recipe(titles.get(i), instructions, ingredients, macros));
+            i++;
+        }
+
+        return res;
     }
 }
