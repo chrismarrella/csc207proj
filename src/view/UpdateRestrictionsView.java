@@ -1,5 +1,6 @@
 package view;
-import interface_adapter.main_menu.MainMenuViewModel;
+import interface_adapter.main_menu.MainMenuState;
+import interface_adapter.update_restrictions.UpdateRestrictionsController;
 import interface_adapter.update_restrictions.UpdateRestrictionsState;
 import interface_adapter.update_restrictions.UpdateRestrictionsViewModel;
 import entities.User;
@@ -34,10 +35,12 @@ public class UpdateRestrictionsView extends JPanel implements ActionListener, Pr
     private final JCheckBox enableKeto;
     private final JCheckBox enableVegan;
     private final JCheckBox enableVegetarian;
+    private final UpdateRestrictionsController updateRestrictionController;
     public User user;
 
-    public UpdateRestrictionsView(UpdateRestrictionsViewModel updateRestrictionsViewModel) {
+    public UpdateRestrictionsView(UpdateRestrictionsController updateRestrictionController,UpdateRestrictionsViewModel updateRestrictionsViewModel) {
         this.updateRestrictionsViewModel = updateRestrictionsViewModel;
+        this.updateRestrictionController = updateRestrictionController;
         // Initialize user field
         updateRestrictionsViewModel.addPropertyChangeListener(this);
 
@@ -197,6 +200,17 @@ public class UpdateRestrictionsView extends JPanel implements ActionListener, Pr
         minproteinspinner.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
+            }
+        });
+
+        //Back Button
+        main_menu.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                if (evt.getSource().equals(main_menu)) {
+                    UpdateRestrictionsState currentState = updateRestrictionsViewModel.getCurrState();
+                    currentState.setView_name("main menu");
+                    updateRestrictionController.execute(currentState.getView_name(), 0.25f);
+                }
             }
         });
     }

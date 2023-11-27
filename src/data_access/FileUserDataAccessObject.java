@@ -1,11 +1,12 @@
 package data_access;
 
 import entities.*;
+import use_case.update_restrictions.UpdateRestrictionsDataAccessInterface;
 
 import java.io.*;
 import java.util.*;
 
-public class FileUserDataAccessObject {
+public class FileUserDataAccessObject implements UpdateRestrictionsDataAccessInterface {
     private final File csvFile;
 
     private final Map<String, Integer> headers = new LinkedHashMap<>();
@@ -62,6 +63,11 @@ public class FileUserDataAccessObject {
                 }
             }
         }
+    }
+
+    @Override
+    public boolean restrictionExist(String identifier) {
+        return accounts.containsValue(identifier);
     }
 
     public void save(User user) {

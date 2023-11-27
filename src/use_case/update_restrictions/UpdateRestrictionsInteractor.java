@@ -2,6 +2,8 @@ package use_case.update_restrictions;
 
 import entities.DietaryPreferences;
 import entities.User;
+import entities.UserDietaryPreferences;
+
 import java.util.Set;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -10,11 +12,11 @@ import java.util.Set;
 public class UpdateRestrictionsInteractor implements UpdateRestrictionsInputBoundary {
     final UpdateRestrictionsDataAccessInterface urDataAccessInterface;
     final UpdateRestrictionsOutputBoundary urOutputBoundary;
-    final User user;
+    final UserDietaryPreferences user;
 
     public UpdateRestrictionsInteractor(UpdateRestrictionsDataAccessInterface urDataAccessInterface,
                                         UpdateRestrictionsOutputBoundary urOutputBoundary,
-                                        User user) {
+                                        UserDietaryPreferences user) {
         this.urDataAccessInterface = urDataAccessInterface;
         this.urOutputBoundary = urOutputBoundary;
         this.user = user;
@@ -37,6 +39,9 @@ public class UpdateRestrictionsInteractor implements UpdateRestrictionsInputBoun
                     user.removeRestriction(restriction, user.getRestriction(restriction));
                     user.addRestriction(restriction, value);
                     urOutputBoundary.prepareUpdatedView("Successfully Updated restriction: " + restriction);
+                } else if (value.equals(0.25f) && restriction.equals("main menu")) {
+                    urOutputBoundary.prepareGoBackView(restriction);
+
                 } else {
                     urOutputBoundary.prepareFailView("Invalid value for restriction: " + value);
                 }
