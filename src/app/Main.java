@@ -42,9 +42,6 @@ public class Main {
         MainMenuView mainMenuView = MainMenuUseCaseFactory.create(viewManagerModel, mainMenuViewModel, getrecipeViewModel);
         views.add(mainMenuView, mainMenuView.viewName);
 
-        UpdateRestrictionsView updateRestrictionsView = new UpdateRestrictionsView(updateRestrictionsViewModel);
-        views.add(updateRestrictionsView, updateRestrictionsView.viewName);
-
 
         GetRecipeView getRecipeView = new GetRecipeView(viewManagerModel, getrecipeViewModel);
         views.add(getRecipeView, getRecipeView.viewName);
