@@ -11,6 +11,7 @@ import app.MainMenuUseCaseFactory;
 import use_case.main_menu.MainMenuInputBoundary;
 import view.GetRecipeView;
 import view.MainMenuView;
+import view.UpdateRestrictionsView;
 import view.ViewManager;
 
 import javax.swing.*;
@@ -38,6 +39,9 @@ public class Main {
 
         MainMenuView mainMenuView = MainMenuUseCaseFactory.create(viewManagerModel, mainMenuViewModel, getrecipeViewModel);
         views.add(mainMenuView, mainMenuView.viewName);
+
+        UpdateRestrictionsView updateRestrictionsView = new UpdateRestrictionsView( updateRestrictionsViewModel);
+        views.add(updateRestrictionsView, updateRestrictionsView.viewName);
 
 
         GetRecipeView getRecipeView = new GetRecipeView(viewManagerModel, getrecipeViewModel);
