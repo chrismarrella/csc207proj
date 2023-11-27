@@ -23,7 +23,6 @@ public class MainMenuUseCaseFactory {
             ViewManagerModel viewManagerModel,
             MainMenuViewModel mainMenuViewModel,
             GetRecipeViewModel getRecipeViewModel) {
-
         try {
             MainMenuController mainMenuController = createMainMenuUseCase(viewManagerModel, mainMenuViewModel);
             return new MainMenuView(mainMenuController, mainMenuViewModel);
@@ -33,7 +32,6 @@ public class MainMenuUseCaseFactory {
 
         return null;
     }
-
     private static MainMenuController createMainMenuUseCase(
             ViewManagerModel viewManagerModel,
             MainMenuViewModel mainMenuViewModel) throws IOException {

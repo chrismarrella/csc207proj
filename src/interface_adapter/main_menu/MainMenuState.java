@@ -11,7 +11,6 @@ public class MainMenuState {
         error = copy.error;
     }
 
-    // Because of the previous copy constructor, the default constructor must be explicit.
     public MainMenuState() {}
     public String getView_name() {return view_name;}
     public void setView_name(String view_name) {this.view_name = view_name; }
