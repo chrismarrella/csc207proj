@@ -8,6 +8,13 @@ import interface_adapter.main_menu.MainMenuViewModel;
 import interface_adapter.main_menu.MainMenuPresenter;
 import interface_adapter.get_recipe.GetRecipeViewModel;
 import use_case.main_menu.MainMenuDataAccessInterface;
+import interface_adapter.removeExpired.RemoveExpiredController;
+import interface_adapter.removeExpired.RemoveExpiredPresenter;
+import interface_adapter.removeExpired.RemoveExpiredViewModel;
+import use_case.removeExpired.RemoveExpiredDataAccessInterface;
+import use_case.removeExpired.RemoveExpiredInputBoundary;
+import use_case.removeExpired.RemoveExpiredInteractor;
+import use_case.removeExpired.RemoveExpiredOutputBoundary;
 import view.MainMenuView;
 import use_case.main_menu.MainMenuOutputBoundary;
 import use_case.main_menu.MainMenuInputBoundary;
@@ -27,10 +34,15 @@ public class MainMenuUseCaseFactory {
             MainMenuViewModel mainMenuViewModel,
             GetRecipeViewModel getRecipeViewModel,
             MainMenuDataAccessInterface dataAccessInterface,
-            UserFactory userFactory) {
+            UserFactory userFactory,
+            RemoveExpiredViewModel removeExpiredViewModel,
+            RemoveExpiredDataAccessInterface removeExpiredDataAccessInterface) {
         try {
             MainMenuController mainMenuController = createMainMenuUseCase(viewManagerModel, mainMenuViewModel, dataAccessInterface, userFactory);
-            return new MainMenuView(mainMenuController, mainMenuViewModel);
+            RemoveExpiredController removeExpiredController = createRemoveExpiredUseCase(viewManagerModel,
+                    removeExpiredViewModel, removeExpiredDataAccessInterface);
+            
+            return new MainMenuView(mainMenuController, mainMenuViewModel, removeExpiredController, removeExpiredViewModel);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Could not open user data file.");
         }
@@ -47,8 +59,21 @@ public class MainMenuUseCaseFactory {
         MainMenuOutputBoundary mainMenuOutputBoundary = new MainMenuPresenter(viewManagerModel,
                 mainMenuViewModel);
 
-        MainMenuInputBoundary mainMenuInteractor = new MainMenuInteractor(mainMenuOutputBoundary, dataAccessInterface, userFactory);
+        MainMenuInputBoundary mainMenuInteractor = 
+                new MainMenuInteractor(mainMenuOutputBoundary, dataAccessInterface, userFactory);
 
         return new MainMenuController(mainMenuInteractor);
+    }
+
+    private static RemoveExpiredController createRemoveExpiredUseCase(
+            ViewManagerModel viewManagerModel, RemoveExpiredViewModel removeExpiredViewModel,
+            RemoveExpiredDataAccessInterface removeExpiredDataAccessInterface) throws IOException {
+
+        RemoveExpiredOutputBoundary removeExpiredOutputBoundary =
+                new RemoveExpiredPresenter(removeExpiredViewModel, viewManagerModel);
+        RemoveExpiredInputBoundary removeExpiredInteractor =
+                new RemoveExpiredInteractor(removeExpiredDataAccessInterface, removeExpiredOutputBoundary);
+
+        return new RemoveExpiredController(removeExpiredInteractor);
     }
 }

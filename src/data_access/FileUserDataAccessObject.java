@@ -8,11 +8,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import use_case.get_recipe.GetRecipeDataAccessInterface;
 import use_case.main_menu.MainMenuDataAccessInterface;
+import use_case.delete_foodItem.DeleteFoodItemDataAccessInterface;
+import use_case.removeExpired.RemoveExpiredDataAccessInterface;
 
 import java.io.*;
 import java.util.*;
+import java.util.function.Predicate;
 
 public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, MainMenuDataAccessInterface {
+public class FileUserDataAccessObject implements DeleteFoodItemDataAccessInterface, RemoveExpiredDataAccessInterface {
     private final File csvFile;
 
     private final Map<String, Integer> headers = new LinkedHashMap<>();
@@ -178,5 +182,25 @@ public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, M
         }
 
         return res;
+    }
+
+    @Override
+    public boolean removeSpecificItem(FoodItem item) {
+        return accounts.get(0).removeSpecificItem(item);
+    }
+
+    @Override
+    public PriorityQueue<FoodItem> getQueue() {
+        return accounts.get(0).getQueue();
+    }
+
+    @Override
+    public void removeItem() {
+        accounts.get(0).removeItem();
+    }
+
+    @Override
+    public void addItem(FoodItem item) {
+        accounts.get(0).addItem(item);
     }
 }

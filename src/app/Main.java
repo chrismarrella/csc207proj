@@ -3,15 +3,18 @@ package app;
 import data_access.FileUserDataAccessObject;
 import entities.UserFactory;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.delete_foodItem.DeleteFoodItemViewModel;
 import interface_adapter.get_recipe.GetRecipeViewModel;
 import interface_adapter.main_menu.MainMenuController;
 //import interface_adapter.update_restrictions.UpdateRestrictionsViewModel;
+import interface_adapter.removeExpired.RemoveExpiredViewModel;
 import use_case.main_menu.MainMenuInteractor;
 import interface_adapter.main_menu.MainMenuViewModel;
 import app.MainMenuUseCaseFactory;
 import entities.User;
 
 import use_case.main_menu.MainMenuInputBoundary;
+import view.DeleteFoodItemView;
 import view.GetRecipeView;
 import view.MainMenuView;
 //import view.UpdateRestrictionsView;
@@ -42,6 +45,8 @@ public class Main {
 //        UpdateRestrictionsViewModel updateRestrictionsViewModel = new UpdateRestrictionsViewModel();
         MainMenuViewModel mainMenuViewModel = new MainMenuViewModel();
         GetRecipeViewModel getrecipeViewModel = new GetRecipeViewModel();
+        DeleteFoodItemViewModel deleteFoodItemViewModel = new DeleteFoodItemViewModel();
+        RemoveExpiredViewModel removeExpiredViewModel = new RemoveExpiredViewModel();
 
         FileUserDataAccessObject userDataAccessObject;
         try {
@@ -57,6 +62,9 @@ public class Main {
         GetRecipeView getRecipeView = GetRecipeUseCaseFactory.create(viewManagerModel, getrecipeViewModel, userDataAccessObject);
         views.add(getRecipeView, getRecipeView.viewName);
 
+        DeleteFoodItemView deleteFoodItemView = DeleteFoodItemUseCaseFactory.create(viewManagerModel,
+                deleteFoodItemViewModel, mainMenuViewModel, userDataAccessObject);
+        views.add(deleteFoodItemView, deleteFoodItemView.viewName);
 
         viewManagerModel.setActiveView(mainMenuView.viewName);
         viewManagerModel.firePropertyChange();

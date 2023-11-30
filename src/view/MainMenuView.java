@@ -5,6 +5,10 @@ import interface_adapter.get_recipe.GetRecipeViewModel;
 import interface_adapter.main_menu.MainMenuViewModel;
 import interface_adapter.main_menu.MainMenuState;
 import interface_adapter.main_menu.MainMenuController;
+import interface_adapter.removeExpired.RemoveExpiredController;
+import interface_adapter.removeExpired.RemoveExpiredPresenter;
+import interface_adapter.removeExpired.RemoveExpiredState;
+import interface_adapter.removeExpired.RemoveExpiredViewModel;
 import use_case.main_menu.MainMenuInputData;
 import use_case.main_menu.MainMenuInteractor;
 
@@ -14,6 +18,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.time.LocalDateTime;
+import java.util.Calendar;
 
 
 public class MainMenuView extends JPanel implements ActionListener, PropertyChangeListener {
@@ -22,8 +28,10 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
     private final MainMenuViewModel mainMenuViewModel;
     private final JButton GoToUpdateRestrictions;
     private final MainMenuController mainMenuController;
+    private final JButton GoToDeleteFoodItem;
 
-    public MainMenuView(MainMenuController mainMenuController ,MainMenuViewModel mainMenuViewModel) {
+    public MainMenuView(MainMenuController mainMenuController ,MainMenuViewModel mainMenuViewModel,
+                        RemoveExpiredController removeExpiredController, RemoveExpiredViewModel removeExpiredViewModel) {
         this.mainMenuViewModel = mainMenuViewModel;
         this.mainMenuController = mainMenuController;
         mainMenuViewModel.addPropertyChangeListener(this);
@@ -42,6 +50,11 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
         // Go to Update Restrictions button
         GoToUpdateRestrictions = new JButton(MainMenuViewModel.GO_TO_UPDATE_RESTRICTIONS_BUTTON_LABEL);
         buttons.add(GoToUpdateRestrictions);
+        add(buttons);
+
+        // Go to Delete Food Item button
+        GoToDeleteFoodItem = new JButton(MainMenuViewModel.GO_TO_REMOVE_FOOD_ITEM);
+        buttons.add(GoToDeleteFoodItem);
         add(buttons);
 
         GoToGetRecipes.addActionListener(new ActionListener() {
@@ -63,12 +76,32 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
                 }
             }
         });
+        GoToDeleteFoodItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                if (evt.getSource().equals(GoToDeleteFoodItem)) {
+                    MainMenuState currentState = mainMenuViewModel.getState();
+                    currentState.setView_name("delete food item");
+                    mainMenuController.execute(currentState.getView_name());
+                }
+            }
+        });
+
+        removeExpired(removeExpiredController, removeExpiredViewModel);
+    }
+
+    public void removeExpired(RemoveExpiredController removeExpiredController,
+                              RemoveExpiredViewModel removeExpiredViewModel) {
+
+        RemoveExpiredState currentState = removeExpiredViewModel.getState();
+        removeExpiredController.execute(Calendar.getInstance());
+        String removedItems = RemoveExpiredViewModel.TITLE_LABEL + currentState.getExpiredFoodItems();
+
+        JOptionPane.showMessageDialog(this, removedItems);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         JOptionPane.showConfirmDialog(this, "Cancel not implemented yet.");
-
     }
 
     @Override

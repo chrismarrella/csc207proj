@@ -32,7 +32,7 @@ public class GetRecipeViewModel extends ViewModel {
     }
 
     public void firePropertyChange() {
-        pcs.firePropertyChange("state", null, currState);
+        pcs.firePropertyChange("get recipe", null, currState);
     }
 
     public List<Map<String, List<String>>> getRecipes() {
