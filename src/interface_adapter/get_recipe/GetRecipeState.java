@@ -1,13 +1,17 @@
 package interface_adapter.get_recipe;
 
+import entities.Recipe;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
 public class GetRecipeState {
 
-    private List<String> recipes = null;
+    private List<Map<String, List<String>>> recipes = null;
     private String error = null;
 
-    public void updateState(List<String> recipes, String error) {
+    public void updateState(List<Map<String, List<String>>> recipes, String error) {
         this.recipes = recipes;
         this.error = error;
     }
@@ -18,7 +22,7 @@ public class GetRecipeState {
         this.error = error;
     }
 
-    public List<String> getRecipes() {
+    public List<Map<String, List<String>>> getRecipes() {
         return recipes;
     }
 }

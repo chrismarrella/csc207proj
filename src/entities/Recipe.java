@@ -1,4 +1,6 @@
 package entities;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,16 +12,14 @@ public class Recipe {
     private String name;
     private List<String> instructions;
     private List<FoodItem> ingredients;
-    private List<Float> macros;
-    private DietaryPreferences satisfiedDietaryRestrictions;
+    private Map<String, Float> macros;
 
     public Recipe(String name, List<String> instructions, List<FoodItem> ingredients,
-                  List<Float> macros, Map<String, Float> satisfiedDietaryRestrictions) {
+                  Map<String, Float> macros) {
         this.name = name;
         this.instructions = instructions;
         this.ingredients = ingredients;
         this.macros = macros;
-        this.satisfiedDietaryRestrictions = new UserDietaryPreferences(satisfiedDietaryRestrictions);
     }
 
     public String getName() {
@@ -46,26 +46,62 @@ public class Recipe {
         this.ingredients = ingredients;
     }
 
-    public List<Float> getMacros() {
+    public Map<String, Float> getMacros() {
         return this.macros;
     }
 
-    public void setMacros(List<Float> macros) {
+    public void setMacros(Map<String, Float> macros) {
         this.macros = macros;
     }
 
-    public DietaryPreferences getDietaryRestrictions() {
-        return this.satisfiedDietaryRestrictions;
+    public Map<String, List<String>> toMap() {
+        Map<String, List<String>> pref = new HashMap<>();
+        List<String> foods = new ArrayList<>();
+        List<String> name = new ArrayList<>();
+        List<String> nutrients = new ArrayList<>();
+
+        name.add(this.name);
+
+        // food items will be formatted as name:amount, just split by colon when parsing
+        for (FoodItem item: this.ingredients) {
+            foods.add(item.getName() + ":" + item.getAmount());
+        }
+
+        for (String macro: macros.keySet()) {
+            nutrients.add(macro + ":" + macros.get(macro));
+        }
+
+        pref.put("Name", name);
+        pref.put("Ingredients", foods);
+        pref.put("Instructions", this.instructions);
+        pref.put("Macros", nutrients);
+
+        return pref;
     }
 
     @Override
     public String toString() {
-        return "Recipe{" +
-                "name='" + name + '\'' +
-                ", instructions='" + instructions + '\'' +
-                ", ingredients=" + ingredients +
-                ", macros=" + macros +
-                ", satisfiedDietaryRestrictions=" + satisfiedDietaryRestrictions +
-                '}';
+        StringBuilder newInstructions = new StringBuilder();
+        for (String instruction: this.instructions) {
+            newInstructions.append(instruction);
+            newInstructions.append("\n");
+        }
+
+        StringBuilder newIngredients = new StringBuilder();
+        for (FoodItem ingredient: this.ingredients) {
+            newIngredients.append(ingredient.getName() + ": " + ingredient.getAmount());
+            newIngredients.append("\n");
+        }
+
+        StringBuilder newMacros = new StringBuilder();
+        for (String macro: this.macros.keySet()) {
+            newMacros.append(macro + ": " + this.macros.get(macro));
+            newMacros.append("\n");
+        }
+
+        return "Name: " + this.name + '\n' +
+                "Instructions: " + newInstructions +
+                "Ingredients: " + newIngredients +
+                "Macros: " + newMacros;
     }
 }
