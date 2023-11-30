@@ -6,13 +6,14 @@ import okhttp3.Request;
 import okhttp3.Response;
 import org.json.JSONException;
 import org.json.JSONObject;
+import use_case.add_fooditem.AddFoodItemDataAccessInterface;
 import use_case.get_recipe.GetRecipeDataAccessInterface;
 import use_case.main_menu.MainMenuDataAccessInterface;
 
 import java.io.*;
 import java.util.*;
 
-public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, MainMenuDataAccessInterface {
+public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, MainMenuDataAccessInterface, AddFoodItemDataAccessInterface {
     private final File csvFile;
 
     private final Map<String, Integer> headers = new LinkedHashMap<>();
@@ -178,5 +179,11 @@ public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, M
         }
 
         return res;
+    }
+
+    @Override
+    public void addItem(FoodItem foodItem) {
+        User user = accounts.get(0);
+        user.addItem(foodItem);
     }
 }

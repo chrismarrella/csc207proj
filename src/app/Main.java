@@ -5,6 +5,8 @@ import entities.UserFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.get_recipe.GetRecipeViewModel;
 import interface_adapter.main_menu.MainMenuController;
+import interface_adapter.add_fooditem.AddFoodItemController;
+import interface_adapter.add_fooditem.AddFoodItemViewModel;
 //import interface_adapter.update_restrictions.UpdateRestrictionsViewModel;
 import use_case.main_menu.MainMenuInteractor;
 import interface_adapter.main_menu.MainMenuViewModel;
@@ -57,6 +59,9 @@ public class Main {
         GetRecipeView getRecipeView = GetRecipeUseCaseFactory.create(viewManagerModel, getrecipeViewModel, userDataAccessObject);
         views.add(getRecipeView, getRecipeView.viewName);
 
+        AddFoodItemViewModel addFoodItemViewModel = new AddFoodItemViewModel();
+        AddFoodItemView addFoodItemView = AddFoodItemUseCaseFactory.create(viewManagerModel, addFoodItemViewModel, mainMenuViewModel, mainMenuController, userDataAccessObject);
+        views.add(addFoodItemView, addFoodItemView.viewName);
 
         viewManagerModel.setActiveView(mainMenuView.viewName);
         viewManagerModel.firePropertyChange();
