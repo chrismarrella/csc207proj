@@ -1,6 +1,7 @@
 package view;
 
 import interface_adapter.get_recipe.GetRecipeViewModel;
+import interface_adapter.get_shopping_list.GetShoppingListViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,14 +13,16 @@ import java.util.List;
 
 public class GetRecipeView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "get recipe";
-
     private final GetRecipeViewModel getRecipeViewModel;
+    private final GetShoppingListViewModel getShoppingListViewModel;
     private final JButton generate;
-    private final JTextArea resultTextArea;
+    private final JPanel recipesPanel;
 
-    public GetRecipeView(GetRecipeViewModel getRecipeViewModel) {
+    public GetRecipeView(GetRecipeViewModel getRecipeViewModel, GetShoppingListViewModel getShoppingListViewModel) {
         this.getRecipeViewModel = getRecipeViewModel;
+        this.getShoppingListViewModel = getShoppingListViewModel;
         getRecipeViewModel.addPropertyChangeListener(this);
+        getShoppingListViewModel.addPropertyChangeListener(this);
 
         JLabel title = new JLabel(GetRecipeViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -30,11 +33,8 @@ public class GetRecipeView extends JPanel implements ActionListener, PropertyCha
         buttons.add(generate);
         add(buttons);
 
-        resultTextArea = new JTextArea();
-        resultTextArea.setEditable(false);
-        resultTextArea.setLineWrap(true);
-        resultTextArea.setWrapStyleWord(true);
-        JScrollPane scrollPane = new JScrollPane(resultTextArea);
+        recipesPanel = new JPanel();
+        JScrollPane scrollPane = new JScrollPane(recipesPanel);
         add(scrollPane);
 
         generate.addActionListener(new ActionListener() {
@@ -46,10 +46,31 @@ public class GetRecipeView extends JPanel implements ActionListener, PropertyCha
         });
     }
 
+    private class RecipePanel extends JPanel {
+        private String recipe;
+        private final JButton selectButton;
+
+        public RecipePanel(String recipe) {
+            this.recipe = recipe;
+            selectButton = new JButton("Make a Shopping List");
+
+            selectButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent evt) {
+                    System.out.println("Make Shopping List button clicked.");
+                    getShoppingListViewModel.firePropertyChange();
+                }
+            });
+        }
+    }
+
+
+
     private void showRecipes(List<String> recipes) {
-        resultTextArea.setText("");
+        recipesPanel.removeAll();
         for (String recipe : recipes) {
-            resultTextArea.append(recipe + "\n");
+            RecipePanel recipePanel = new RecipePanel(recipe);
+            recipesPanel.add(recipePanel);
         }
     }
 
