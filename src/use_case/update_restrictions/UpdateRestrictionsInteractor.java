@@ -26,34 +26,35 @@ public class UpdateRestrictionsInteractor implements UpdateRestrictionsInputBoun
     public void execute(UpdateRestrictionsInputData updateRestrictionsInputData) {
         String restriction = updateRestrictionsInputData.getRestriction();
         Float value = updateRestrictionsInputData.getValue();
-        Set<String> RestrictedRestrictions = new HashSet<>(Arrays.asList(
+
+        Set<String> restrictedRestrictions = new HashSet<>(Arrays.asList(
                 "ketogenic", "vegan", "vegetarian", "maxprotein", "minprotein",
                 "maxcarbs", "mincarbs", "maxfat", "minfat", "maxcals", "mincals"));
 
-        if (urDataAccessInterface.restrictionExist(restriction)) {
-            // Check if the restriction is one of the restricted restrictions
-            if (RestrictedRestrictions.contains(restriction.toLowerCase())) {
-                // Check if the value is 1.0 or 0.0
-                if (value.equals(1.0f) || value.equals(0.0f)) {
-                    // Remove the existing restriction and add the new one
-                    user.removeRestriction(restriction, user.getRestriction(restriction));
-                    user.addRestriction(restriction, value);
-                    urOutputBoundary.prepareUpdatedView("Successfully Updated restriction: " + restriction);
-                } else if (value.equals(0.25f) && restriction.equals("main menu")) {
-                    urOutputBoundary.prepareGoBackView(restriction);
+        Set<String> dietTypes = new HashSet<>(Arrays.asList("ketogenic", "vegan", "vegetarian"));
 
-                } else {
-                    urOutputBoundary.prepareFailView("Invalid value for restriction: " + value);
-                }
-            } else {
-                // Add the new restriction
+        if (restrictedRestrictions.contains(restriction.toLowerCase())) {
+            System.out.println("First if statement passed: " + restriction + value);
+
+            if (dietTypes.contains(restriction.toLowerCase())) {
+                // Remove the existing restriction and add the new one
+                user.removeRestriction(restriction, user.getRestriction(restriction));
                 user.addRestriction(restriction, value);
                 urOutputBoundary.prepareUpdatedView("Successfully Updated restriction: " + restriction);
+                System.out.println("Second if statement passed: " + user.getAllKeys());
+            } else {
+                // Update or add the restriction
+                user.removeRestriction(restriction, user.getRestriction(restriction));
+                user.addRestriction(restriction, value);
+                urOutputBoundary.prepareUpdatedView("Successfully Added Restriction: " + restriction);
+                System.out.println("Second if statement passed: " + user.getAllKeys());
             }
+        } else if (restriction.equals("main menu")) {
+            urOutputBoundary.prepareGoBackView(restriction);
         } else {
             // Add the new restriction
             user.addRestriction(restriction, value);
-            urOutputBoundary.prepareAddedView("Successfully Added Restriction: " + restriction);
+            urOutputBoundary.prepareUpdatedView("Successfully Updated restriction: " + restriction);
         }
     }
 }

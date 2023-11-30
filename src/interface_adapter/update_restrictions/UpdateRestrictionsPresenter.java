@@ -16,9 +16,8 @@ public class UpdateRestrictionsPresenter implements UpdateRestrictionsOutputBoun
 
     @Override
     public void prepareGoBackView(String response) {
-        UpdateRestrictionsState updateRestrictionsState = updateRestrictionsViewModel.getCurrState();
-        viewManagerModel.setActiveView("main menu");
-        updateRestrictionsViewModel.firePropertyChange();
+        viewManagerModel.setActiveView(response);
+        viewManagerModel.firePropertyChange();
 
     }
     @Override
