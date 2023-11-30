@@ -27,10 +27,10 @@ public class RecipeGetter {
                 .build();
         Request request = new Request.Builder()
                 .url(String.format(
-                        "https://api.spoonacular.com/recipes/complexSearch?apiKey=%s&diet=%s&includeIngredients=%s&excludeIngredients=%s&minCarbs=%s&maxCarbs=%s&minProtein=%s&maxProtein=%s&minCalories=%s&maxCalories=%s&minSaturatedFat=%s&maxSaturatedFat=%s",
+                        "https://api.spoonacular.com/recipes/complexSearch?apiKey=%s&diet=%s&includeIngredients=%s&excludeIngredients=%s&minCarbs=%s&maxCarbs=%s&minProtein=%s&maxProtein=%s&minCalories=%s&maxCalories=%s&minSaturatedFat=%s&maxSaturatedFat=%s&number=%s",
                         key, diet, incFood, excFood, newPrefs.get("minCarbs"), newPrefs.get("maxCarbs"), newPrefs.get("minProtein"),
                         newPrefs.get("maxProtein"), newPrefs.get("minCalories"), newPrefs.get("maxCalories"),
-                        newPrefs.get("minSaturatedFat"), newPrefs.get("maxSaturatedFat")))
+                        newPrefs.get("minSaturatedFat"), newPrefs.get("maxSaturatedFat"), 1))
                 .build();
         try {
             Response response = client.newCall(request).execute();
@@ -74,10 +74,19 @@ public class RecipeGetter {
 
         if (diet.length() > 0) {diet.deleteCharAt(diet.length() - 1);}
 
-        res.set(0, includedFood.toString());
-        res.set(1, excludedFood.toString());
-        res.set(2, diet.toString());
-        res.set(3, newPrefs);
+        res.add(includedFood.toString());
+        res.add(excludedFood.toString());
+        res.add(diet.toString());
+        res.add(newPrefs);
+
+        assert res.get(0).equals(includedFood.toString());
+        assert res.get(1).equals(excludedFood.toString());
+        assert res.get(2).equals(diet.toString());
+        assert res.get(3).equals(newPrefs);
+//        res.set(0, includedFood.toString());
+//        res.set(1, excludedFood.toString());
+//        res.set(2, diet.toString());
+//        res.set(3, newPrefs);
 
         return res;
     }

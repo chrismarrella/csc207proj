@@ -1,5 +1,6 @@
 package interface_adapter.get_recipe;
 
+import entities.Recipe;
 import interface_adapter.ViewModel;
 
 import java.beans.PropertyChangeListener;
@@ -33,7 +34,7 @@ public class GetRecipeViewModel extends ViewModel {
         pcs.firePropertyChange("state", null, currState);
     }
 
-    public List<String> getRecipes() {
+    public List<Recipe> getRecipes() {
         return currState.getRecipes();
     }
 }

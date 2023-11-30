@@ -7,18 +7,19 @@ import java.util.List;
 
 public class GetRecipeOutputData {
 
-    private List<String> recipeData;
+    private List<Recipe> recipeData;
     private boolean useCaseFailed;
 
     public GetRecipeOutputData(List<Recipe> recipes, boolean useCaseFailed) {
         this.useCaseFailed = useCaseFailed;
-        recipeData = new ArrayList<String>();
-        for (Recipe recipe : recipes) {
-            recipeData.add(recipe.recipeText);
-        }
+//        recipeData = new ArrayList<String>();
+//        for (Recipe recipe : recipes) {
+//            recipeData.add(recipe.toString());
+//        }
+        this.recipeData = recipes;
     }
 
-    public List<String> getRecipeData() {
+    public List<Recipe> getRecipeData() {
         return recipeData;
     }
 }
