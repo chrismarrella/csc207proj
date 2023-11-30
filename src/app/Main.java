@@ -3,6 +3,7 @@ package app;
 import entities.UserFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.get_recipe.GetRecipeViewModel;
+import interface_adapter.get_shopping_list.GetShoppingListViewModel;
 import view.GetRecipeView;
 import view.ViewManager;
 
@@ -27,8 +28,9 @@ public class Main {
         new ViewManager(views, cardLayout, viewManagerModel);
 
         GetRecipeViewModel getrecipeViewModel = new GetRecipeViewModel();
+        GetShoppingListViewModel getShoppingListViewModel = new GetShoppingListViewModel();
 
-        GetRecipeView getRecipeView = new GetRecipeView(getrecipeViewModel);
+        GetRecipeView getRecipeView = new GetRecipeView(getrecipeViewModel, getShoppingListViewModel);
         views.add(getRecipeView, getRecipeView.viewName);
 
         viewManagerModel.setActiveView(getRecipeView.viewName);
