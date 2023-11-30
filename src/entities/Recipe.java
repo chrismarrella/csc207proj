@@ -1,4 +1,6 @@
 package entities;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -50,6 +52,31 @@ public class Recipe {
 
     public void setMacros(Map<String, Float> macros) {
         this.macros = macros;
+    }
+
+    public Map<String, List<String>> toMap() {
+        Map<String, List<String>> pref = new HashMap<>();
+        List<String> foods = new ArrayList<>();
+        List<String> name = new ArrayList<>();
+        List<String> nutrients = new ArrayList<>();
+
+        name.add(this.name);
+
+        // food items will be formatted as name:amount, just split by colon when parsing
+        for (FoodItem item: this.ingredients) {
+            foods.add(item.getName() + ":" + item.getAmount());
+        }
+
+        for (String macro: macros.keySet()) {
+            nutrients.add(macro + ":" + macros.get(macro));
+        }
+
+        pref.put("Name", name);
+        pref.put("Ingredients", foods);
+        pref.put("Instructions", this.instructions);
+        pref.put("Macros", nutrients);
+
+        return pref;
     }
 
     @Override

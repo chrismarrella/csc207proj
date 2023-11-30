@@ -1,5 +1,7 @@
 package view;
 
+import entities.Recipe;
+import interface_adapter.get_recipe.GetRecipeController;
 import interface_adapter.get_recipe.GetRecipeState;
 import interface_adapter.get_recipe.GetRecipeViewModel;
 import interface_adapter.ViewManagerModel;
@@ -10,18 +12,23 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.List;
+import java.util.Map;
 
 public class GetRecipeView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "get recipe";
     public final JButton MainMenu;
     private final GetRecipeViewModel getRecipeViewModel;
     private final ViewManagerModel viewManagerModel;
+    private final GetRecipeController getRecipeController;
     private final JButton generate;
     private final JTextArea resultTextArea;
 
-    public GetRecipeView(ViewManagerModel viewManagerModel, GetRecipeViewModel getRecipeViewModel) {
+    public GetRecipeView(ViewManagerModel viewManagerModel,
+                         GetRecipeViewModel getRecipeViewModel,
+                         GetRecipeController getRecipeController) {
         this.getRecipeViewModel = getRecipeViewModel;
         this.viewManagerModel = viewManagerModel;
+        this.getRecipeController = getRecipeController;
         getRecipeViewModel.addPropertyChangeListener(this);
 
         JLabel title = new JLabel(GetRecipeViewModel.TITLE_LABEL);
@@ -52,7 +59,10 @@ public class GetRecipeView extends JPanel implements ActionListener, PropertyCha
             @Override
             public void actionPerformed(ActionEvent evt) {
                 System.out.println("Generate button clicked.");
+                getRecipeController.execute();
                 getRecipeViewModel.firePropertyChange();
+                List<Map<String, List<String>>> recipes = getRecipeViewModel.getRecipes();
+                showRecipes(recipes);
             }
         });
 
@@ -66,10 +76,36 @@ public class GetRecipeView extends JPanel implements ActionListener, PropertyCha
         });
     }
 
-    private void showRecipes(List<String> recipes) {
+    private void showRecipes(List<Map<String, List<String>>> recipes) {
         resultTextArea.setText("");
-        for (String recipe : recipes) {
-            resultTextArea.append(recipe + "\n");
+//        for (String recipe : recipes) {
+//            resultTextArea.append(recipe + "\n");
+//        }
+
+        for (Map<String, List<String>> recipe: recipes) {
+            StringBuilder display = new StringBuilder();
+
+            List<String> title = recipe.get("Name");
+            String name = title.get(0);
+
+            display.append("Name: " + name + "\n");
+            for (String info: recipe.keySet()) {
+                if (info.equals("Name")) { continue; }
+                display.append(info + ": ");
+
+                if (info.equals("Instructions")) {
+                    for (String step: recipe.get(info)) {
+                        display.append(step + "\n");
+                    }
+                    continue;
+                }
+                for (String item: recipe.get(info)) {
+                    String[] temp = item.split(":");
+                    display.append(temp[0] + ": " + temp[1] + "\n");
+                }
+            }
+
+            resultTextArea.append(display.toString());
         }
     }
 
