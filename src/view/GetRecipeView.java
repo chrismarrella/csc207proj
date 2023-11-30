@@ -61,7 +61,7 @@ public class GetRecipeView extends JPanel implements ActionListener, PropertyCha
                 System.out.println("Generate button clicked.");
                 getRecipeController.execute();
                 getRecipeViewModel.firePropertyChange();
-                List<Recipe> recipes = getRecipeViewModel.getRecipes();
+                List<Map<String, List<String>>> recipes = getRecipeViewModel.getRecipes();
                 showRecipes(recipes);
             }
         });
@@ -76,31 +76,30 @@ public class GetRecipeView extends JPanel implements ActionListener, PropertyCha
         });
     }
 
-    private void showRecipes(List<Recipe> recipes) {
+    private void showRecipes(List<Map<String, List<String>>> recipes) {
         resultTextArea.setText("");
 //        for (String recipe : recipes) {
 //            resultTextArea.append(recipe + "\n");
 //        }
 
-        for (Recipe recipe: recipes) {
-            Map<String, List<String>> recipeInfo = recipe.toMap();
+        for (Map<String, List<String>> recipe: recipes) {
             StringBuilder display = new StringBuilder();
 
-            List<String> title = recipeInfo.get("Name");
+            List<String> title = recipe.get("Name");
             String name = title.get(0);
 
             display.append("Name: " + name + "\n");
-            for (String info: recipeInfo.keySet()) {
+            for (String info: recipe.keySet()) {
                 if (info.equals("Name")) { continue; }
                 display.append(info + ": ");
 
                 if (info.equals("Instructions")) {
-                    for (String step: recipeInfo.get(info)) {
+                    for (String step: recipe.get(info)) {
                         display.append(step + "\n");
                     }
                     continue;
                 }
-                for (String item: recipeInfo.get(info)) {
+                for (String item: recipe.get(info)) {
                     String[] temp = item.split(":");
                     display.append(temp[0] + ": " + temp[1] + "\n");
                 }

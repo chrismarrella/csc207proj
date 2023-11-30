@@ -4,22 +4,23 @@ import entities.Recipe;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class GetRecipeOutputData {
 
-    private List<Recipe> recipeData;
+    private List<Map<String, List<String>>> recipeData;
     private boolean useCaseFailed;
 
     public GetRecipeOutputData(List<Recipe> recipes, boolean useCaseFailed) {
         this.useCaseFailed = useCaseFailed;
-//        recipeData = new ArrayList<String>();
-//        for (Recipe recipe : recipes) {
-//            recipeData.add(recipe.toString());
-//        }
-        this.recipeData = recipes;
+        List<Map<String, List<String>>> recipeData = new ArrayList<>();
+        for (Recipe recipe : recipes) {
+            recipeData.add(recipe.toMap());
+        }
+        this.recipeData = recipeData;
     }
 
-    public List<Recipe> getRecipeData() {
+    public List<Map<String, List<String>>> getRecipeData() {
         return recipeData;
     }
 }

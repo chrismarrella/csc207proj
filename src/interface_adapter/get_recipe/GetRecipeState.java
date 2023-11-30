@@ -4,12 +4,14 @@ import entities.Recipe;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
 public class GetRecipeState {
 
-    private List<Recipe> recipes = null;
+    private List<Map<String, List<String>>> recipes = null;
     private String error = null;
 
-    public void updateState(List<Recipe> recipes, String error) {
+    public void updateState(List<Map<String, List<String>>> recipes, String error) {
         this.recipes = recipes;
         this.error = error;
     }
@@ -20,7 +22,7 @@ public class GetRecipeState {
         this.error = error;
     }
 
-    public List<Recipe> getRecipes() {
+    public List<Map<String, List<String>>> getRecipes() {
         return recipes;
     }
 }
