@@ -41,11 +41,11 @@ public class UpdateRestrictionsUseCaseFactory {
 
 
         //possibly temp
-        UserDietaryPreferences user = new UserDietaryPreferences(new HashMap<>());
+        UserDietaryPreferences usermap = new UserDietaryPreferences(new HashMap<>());
         UserFactory userfactory = new UserFactory();
 
 
-        UpdateRestrictionsInteractor updateRestrictionsInteractor = new UpdateRestrictionsInteractor(updateRestrictionsDataAccessInterface, updateRestrictionsOutputBoundary, user, userfactory);
+        UpdateRestrictionsInteractor updateRestrictionsInteractor = new UpdateRestrictionsInteractor(updateRestrictionsDataAccessInterface, updateRestrictionsOutputBoundary, usermap);
 
         return new UpdateRestrictionsController(updateRestrictionsInteractor);
     }

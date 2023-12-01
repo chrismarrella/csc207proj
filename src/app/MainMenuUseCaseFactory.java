@@ -37,7 +37,7 @@ public class MainMenuUseCaseFactory {
 
         return null;
     }
-    private static MainMenuController createMainMenuUseCase(
+    static MainMenuController createMainMenuUseCase(
             ViewManagerModel viewManagerModel,
             MainMenuViewModel mainMenuViewModel,
             MainMenuDataAccessInterface dataAccessInterface,
