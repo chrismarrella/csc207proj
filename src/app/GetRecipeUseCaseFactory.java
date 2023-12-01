@@ -5,6 +5,7 @@ import interface_adapter.get_recipe.GetRecipeController;
 import interface_adapter.get_recipe.GetRecipePresenter;
 import interface_adapter.get_recipe.GetRecipeViewModel;
 import interface_adapter.main_menu.MainMenuController;
+import interface_adapter.main_menu.MainMenuViewModel;
 import use_case.get_recipe.GetRecipeDataAccessInterface;
 import use_case.get_recipe.GetRecipeInputBoundary;
 import use_case.get_recipe.GetRecipeInteractor;
@@ -20,10 +21,12 @@ public class GetRecipeUseCaseFactory {
 
     public static GetRecipeView create(ViewManagerModel viewManagerModel,
                                        GetRecipeViewModel getRecipeViewModel,
-                                       GetRecipeDataAccessInterface getRecipeDataAccessInterface) {
+                                       GetRecipeDataAccessInterface getRecipeDataAccessInterface,
+                                       MainMenuController mainMenuController,
+                                       MainMenuViewModel mainMenuViewModel) {
         try {
             GetRecipeController getRecipeController = createGetRecipeUseCase(getRecipeViewModel, getRecipeDataAccessInterface);
-            return new GetRecipeView(viewManagerModel, getRecipeViewModel, getRecipeController);
+            return new GetRecipeView(viewManagerModel, getRecipeViewModel, getRecipeController, mainMenuViewModel, mainMenuController);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Could not create recipes.");
         }

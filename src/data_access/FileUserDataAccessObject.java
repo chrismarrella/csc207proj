@@ -61,7 +61,7 @@ public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, M
                                 Integer.parseInt(details[1]),
                                 Integer.parseInt(details[2]),
                                 Integer.parseInt(details[3]),
-                                Integer.parseInt(details[4]));
+                                Float.parseFloat(details[4]));
                         user.addItem(newItem);
                     }
 
@@ -185,5 +185,6 @@ public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, M
     public void addItem(FoodItem foodItem) {
         User user = accounts.get(0);
         user.addItem(foodItem);
+        this.save();
     }
 }
