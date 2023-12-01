@@ -45,7 +45,6 @@ public class UpdateRestrictionTests {
     }
     @org.junit.Test
     public void testMainMenuButtonPresent() {
-        Main.main(null);
         JButton button = getButton();
         assert(button.getText().equals("main menu"));
     }

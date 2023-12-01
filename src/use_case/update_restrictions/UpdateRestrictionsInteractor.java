@@ -1,14 +1,12 @@
 package use_case.update_restrictions;
 
 import entities.DietaryPreferences;
-import entities.UserFactory;
 import entities.User;
 import entities.UserDietaryPreferences;
 
 import java.util.Set;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.Set;
 
 public class UpdateRestrictionsInteractor implements UpdateRestrictionsInputBoundary {
     final UpdateRestrictionsDataAccessInterface urDataAccessInterface;

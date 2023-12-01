@@ -6,10 +6,7 @@ import interface_adapter.ViewManagerModel;
 import interface_adapter.get_recipe.GetRecipeViewModel;
 import interface_adapter.main_menu.MainMenuController;
 import interface_adapter.update_restrictions.UpdateRestrictionsViewModel;
-import use_case.main_menu.MainMenuInteractor;
 import interface_adapter.main_menu.MainMenuViewModel;
-import app.MainMenuUseCaseFactory;
-import entities.User;
 
 
 import use_case.main_menu.MainMenuInputBoundary;

@@ -2,7 +2,6 @@ package interface_adapter.update_restrictions;
 
 import interface_adapter.ViewManagerModel;
 import use_case.update_restrictions.UpdateRestrictionsOutputBoundary;
-import use_case.update_restrictions.UpdateRestrictionsOutputData;
 
 public class UpdateRestrictionsPresenter implements UpdateRestrictionsOutputBoundary {
     private final UpdateRestrictionsViewModel updateRestrictionsViewModel;

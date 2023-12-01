@@ -2,8 +2,6 @@ package app;
 import entities.UserDietaryPreferences;
 import entities.UserFactory;
 import interface_adapter.ViewManagerModel;
-import entities.User;
-import app.MainMenuUseCaseFactory;
 import interface_adapter.main_menu.MainMenuController;
 import interface_adapter.update_restrictions.*;
 import use_case.update_restrictions.*;

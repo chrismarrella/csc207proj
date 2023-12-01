@@ -1,12 +1,10 @@
 package interface_adapter.update_restrictions;
 
 import interface_adapter.ViewModel;
-import org.json.Property;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-import java.util.List;
 
 public class UpdateRestrictionsViewModel extends ViewModel {
 

@@ -1,6 +1,5 @@
 package app;
 
-import entities.User;
 import entities.UserFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.main_menu.MainMenuController;

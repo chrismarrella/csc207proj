@@ -1,8 +1,5 @@
 package interface_adapter.update_restrictions;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class UpdateRestrictionsState {
     private String restriction = null;
     private Float value = null;
