@@ -1,5 +1,7 @@
 package view;
+import interface_adapter.main_menu.MainMenuController;
 import interface_adapter.main_menu.MainMenuState;
+import interface_adapter.main_menu.MainMenuViewModel;
 import interface_adapter.update_restrictions.UpdateRestrictionsController;
 import interface_adapter.update_restrictions.UpdateRestrictionsState;
 import interface_adapter.update_restrictions.UpdateRestrictionsViewModel;
@@ -35,11 +37,13 @@ public class UpdateRestrictionsView extends JPanel implements ActionListener, Pr
     private final JCheckBox enableVegan;
     private final JCheckBox enableVegetarian;
     private final UpdateRestrictionsController updateRestrictionController;
+    private final MainMenuController mainMenuController;
     public User user;
 
-    public UpdateRestrictionsView(UpdateRestrictionsController updateRestrictionController,UpdateRestrictionsViewModel updateRestrictionsViewModel) {
+    public UpdateRestrictionsView(UpdateRestrictionsController updateRestrictionController,UpdateRestrictionsViewModel updateRestrictionsViewModel, MainMenuController mainMenuController, MainMenuViewModel mainMenuViewModel) {
         this.updateRestrictionsViewModel = updateRestrictionsViewModel;
         this.updateRestrictionController = updateRestrictionController;
+        this.mainMenuController = mainMenuController;
 
         // Initialize user field
         updateRestrictionsViewModel.addPropertyChangeListener(this);
@@ -84,14 +88,13 @@ public class UpdateRestrictionsView extends JPanel implements ActionListener, Pr
         add(enableVegetarian);
 
 
-        //Add Food Item Text Box
         FoodItemTextBox = new JTextField(10);
 
         add(new JLabel("Enter Restricted Food Item:"));
         add(FoodItemTextBox);
 
-        SpinnerNumberModel maxcalModel = new SpinnerNumberModel(0, 0, 100, 1);
-        SpinnerNumberModel mincalModel = new SpinnerNumberModel(0, 0, 100, 1);
+        SpinnerNumberModel maxcalModel = new SpinnerNumberModel(0, 0, 800, 1);
+        SpinnerNumberModel mincalModel = new SpinnerNumberModel(0, 0, 800, 1);
         SpinnerNumberModel maxcarbModel = new SpinnerNumberModel(0, 0, 100, 1);
         SpinnerNumberModel mincarbModel = new SpinnerNumberModel(0, 0, 100, 1);
         SpinnerNumberModel maxfatModel = new SpinnerNumberModel(0, 0, 100, 1);
@@ -295,9 +298,9 @@ public class UpdateRestrictionsView extends JPanel implements ActionListener, Pr
         main_menu.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 if (evt.getSource().equals(main_menu)) {
-                    UpdateRestrictionsState currentState = updateRestrictionsViewModel.getCurrState();
-                    currentState.setRestriction("main menu");
-                    updateRestrictionController.execute("main menu", null);
+                    MainMenuState currentState = mainMenuViewModel.getState();
+                    currentState.setView_name("main menu");
+                    mainMenuController.execute(currentState.getView_name());
                 }
             }
         });

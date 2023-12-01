@@ -1,10 +1,14 @@
 package app;
 import entities.UserDietaryPreferences;
+import entities.UserFactory;
 import interface_adapter.ViewManagerModel;
 import entities.User;
+import app.MainMenuUseCaseFactory;
+import interface_adapter.main_menu.MainMenuController;
 import interface_adapter.update_restrictions.*;
 import use_case.update_restrictions.*;
 import view.UpdateRestrictionsView;
+import interface_adapter.main_menu.MainMenuViewModel;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -15,11 +19,11 @@ public class UpdateRestrictionsUseCaseFactory {
 
     public static UpdateRestrictionsView create(
             ViewManagerModel viewManagerModel,
-            UpdateRestrictionsViewModel updateRestrictionsViewModel, UpdateRestrictionsDataAccessInterface updateRestrictionsDataAccessInterface) {
+            UpdateRestrictionsViewModel updateRestrictionsViewModel, UpdateRestrictionsDataAccessInterface updateRestrictionsDataAccessInterface, MainMenuController mainMenuController, MainMenuViewModel mainMenuViewModel) {
 
         try {
             UpdateRestrictionsController updateRestrictionsController = createUpdateRestrictionsUseCase(viewManagerModel, updateRestrictionsViewModel, updateRestrictionsDataAccessInterface);
-            return new UpdateRestrictionsView(updateRestrictionsController, updateRestrictionsViewModel);
+            return new UpdateRestrictionsView(updateRestrictionsController, updateRestrictionsViewModel, mainMenuController, mainMenuViewModel);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Could not open user data file.");
         }
@@ -38,9 +42,10 @@ public class UpdateRestrictionsUseCaseFactory {
 
         //possibly temp
         UserDietaryPreferences user = new UserDietaryPreferences(new HashMap<>());
+        UserFactory userfactory = new UserFactory();
 
 
-        UpdateRestrictionsInteractor updateRestrictionsInteractor = new UpdateRestrictionsInteractor(updateRestrictionsDataAccessInterface, updateRestrictionsOutputBoundary, user);
+        UpdateRestrictionsInteractor updateRestrictionsInteractor = new UpdateRestrictionsInteractor(updateRestrictionsDataAccessInterface, updateRestrictionsOutputBoundary, user, userfactory);
 
         return new UpdateRestrictionsController(updateRestrictionsInteractor);
     }

@@ -21,7 +21,7 @@ import java.awt.*;
 import java.io.IOException;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         JFrame application = new JFrame("CHEFFI");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -48,10 +48,11 @@ public class Main {
         MainMenuViewModel mainMenuViewModel = new MainMenuViewModel();
         GetRecipeViewModel getrecipeViewModel = new GetRecipeViewModel();
 
+        MainMenuController mainMenuController = MainMenuUseCaseFactory.createMainMenuUseCase(viewManagerModel, mainMenuViewModel);
         MainMenuView mainMenuView = MainMenuUseCaseFactory.create(viewManagerModel, mainMenuViewModel, getrecipeViewModel);
         views.add(mainMenuView, mainMenuView.viewName);
 
-        UpdateRestrictionsView updateRestrictionsView = UpdateRestrictionsUseCaseFactory.create(viewManagerModel, updateRestrictionsViewModel, userDataAccessObject);
+        UpdateRestrictionsView updateRestrictionsView = UpdateRestrictionsUseCaseFactory.create(viewManagerModel, updateRestrictionsViewModel, userDataAccessObject, mainMenuController, mainMenuViewModel);
         views.add(updateRestrictionsView, updateRestrictionsView.viewName);
 
 

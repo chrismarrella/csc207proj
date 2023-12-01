@@ -1,6 +1,6 @@
 package use_case.update_restrictions;
 
-import entities.DietaryPreferences;
+import entities.UserFactory;
 import entities.User;
 import entities.UserDietaryPreferences;
 
@@ -13,19 +13,21 @@ public class UpdateRestrictionsInteractor implements UpdateRestrictionsInputBoun
     final UpdateRestrictionsDataAccessInterface urDataAccessInterface;
     final UpdateRestrictionsOutputBoundary urOutputBoundary;
     final UserDietaryPreferences user;
+    final UserFactory userfactory;
 
     public UpdateRestrictionsInteractor(UpdateRestrictionsDataAccessInterface urDataAccessInterface,
                                         UpdateRestrictionsOutputBoundary urOutputBoundary,
-                                        UserDietaryPreferences user) {
+                                        UserDietaryPreferences user, UserFactory userfactory) {
         this.urDataAccessInterface = urDataAccessInterface;
         this.urOutputBoundary = urOutputBoundary;
         this.user = user;
+        this.userfactory = userfactory;
     }
-
     @Override
     public void execute(UpdateRestrictionsInputData updateRestrictionsInputData) {
         String restriction = updateRestrictionsInputData.getRestriction();
         Float value = updateRestrictionsInputData.getValue();
+        User user1 = userfactory.create(user.getRestrictionMap());
 
         Set<String> restrictedRestrictions = new HashSet<>(Arrays.asList(
                 "ketogenic", "vegan", "vegetarian", "maxprotein", "minprotein",
@@ -42,12 +44,14 @@ public class UpdateRestrictionsInteractor implements UpdateRestrictionsInputBoun
                 user.addRestriction(restriction, value);
                 urOutputBoundary.prepareUpdatedView("Successfully Updated restriction: " + restriction);
                 System.out.println("Second if statement passed: " + user.getAllKeys());
+                urDataAccessInterface.save(user1);
             } else {
                 // Update or add the restriction
                 user.removeRestriction(restriction, user.getRestriction(restriction));
                 user.addRestriction(restriction, value);
                 urOutputBoundary.prepareUpdatedView("Successfully Added Restriction: " + restriction);
                 System.out.println("Second if statement passed: " + user.getAllKeys());
+                urDataAccessInterface.save(user1);
             }
         } else if (restriction.equals("main menu")) {
             urOutputBoundary.prepareGoBackView(restriction);
@@ -55,6 +59,7 @@ public class UpdateRestrictionsInteractor implements UpdateRestrictionsInputBoun
             // Add the new restriction
             user.addRestriction(restriction, value);
             urOutputBoundary.prepareUpdatedView("Successfully Updated restriction: " + restriction);
+            urDataAccessInterface.save(user1);
         }
     }
 }
