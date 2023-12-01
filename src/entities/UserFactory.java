@@ -2,7 +2,8 @@ package entities;
 import java.util.Map;
 
 public class UserFactory {
-    public User create(Map<String, Boolean> dietaryRestrictions) {
+    // does this have to be static???
+    public User create(Map<String, Float> dietaryRestrictions) {
         return new User(dietaryRestrictions);
     }
 }

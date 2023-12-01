@@ -1,14 +1,21 @@
 package data_access;
 
-import entities.FoodItem;
-import entities.User;
-import entities.UserFactory;
+import entities.*;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import org.json.JSONException;
+import org.json.JSONObject;
+import use_case.get_recipe.GetRecipeDataAccessInterface;
 import use_case.get_shopping_list.GetShoppingListDataAccessInterface;
+import use_case.main_menu.MainMenuDataAccessInterface;
 
 import java.io.*;
 import java.util.*;
 
-public class FileUserDataAccessObject implements GetShoppingListDataAccessInterface {
+
+public class
+FileUserDataAccessObject implements GetRecipeDataAccessInterface, MainMenuDataAccessInterface, GetShoppingListDataAccessInterface {
     private final File csvFile;
 
     private final Map<String, Integer> headers = new LinkedHashMap<>();
@@ -16,6 +23,8 @@ public class FileUserDataAccessObject implements GetShoppingListDataAccessInterf
     private final Map<Integer, User> accounts = new HashMap<>();
 
     private UserFactory userFactory;
+
+    private final String key = "1178e228ddeb4ba484e64911de9db1a8";
 
     public FileUserDataAccessObject(String csvPath, UserFactory userFactory) throws IOException {
         this.userFactory = userFactory;
@@ -29,19 +38,26 @@ public class FileUserDataAccessObject implements GetShoppingListDataAccessInterf
         } else {
             try (BufferedReader reader = new BufferedReader(new FileReader(csvFile))) {
                 String row;
+                reader.readLine();
                 int numUsers = 0;
                 while ((row = reader.readLine()) != null) {
                     // set up user object
                     String[] col = row.split(",");
-                    Map<String, Boolean> dietaryRestrictions = new HashMap<>();
+                    Map<String, Float> dietaryRestrictions = new HashMap<>();
                     User user = userFactory.create(dietaryRestrictions);
 
                     // split inventory column like Name:Year:Month:Date:Amount/Name:Year:Month:Date:Amount...
                     // split the rows based on slashes for each element of the queue and then by colon for foodItem
-                    String tempInv = String.valueOf(col[headers.get("inventory")]);
-                    String[] invItems = tempInv.split("/");
+                    String[] invItems = new String[0];
+                    if (col.length > 0) {
+                        String tempInv = String.valueOf(col[headers.get("inventory")]);
+                        invItems = tempInv.split("/");
+                    }
 
                     for (String item: invItems) {
+                        if (item.isEmpty()) {
+                            break;
+                        }
                         String[] details = item.split(":");
                         FoodItem newItem = new FoodItem(details[0],
                                 Integer.parseInt(details[1]),
@@ -53,12 +69,18 @@ public class FileUserDataAccessObject implements GetShoppingListDataAccessInterf
 
                     // split dietary restrictions column like String:Boolean/String:Boolean...
                     // similar format to inventory
-                    String tempRest = String.valueOf(col[headers.get("dietaryRestrictions")]);
-                    String[] restItems = tempRest.split("/");
+                    String[] restItems = new String[0];
+                    if (col.length > 1) {
+                        String tempRest = String.valueOf(col[headers.get("dietaryRestrictions")]);
+                        restItems = tempRest.split("/");
+                    }
 
                     for (String item: restItems) {
+                        if (item.isEmpty()) {
+                            break;
+                        }
                         String[] details = item.split(":");
-                        user.addRestriction(details[0], Boolean.parseBoolean(details[1]));
+                        user.addRestriction(details[0], Float.valueOf(details[1]));
                     }
                     this.accounts.put(numUsers, user);
                     numUsers += 1;
@@ -68,7 +90,7 @@ public class FileUserDataAccessObject implements GetShoppingListDataAccessInterf
     }
 
     public void save(User user) {
-        accounts.put(accounts.size() + 1, user);
+        accounts.put(0, user);
         this.save();
     }
 
@@ -86,7 +108,7 @@ public class FileUserDataAccessObject implements GetShoppingListDataAccessInterf
 
     public List<FoodItem> getInventory() {
         User user = this.get(0);
-        return new ArrayList<FoodItem>(user.getInventory());
+        return new ArrayList<FoodItem>(user.getInventory().getQueue());
     }
 
     private void save() {
@@ -99,7 +121,7 @@ public class FileUserDataAccessObject implements GetShoppingListDataAccessInterf
             for (User user : accounts.values()) {
                 // handle inventory
                 StringBuilder inv = new StringBuilder();
-                for (FoodItem item : user.getInventory()) {
+                for (FoodItem item : user.getQueue()) {
                     // year/month/day
                     String[] expDate = item.getExpirationDate().split("/");
                     String food = String.format("%s:%s:%s:%s:%s",
@@ -107,18 +129,22 @@ public class FileUserDataAccessObject implements GetShoppingListDataAccessInterf
                     inv.append(food);
                     inv.append("/");
                 }
-                inv.deleteCharAt(inv.length() - 1);
+                if (inv.length() != 0) {
+                    inv.deleteCharAt(inv.length() - 1);
+                }
                 String newInv = inv.toString();
 
                 // handle DietaryRestrictions
                 StringBuilder rest = new StringBuilder();
-                for (String key : user.getDietaryRestrictions().keySet()) {
+                for (String key : user.getAllKeys()) {
                     String restriction = String.format("%s:%s",
-                            key, String.valueOf(user.getDietaryRestrictions().get(key)));
+                            key, String.valueOf(user.getRestriction(key)));
                     rest.append(restriction);
                     rest.append("/");
                 }
-                rest.deleteCharAt(rest.length() - 1);
+                if (rest.length() != 0) {
+                    rest.deleteCharAt(rest.length() - 1);
+                }
                 String newRest = rest.toString();
 
                 String line = String.format("%s,%s", newInv, newRest);
@@ -131,5 +157,34 @@ public class FileUserDataAccessObject implements GetShoppingListDataAccessInterf
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+    public DietaryPreferences retrievePreferences() {
+        User user = accounts.get(0);
+        return user.getDietaryRestrictions();
+    }
+
+    public List<Recipe> retrieveRecipes(DietaryPreferences preferences) {
+        User user = accounts.get(0);
+        InventoryChecker checker = new InventoryChecker();
+        RecipeGetter getter = new RecipeGetter();
+        RecipeParser parser = new RecipeParser();
+
+        List<FoodItem> expiresSoon = checker.weekCheck(user.getInventory());
+        List<Object> settings = getter.preferenceConverter(expiresSoon, preferences);
+        JSONObject recipeInfo = getter.getRecipe(key, settings);
+        List<String> titles = parser.getNames(recipeInfo);
+        List<Integer> ids = parser.getIds(recipeInfo);
+        List<Recipe> res = new ArrayList<>();
+
+        int i = 0;
+        for (Integer id: ids) {
+            List<FoodItem> ingredients = parser.parseIngredients(getter.getIngredients(id, key));
+            Map<String, Float> macros = parser.parseMacros(getter.getNutrients(id, key));
+            List<String> instructions = parser.parseInstructions(getter.getInstructions(id, key));
+            res.add(new Recipe(titles.get(i), instructions, ingredients, macros));
+            i++;
+        }
+
+        return res;
     }
 }
