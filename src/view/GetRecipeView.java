@@ -72,7 +72,7 @@ public class GetRecipeView extends JPanel implements ActionListener, PropertyCha
                 System.out.println("Generate button clicked.");
                 getRecipeController.execute();
 //                getRecipeViewModel.firePropertyChange();
-                if (getRecipeViewModel.getState().getError() != null) {
+                if (getRecipeViewModel.getState().getError() == null) {
                     List<Map<String, List<String>>> recipes = getRecipeViewModel.getRecipes();
                     showRecipes(recipes);
                 }
