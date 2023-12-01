@@ -56,7 +56,7 @@ public class Main {
         }
 
         MainMenuView mainMenuView = MainMenuUseCaseFactory.create(viewManagerModel,
-                mainMenuViewModel, getrecipeViewModel, userDataAccessObject, new UserFactory());
+                mainMenuViewModel, userDataAccessObject, new UserFactory(), removeExpiredViewModel);
         views.add(mainMenuView, mainMenuView.viewName);
 
         GetRecipeView getRecipeView = GetRecipeUseCaseFactory.create(viewManagerModel, getrecipeViewModel, userDataAccessObject);

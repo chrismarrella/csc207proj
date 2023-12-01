@@ -19,27 +19,28 @@ public class RemoveExpiredInteractor implements RemoveExpiredInputBoundary {
 
     @Override
     public void execute(RemoveExpiredInputData removeExpiredInputData) {
-        // TODO: need to test the loop
         Calendar date = removeExpiredInputData.getDate();
 
-        PriorityQueue<FoodItem> inventory =
-                new PriorityQueue<>(removeExpiredDataAccessObject.getQueue());
+        PriorityQueue<FoodItem> inventory = removeExpiredDataAccessObject.getQueue();
         ArrayList<FoodItem> expiredFoodItems = new ArrayList<>();
         boolean expiredExist = false;
 
         FoodItem oldestFoodItem = inventory.peek();
 
-        while (!inventory.isEmpty() &
-                oldestFoodItem.getCalendarObject().compareTo(date) > 0) {
+        while (!(oldestFoodItem == null) &&
+                oldestFoodItem.getCalendarObject().compareTo(date) < 0) {
             removeExpiredDataAccessObject.removeItem();
             expiredFoodItems.add(oldestFoodItem);
             expiredExist = true;
+            oldestFoodItem = inventory.peek();
         }
 
         if (expiredExist) {
             RemoveExpiredOutputData removeExpiredOutputData =
                     new RemoveExpiredOutputData(expiredFoodItems);
-            removeExpiredPresenter.prepareView(removeExpiredOutputData);
+            removeExpiredPresenter.prepareSuccessView(removeExpiredOutputData);
+        } else {
+            removeExpiredPresenter.prepareFailView();
         }
     }
 }

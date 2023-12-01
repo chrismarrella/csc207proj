@@ -7,7 +7,6 @@ import java.beans.PropertyChangeSupport;
 
 public class RemoveExpiredViewModel extends ViewModel {
 
-    public static final String TITLE_LABEL = "Expired Food Items";
     private RemoveExpiredState state = new RemoveExpiredState();
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 

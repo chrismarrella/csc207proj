@@ -19,8 +19,8 @@ public class DeleteFoodItemView extends JPanel implements ActionListener, Proper
     public final String viewName = "delete food item";
     private final DeleteFoodItemViewModel deleteFoodItemViewModel;
     private final DeleteFoodItemController deleteFoodItemController;
-    private final JTextField foodItemInputField = new JTextField(15);
-    private final JTextField amountInputField = new JTextField(15);
+    private JTextField foodItemInputField = new JTextField(10);
+    private final JTextField amountInputField = new JTextField(10);
     private final JButton enter;
     private final JButton cancel;
 
@@ -32,6 +32,11 @@ public class DeleteFoodItemView extends JPanel implements ActionListener, Proper
 
         JLabel title = new JLabel(DeleteFoodItemViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+//        JPanel inputFields = new JPanel();
+//        foodItemInputField = new JTextField();
+//        inputFields.add(DeleteFoodItemViewModel.DELETE_LABEL, new JLabel());
+//        inputFields.add(foodItemInputField);
 
         LabelTextPanel foodItemInput = new LabelTextPanel(
                 new JLabel(DeleteFoodItemViewModel.DELETE_LABEL), foodItemInputField
@@ -118,8 +123,8 @@ public class DeleteFoodItemView extends JPanel implements ActionListener, Proper
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         this.add(title);
-        this.add(foodItemInputField);
-        this.add(amountInputField);
+        this.add(foodItemInput);
+        this.add(amountInput);
         this.add(buttons);
     }
 

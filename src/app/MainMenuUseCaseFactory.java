@@ -1,5 +1,6 @@
 package app;
 
+import data_access.FileUserDataAccessObject;
 import entities.User;
 import entities.UserFactory;
 import interface_adapter.ViewManagerModel;
@@ -32,15 +33,13 @@ public class MainMenuUseCaseFactory {
     public static MainMenuView create(
             ViewManagerModel viewManagerModel,
             MainMenuViewModel mainMenuViewModel,
-            GetRecipeViewModel getRecipeViewModel,
-            MainMenuDataAccessInterface dataAccessInterface,
+            FileUserDataAccessObject dataAccessObject,
             UserFactory userFactory,
-            RemoveExpiredViewModel removeExpiredViewModel,
-            RemoveExpiredDataAccessInterface removeExpiredDataAccessInterface) {
+            RemoveExpiredViewModel removeExpiredViewModel) {
         try {
-            MainMenuController mainMenuController = createMainMenuUseCase(viewManagerModel, mainMenuViewModel, dataAccessInterface, userFactory);
+            MainMenuController mainMenuController = createMainMenuUseCase(viewManagerModel, mainMenuViewModel, dataAccessObject, userFactory);
             RemoveExpiredController removeExpiredController = createRemoveExpiredUseCase(viewManagerModel,
-                    removeExpiredViewModel, removeExpiredDataAccessInterface);
+                    removeExpiredViewModel, dataAccessObject);
             
             return new MainMenuView(mainMenuController, mainMenuViewModel, removeExpiredController, removeExpiredViewModel);
         } catch (IOException e) {

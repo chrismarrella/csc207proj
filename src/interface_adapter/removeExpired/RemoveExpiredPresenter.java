@@ -16,11 +16,18 @@ public class RemoveExpiredPresenter implements RemoveExpiredOutputBoundary {
     }
 
     @Override
-    public void prepareView(RemoveExpiredOutputData removeExpiredOutputData) {
+    public void prepareSuccessView(RemoveExpiredOutputData removeExpiredOutputData) {
+        RemoveExpiredState currState = removeExpiredViewModel.getState();
+        currState.setExpiredFoodItems(removeExpiredOutputData.getExpiredFoodItems());
+        removeExpiredViewModel.setState(currState);
         removeExpiredViewModel.firePropertyChange();
-
-        viewManagerModel.setActiveView(removeExpiredViewModel.getViewName());
-        viewManagerModel.firePropertyChange();
     }
 
+    @Override
+    public void prepareFailView() {
+        RemoveExpiredState currState = removeExpiredViewModel.getState();
+        currState.setNoExpired("No expired food item today!");
+        removeExpiredViewModel.setState(currState);
+        removeExpiredViewModel.firePropertyChange();
+    }
 }

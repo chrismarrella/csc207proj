@@ -23,8 +23,7 @@ public class DeleteFoodItemUseCaseFactory {
 
     public static DeleteFoodItemView create(
             ViewManagerModel viewManagerModel, DeleteFoodItemViewModel deleteFoodItemViewModel,
-            MainMenuViewModel mainMenuViewModel, DeleteFoodItemDataAccessInterface deleteFoodItemDataAccessInterface)
-            throws IOException {
+            MainMenuViewModel mainMenuViewModel, DeleteFoodItemDataAccessInterface deleteFoodItemDataAccessInterface) {
         try {
             DeleteFoodItemController deleteFoodItemController = createDeleteFoodItemUseCase(viewManagerModel,
                     deleteFoodItemViewModel, mainMenuViewModel, deleteFoodItemDataAccessInterface);

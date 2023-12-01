@@ -15,8 +15,7 @@ import java.io.*;
 import java.util.*;
 import java.util.function.Predicate;
 
-public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, MainMenuDataAccessInterface {
-public class FileUserDataAccessObject implements DeleteFoodItemDataAccessInterface, RemoveExpiredDataAccessInterface {
+public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, MainMenuDataAccessInterface, DeleteFoodItemDataAccessInterface, RemoveExpiredDataAccessInterface {
     private final File csvFile;
 
     private final Map<String, Integer> headers = new LinkedHashMap<>();
@@ -64,7 +63,7 @@ public class FileUserDataAccessObject implements DeleteFoodItemDataAccessInterfa
                                 Integer.parseInt(details[1]),
                                 Integer.parseInt(details[2]),
                                 Integer.parseInt(details[3]),
-                                Integer.parseInt(details[4]));
+                                Float.parseFloat(details[4]));
                         user.addItem(newItem);
                     }
 
@@ -197,6 +196,7 @@ public class FileUserDataAccessObject implements DeleteFoodItemDataAccessInterfa
     @Override
     public void removeItem() {
         accounts.get(0).removeItem();
+        this.save();
     }
 
     @Override

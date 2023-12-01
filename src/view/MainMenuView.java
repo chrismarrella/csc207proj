@@ -24,17 +24,22 @@ import java.util.Calendar;
 
 public class MainMenuView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "main menu";
-    public final JButton GoToGetRecipes;
     private final MainMenuViewModel mainMenuViewModel;
-    private final JButton GoToUpdateRestrictions;
     private final MainMenuController mainMenuController;
+    private final RemoveExpiredViewModel removeExpiredViewModel;
+    private final RemoveExpiredController removeExpiredController;
+    public final JButton GoToGetRecipes;
+    private final JButton GoToUpdateRestrictions;
     private final JButton GoToDeleteFoodItem;
 
-    public MainMenuView(MainMenuController mainMenuController ,MainMenuViewModel mainMenuViewModel,
+    public MainMenuView(MainMenuController mainMenuController, MainMenuViewModel mainMenuViewModel,
                         RemoveExpiredController removeExpiredController, RemoveExpiredViewModel removeExpiredViewModel) {
         this.mainMenuViewModel = mainMenuViewModel;
         this.mainMenuController = mainMenuController;
+        this.removeExpiredViewModel = removeExpiredViewModel;
+        this.removeExpiredController = removeExpiredController;
         mainMenuViewModel.addPropertyChangeListener(this);
+        removeExpiredViewModel.addPropertyChangeListener(this);
 
         JLabel title = new JLabel(MainMenuViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -86,17 +91,20 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
             }
         });
 
-        removeExpired(removeExpiredController, removeExpiredViewModel);
+        removeExpired(this.removeExpiredController, this.removeExpiredViewModel);
     }
 
     public void removeExpired(RemoveExpiredController removeExpiredController,
                               RemoveExpiredViewModel removeExpiredViewModel) {
 
-        RemoveExpiredState currentState = removeExpiredViewModel.getState();
+        RemoveExpiredState currState = removeExpiredViewModel.getState();
         removeExpiredController.execute(Calendar.getInstance());
-        String removedItems = RemoveExpiredViewModel.TITLE_LABEL + currentState.getExpiredFoodItems();
 
-        JOptionPane.showMessageDialog(this, removedItems);
+        if (currState.getNoExpired() != null) {
+            JOptionPane.showMessageDialog(this, currState.getNoExpired());
+        } else {
+            JOptionPane.showMessageDialog(this, currState.getExpiredFoodItems());
+        }
     }
 
     @Override
@@ -106,9 +114,14 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        MainMenuState state = (MainMenuState) evt.getNewValue();
-        if (state.getError() != null) {
-            JOptionPane.showMessageDialog(this, state.getError());
+        // preventing error caused from casting state that is not MainMenuState
+        if (evt.getPropertyName().equals("main menu")) {
+            MainMenuState state = (MainMenuState) evt.getNewValue();
+            if (state.getError() != null) {
+                JOptionPane.showMessageDialog(this, state.getError());
+            }
+        } else if (evt.getPropertyName().equals("remove food items")) {
+            RemoveExpiredState state = (RemoveExpiredState) evt.getNewValue();
         }
     }
 }

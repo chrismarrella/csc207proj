@@ -11,11 +11,7 @@ public class RemoveExpiredOutputData {
     public RemoveExpiredOutputData(ArrayList<FoodItem> foodItems) {
         this.expiredFoodItems = "Expired food items in your inventory: ";
         for (FoodItem item : foodItems) {
-            expiredFoodItems += item.getName() + "/n";
-        }
-
-        if (foodItems.isEmpty()) {
-            this.expiredFoodItems = "There is no expired food items today.";
+            expiredFoodItems += "\n" + item.getName();
         }
     }
 
