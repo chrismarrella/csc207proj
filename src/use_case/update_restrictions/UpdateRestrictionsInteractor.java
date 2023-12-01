@@ -49,8 +49,6 @@ public class UpdateRestrictionsInteractor implements UpdateRestrictionsInputBoun
                 System.out.println("Second if statement passed: " + dietaryPreferences.getAllKeys());
                 urDataAccessInterface.save(user);
             }
-        } else if (restriction.equals("main menu")) {
-            urOutputBoundary.prepareGoBackView(restriction);
         } else {
             // Add the new restriction
             dietaryPreferences.addRestriction(restriction, value);

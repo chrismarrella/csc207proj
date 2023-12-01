@@ -1,2 +1,2 @@
 inventory,dietaryRestrictions
-,maxCarbs:100.0/minSaturatedFat:0.0/keto:1.0/mincals:null/maxSaturatedFat:100.0/vegan:1.0/minCarbs:10.0/maxProtein:100.0/minProtein:10.0/minCalories:50.0/vegetarian:1.0/maxCalories:800.0/maxcals:700.0
+,maxCarbs:100.0/minCarbs:10.0/maxProtein:100.0/minProtein:10.0/minCalories:50.0/minSaturatedFat:0.0/maxSaturatedFat:100.0/maxCalories:800.0
