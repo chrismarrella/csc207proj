@@ -38,6 +38,7 @@ public class UpdateRestrictionsView extends JPanel implements ActionListener, Pr
     private final JCheckBox enableVegetarian;
     private final UpdateRestrictionsController updateRestrictionController;
     private final MainMenuController mainMenuController;
+
     public User user;
 
     public UpdateRestrictionsView(UpdateRestrictionsController updateRestrictionController,UpdateRestrictionsViewModel updateRestrictionsViewModel, MainMenuController mainMenuController, MainMenuViewModel mainMenuViewModel) {

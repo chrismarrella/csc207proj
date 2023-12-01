@@ -1,5 +1,6 @@
 package use_case.update_restrictions;
 
+
 public class UpdateRestrictionsInputData {
     final private String restriction;
     final private Float value;

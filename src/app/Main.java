@@ -8,11 +8,8 @@ import interface_adapter.main_menu.MainMenuController;
 import interface_adapter.update_restrictions.UpdateRestrictionsViewModel;
 import interface_adapter.main_menu.MainMenuViewModel;
 
-
-import use_case.main_menu.MainMenuInputBoundary;
 import view.GetRecipeView;
 import view.MainMenuView;
-//import view.UpdateRestrictionsView;
 import view.UpdateRestrictionsView;
 import view.ViewManager;
 

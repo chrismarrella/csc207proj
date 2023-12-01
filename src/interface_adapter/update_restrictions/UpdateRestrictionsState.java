@@ -42,8 +42,10 @@ public class UpdateRestrictionsState {
 
     }
 
-    public Float getMaxcals() { return maxcals; }
-    public void setMaxcals(Float maxcals) { this.maxcals = maxcals; }
+    public Float getMaxcals() {
+        return maxcals; }
+    public void setMaxcals(Float maxcals) { this.maxcals
+            = maxcals; }
 
     public Float getMincals() { return mincals; }
     public void setMincals(Float mincals) { this.mincals = mincals; }

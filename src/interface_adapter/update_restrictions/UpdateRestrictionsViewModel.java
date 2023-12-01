@@ -9,7 +9,6 @@ import java.beans.PropertyChangeSupport;
 public class UpdateRestrictionsViewModel extends ViewModel {
 
     public static final String TITLE_LABEL = "Update Your Dietary Restrictions";
-    public static final String UPDATE_FOODITEM = "Enter Restricted Food";
     public static final String UPDATE_MAXPROTEIN = "Enter Max Serving Protein Value";
     public static final String UPDATE_MAXCARBS = "Enter Max Serving Carbs Value";
     public static final String UPDATE_MAXFATS = "Enter Max Serving Fat Value";
@@ -40,5 +39,6 @@ public class UpdateRestrictionsViewModel extends ViewModel {
 
     public void firePropertyChange() {pcs.firePropertyChange("state", null, this.currState);}
 
-    public UpdateRestrictionsState getCurrState() { return currState;}
+    public UpdateRestrictionsState getCurrState() {
+        return currState;}
 }
