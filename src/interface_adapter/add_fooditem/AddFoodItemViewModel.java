@@ -17,6 +17,7 @@ public class AddFoodItemViewModel extends ViewModel {
     public static final String EXPIRY_DATE_YEAR_LABEL = "Enter expiry year";
     public static final String EXPIRY_DATE_MONTH_LABEL = "Enter expiry month";
     public static final String EXPIRY_DATE_DAY_LABEL = "Enter expiry day";
+    public static final String AMOUNT_LABEL = "Enter amount";
     public void setState(AddFoodItemState addFoodItemState) {this.addFoodItemState = addFoodItemState;}
     public AddFoodItemState getState() {return addFoodItemState;}
     @Override

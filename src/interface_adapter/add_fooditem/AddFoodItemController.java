@@ -7,7 +7,7 @@ public class AddFoodItemController {
     public AddFoodItemController(AddFoodItemInputBoundary addFoodItemInteractor) {
         this.addFoodItemInteractor = addFoodItemInteractor;
     }
-    public void execute(String ingredient, Integer year, Integer month, Integer day, Float amount) {
+    public void execute(String ingredient, String year, String month, String day, String amount) {
         AddFoodItemInputData addFoodItemInputData = new AddFoodItemInputData(ingredient, year, month, day, amount);
         addFoodItemInteractor.execute(addFoodItemInputData);
     }

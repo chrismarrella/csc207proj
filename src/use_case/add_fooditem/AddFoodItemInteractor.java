@@ -1,6 +1,9 @@
 package use_case.add_fooditem;
 
+import com.sun.jdi.IntegerValue;
 import entities.FoodItem;
+import entities.DateValidatorService;
+import entities.IngredientValidatorService;
 
 public class AddFoodItemInteractor implements AddFoodItemInputBoundary {
     AddFoodItemOutputBoundary addFoodItemPresenter;
@@ -18,13 +21,16 @@ public class AddFoodItemInteractor implements AddFoodItemInputBoundary {
         Integer day = addFoodItemInputData.getDay();
         Float amount = addFoodItemInputData.getAmount();
         FoodItem foodItem = new FoodItem(ingredient, year, month, day, amount);
+        DateValidatorService dateValidatorService = new DateValidatorService();
+        IngredientValidatorService ingredientValidatorService = new IngredientValidatorService();
 
-        addFoodItemDataAccessObject.addItem(foodItem);
-        if (ingredient.isEmpty()) {
-            addFoodItemPresenter.prepareFailView("Ingredient is empty!");
-        }
-        else if  (month > 12 || day > 31 || day < 0 || month < 0 || year < 0 || year > 3000 || amount <= 0.0) {
-            addFoodItemPresenter.prepareFailView("Something went wrong!");
+        if (!ingredientValidatorService.ingredientIsValid(ingredient)) {
+            addFoodItemPresenter.prepareFailView("Ingredient is invalid!");
+        } else if (!dateValidatorService.dateIsValid(year, month, day)) {
+            addFoodItemPresenter.prepareFailView("Invalid Date!");
+
+        } else if  (amount <= 0.0f) {
+            addFoodItemPresenter.prepareFailView("Amount is invalid!");
         }
         else {
             addFoodItemDataAccessObject.addItem(foodItem);

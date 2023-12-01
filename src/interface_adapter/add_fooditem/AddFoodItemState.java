@@ -5,27 +5,26 @@ public class AddFoodItemState {
     private String ingredient = "";
     private String ingredientError = null;
     private String month = "";
-    private String monthError = null;
     private String day = "";
-    private String dayError = null;
     private String year = "";
-    private String yearError = null;
+    private String dateError = null;
     private String error = null;
+    private String amount = "";
+    private String amountError = null;
     public AddFoodItemState(AddFoodItemState copy) {
         ingredient = copy.ingredient;
         ingredientError = copy.ingredientError;
         month = copy.month;
-        monthError = copy.monthError;
         day = copy.day;
-        dayError = copy.dayError;
+        dateError = copy.dateError;
         year = copy.year;
-        yearError = copy.dayError;
     }
     public AddFoodItemState() {
     }
     public void setFoodItemError(String error) {
         this.error = error;
     }
+
     public void updateState(String error) {
         this.error = error;
     }
@@ -33,7 +32,9 @@ public class AddFoodItemState {
     public String getIngredient() {
         return ingredient;
     }
-
+    public String getFailViewError() {
+        return this.error;
+    }
     public void setIngredient(String ingredient) {
         this.ingredient = ingredient;
     }
@@ -54,12 +55,12 @@ public class AddFoodItemState {
         this.ingredientError = ingredientError;
     }
 
-    public String getMonthError() {
-        return monthError;
+    public String getDateError() {
+        return dateError;
     }
 
-    public void setMonthError(String monthError) {
-        this.monthError = monthError;
+    public void setDateError(String monthError) {
+        this.dateError = monthError;
     }
 
     public String getDay() {
@@ -70,14 +71,6 @@ public class AddFoodItemState {
         this.day = day;
     }
 
-    public String getDayError() {
-        return dayError;
-    }
-
-    public void setDayError(String dayError) {
-        this.dayError = dayError;
-    }
-
     public String getYear() {
         return year;
     }
@@ -85,12 +78,23 @@ public class AddFoodItemState {
     public void setYear(String year) {
         this.year = year;
     }
-
-    public String getYearError() {
-        return yearError;
+    public String getAmount() {
+        return amount;
     }
 
-    public void setYearError(String yearError) {
-        this.yearError = yearError;
+    public void setAmount(String amount) {
+        this.amount = amount;
     }
+
+    public String getAmountError() {
+        return amountError;
+    }
+
+    public void setAmountError(String amountError) {
+        this.amountError = amountError;
+    }
+    public boolean hasErrors() {
+        return ingredientError != null || amountError != null || error != null || dateError != null;
+    }
+
 }
