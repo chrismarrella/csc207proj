@@ -5,4 +5,5 @@ import java.util.List;
 
 public interface GetShoppingListDataAccessInterface {
     List<FoodItem> getInventory();
+    List<String> standardizeNames(List<String> names);
 }

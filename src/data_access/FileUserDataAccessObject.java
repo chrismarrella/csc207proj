@@ -187,4 +187,11 @@ FileUserDataAccessObject implements GetRecipeDataAccessInterface, MainMenuDataAc
 
         return res;
     }
+
+
+    @Override
+    public List<String> standardizeNames(List<String> names) {
+        return FoodNameParser.parseFoodItemNames(key, names);
+    }
+
 }
