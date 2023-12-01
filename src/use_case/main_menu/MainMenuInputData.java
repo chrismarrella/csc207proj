@@ -1,7 +1,6 @@
 package use_case.main_menu;
 
 public class MainMenuInputData {
-
     final private String view_name;
 
     public MainMenuInputData(String view_name) {

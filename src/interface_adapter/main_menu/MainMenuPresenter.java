@@ -6,7 +6,6 @@ import use_case.main_menu.MainMenuOutputBoundary;
 
 
 public class MainMenuPresenter implements MainMenuOutputBoundary {
-
     private final MainMenuViewModel mainMenuViewModel;
 
     private ViewManagerModel viewManagerModel;
