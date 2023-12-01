@@ -55,6 +55,7 @@ public class UpdateRestrictionsInteractor implements UpdateRestrictionsInputBoun
             dietaryPreferences.addRestriction(restriction, value);
             urOutputBoundary.prepareUpdatedView("Successfully Updated restriction: " + restriction);
             urDataAccessInterface.save(user);
+
         }
     }
 }

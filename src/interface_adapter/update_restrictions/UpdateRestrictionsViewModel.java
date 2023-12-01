@@ -20,7 +20,6 @@ public class UpdateRestrictionsViewModel extends ViewModel {
     public static final String KETO = "Keto Diet";
     public static final String VEGAN = "Vegan Diet";
     public static final String VEGETARIAN = "Vegetarian Diet";
-
     public static final String MAINMENU = "Save All and return to Main Menu";
     public static final String SAVE = "Save Restricted Food Item";
     public static final String SET = "Set";

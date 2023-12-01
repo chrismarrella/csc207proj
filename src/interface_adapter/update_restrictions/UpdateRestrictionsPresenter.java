@@ -23,6 +23,7 @@ public class UpdateRestrictionsPresenter implements UpdateRestrictionsOutputBoun
         updateRestrictionsViewModel.firePropertyChange();
     }
 
+
     @Override
     public void prepareFailView(String error) {
         UpdateRestrictionsState updateRestrictionsState = updateRestrictionsViewModel.getCurrState();
