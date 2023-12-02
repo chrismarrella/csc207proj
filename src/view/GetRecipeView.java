@@ -1,12 +1,16 @@
 package view;
 
+import entities.Recipe;
 import interface_adapter.get_recipe.GetRecipeController;
 import interface_adapter.get_recipe.GetRecipeState;
 import interface_adapter.get_recipe.GetRecipeViewModel;
+import interface_adapter.ViewManagerModel;
 import interface_adapter.get_shopping_list.GetShoppingListController;
 import interface_adapter.get_shopping_list.GetShoppingListState;
 import interface_adapter.get_shopping_list.GetShoppingListViewModel;
-import interface_adapter.ViewManagerModel;
+import interface_adapter.main_menu.MainMenuState;
+import interface_adapter.main_menu.MainMenuController;
+import interface_adapter.main_menu.MainMenuViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -27,6 +31,8 @@ public class GetRecipeView extends JPanel implements ActionListener, PropertyCha
     private final GetShoppingListViewModel getShoppingListViewModel;
     private final ViewManagerModel viewManagerModel;
     private final GetRecipeController getRecipeController;
+    private final MainMenuViewModel mainMenuViewModel;
+    private final MainMenuController mainMenuController;
     private final GetShoppingListController getShoppingListController;
 
     private final JButton generate;
@@ -36,10 +42,14 @@ public class GetRecipeView extends JPanel implements ActionListener, PropertyCha
                          GetRecipeViewModel getRecipeViewModel,
                          GetRecipeController getRecipeController,
                          GetShoppingListViewModel getShoppingListViewModel,
-                         GetShoppingListController getShoppingListController) {
+                         GetShoppingListController getShoppingListController,
+                         MainMenuViewModel mainMenuViewModel,
+                         MainMenuController mainMenuController) {
         this.getRecipeViewModel = getRecipeViewModel;
         this.viewManagerModel = viewManagerModel;
         this.getRecipeController = getRecipeController;
+        this.mainMenuViewModel = mainMenuViewModel;
+        this.mainMenuController = mainMenuController;
         this.getShoppingListViewModel = getShoppingListViewModel;
         this.getShoppingListController = getShoppingListController;
         ShoppingListGenerator.setPath("./output/Shopping_List.md");
@@ -82,9 +92,11 @@ public class GetRecipeView extends JPanel implements ActionListener, PropertyCha
             public void actionPerformed(ActionEvent evt) {
                 System.out.println("Generate button clicked.");
                 getRecipeController.execute();
-                getRecipeViewModel.firePropertyChange();
-                List<Map<String, List<String>>> recipes = getRecipeViewModel.getRecipes();
-                showRecipes(recipes);
+//                getRecipeViewModel.firePropertyChange();
+                if (getRecipeViewModel.getState().getError() == null) {
+                    List<Map<String, List<String>>> recipes = getRecipeViewModel.getRecipes();
+                    showRecipes(recipes);
+                }
             }
         });
 
@@ -92,7 +104,10 @@ public class GetRecipeView extends JPanel implements ActionListener, PropertyCha
             @Override
             public void actionPerformed(ActionEvent evt) {
                 if (evt.getSource().equals(MainMenu)) {
-                    // Assuming the viewName for GetRecipeView is "get recipe"
+                    System.out.println("Main Menu button clicked.");
+                    MainMenuState currState = mainMenuViewModel.getState();
+                    currState.setView_name("main menu");
+                    mainMenuController.execute(currState.getView_name());
                 }
             }
         });
@@ -131,6 +146,7 @@ public class GetRecipeView extends JPanel implements ActionListener, PropertyCha
     }
 
     private void showRecipes(List<Map<String, List<String>>> recipes) {
+//        resultTextArea.setText("");
 //        for (String recipe : recipes) {
 //            resultTextArea.append(recipe + "\n");
 //        }
@@ -179,8 +195,10 @@ public class GetRecipeView extends JPanel implements ActionListener, PropertyCha
     public void propertyChange(PropertyChangeEvent evt) {
         if(evt.getPropertyName().equals("recipeState")) {
             GetRecipeState state = (GetRecipeState) evt.getNewValue();
-            if (state.getError() != null)
-                JOptionPane.showMessageDialog(this, "Recipes: Will finalize when API works");
+            if (state.getError() != null) {
+                String error = state.getError();
+                JOptionPane.showMessageDialog(this, error);
+            }
         }
         else {
             GetShoppingListState state = (GetShoppingListState) evt.getNewValue();
