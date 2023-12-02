@@ -17,15 +17,22 @@ public class AddFoodItemPresenter implements AddFoodItemOutputBoundary {
     @Override
     public void prepareSuccessView() {
         AddFoodItemState addFoodItemState = addFoodItemViewModel.getState();
-        addFoodItemState.updateState(null);
+        addFoodItemViewModel.setState(addFoodItemState);
         addFoodItemViewModel.firePropertyChange();
     }
 
     @Override
     public void prepareFailView(String error) {
         AddFoodItemState addFoodItemState = addFoodItemViewModel.getState();
-        addFoodItemState.setFoodItemError(error);
+        if (error.equals("Ingredient is invalid!")) {
+            addFoodItemState.setIngredientError(error);
+        } else if (error.equals("Invalid Date!")) {
+            addFoodItemState.setDateError(error);
+        } else {
+            addFoodItemState.setAmountError(error);
+        }
+//        addFoodItemState.setFoodItemError(error);
+        addFoodItemViewModel.setState(addFoodItemState);
         addFoodItemViewModel.firePropertyChange();
-        addFoodItemState.setFoodItemError(null);
     }
 }

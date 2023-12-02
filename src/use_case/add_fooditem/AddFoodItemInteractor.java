@@ -28,7 +28,6 @@ public class AddFoodItemInteractor implements AddFoodItemInputBoundary {
             addFoodItemPresenter.prepareFailView("Ingredient is invalid!");
         } else if (!dateValidatorService.dateIsValid(year, month, day)) {
             addFoodItemPresenter.prepareFailView("Invalid Date!");
-
         } else if  (amount <= 0.0f) {
             addFoodItemPresenter.prepareFailView("Amount is invalid!");
         }

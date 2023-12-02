@@ -21,14 +21,6 @@ public class AddFoodItemState {
     }
     public AddFoodItemState() {
     }
-    public void setFoodItemError(String error) {
-        this.error = error;
-    }
-
-    public void updateState(String error) {
-        this.error = error;
-    }
-
     public String getIngredient() {
         return ingredient;
     }

@@ -232,13 +232,21 @@ public class AddFoodItemView extends JPanel implements ActionListener, PropertyC
     public void propertyChange(PropertyChangeEvent evt) {
         if ("state".equals(evt.getPropertyName())) {
             AddFoodItemState state = addFoodItemViewModel.getState();
-            if (!state.hasErrors()) {
+            if (state.getIngredientError() != null) {
+                String errorMessage = state.getIngredientError();
+                JOptionPane.showMessageDialog(this, errorMessage, "Error", JOptionPane.INFORMATION_MESSAGE);
+                state.setIngredientError(null);
+            } else if (state.getDateError() != null) {
+                String errorMessage = state.getDateError();
+                JOptionPane.showMessageDialog(this, errorMessage, "Error", JOptionPane.INFORMATION_MESSAGE);
+                state.setDateError(null);
+            } else if (state.getAmountError() != null) {
+                String errorMessage = state.getAmountError();
+                JOptionPane.showMessageDialog(this, errorMessage, "Error", JOptionPane.INFORMATION_MESSAGE);
+                state.setAmountError(null);
+            } else {
                 String message = "Ingredient Added!";
                 JOptionPane.showMessageDialog(this, message, "Confirmation", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                String errorMessage = state.getFailViewError();
-                JOptionPane.showMessageDialog(this, errorMessage, "Error", JOptionPane.INFORMATION_MESSAGE);
-
 
             }
         }
