@@ -68,7 +68,7 @@ public class Main {
         views.add(getRecipeView, getRecipeView.viewName);
 
         DeleteFoodItemView deleteFoodItemView = DeleteFoodItemUseCaseFactory.create(viewManagerModel,
-                deleteFoodItemViewModel, mainMenuViewModel, userDataAccessObject);
+                deleteFoodItemViewModel, mainMenuViewModel, mainMenuController, userDataAccessObject);
         views.add(deleteFoodItemView, deleteFoodItemView.viewName);
 
         viewManagerModel.setActiveView(mainMenuView.viewName);

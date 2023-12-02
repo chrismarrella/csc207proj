@@ -4,6 +4,7 @@ import interface_adapter.ViewManagerModel;
 import interface_adapter.delete_foodItem.DeleteFoodItemViewModel;
 import interface_adapter.delete_foodItem.DeleteFoodItemController;
 import interface_adapter.delete_foodItem.DeleteFoodItemPresenter;
+import interface_adapter.main_menu.MainMenuController;
 import interface_adapter.main_menu.MainMenuViewModel;
 import use_case.delete_foodItem.DeleteFoodItemInputBoundary;
 import use_case.delete_foodItem.DeleteFoodItemInteractor;
@@ -23,12 +24,14 @@ public class DeleteFoodItemUseCaseFactory {
 
     public static DeleteFoodItemView create(
             ViewManagerModel viewManagerModel, DeleteFoodItemViewModel deleteFoodItemViewModel,
-            MainMenuViewModel mainMenuViewModel, DeleteFoodItemDataAccessInterface deleteFoodItemDataAccessInterface) {
+            MainMenuViewModel mainMenuViewModel, MainMenuController mainMenuController,
+            DeleteFoodItemDataAccessInterface deleteFoodItemDataAccessInterface) {
         try {
             DeleteFoodItemController deleteFoodItemController = createDeleteFoodItemUseCase(viewManagerModel,
                     deleteFoodItemViewModel, mainMenuViewModel, deleteFoodItemDataAccessInterface);
 
-            return new DeleteFoodItemView(deleteFoodItemViewModel, deleteFoodItemController);
+            return new DeleteFoodItemView(
+                    deleteFoodItemViewModel, deleteFoodItemController, mainMenuViewModel, mainMenuController);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Could not open user data file.");
         }

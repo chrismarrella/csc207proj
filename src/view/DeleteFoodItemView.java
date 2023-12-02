@@ -1,9 +1,11 @@
 package view;
 
+import interface_adapter.main_menu.MainMenuController;
+import interface_adapter.main_menu.MainMenuState;
+import interface_adapter.main_menu.MainMenuViewModel;
 import interface_adapter.delete_foodItem.DeleteFoodItemController;
 import interface_adapter.delete_foodItem.DeleteFoodItemState;
 import interface_adapter.delete_foodItem.DeleteFoodItemViewModel;
-import interface_adapter.main_menu.MainMenuState;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,15 +21,22 @@ public class DeleteFoodItemView extends JPanel implements ActionListener, Proper
     public final String viewName = "delete food item";
     private final DeleteFoodItemViewModel deleteFoodItemViewModel;
     private final DeleteFoodItemController deleteFoodItemController;
+    private final MainMenuViewModel mainMenuViewModel;
+    private final MainMenuController mainMenuController;
+
     private JTextField foodItemInputField = new JTextField(10);
     private final JTextField amountInputField = new JTextField(10);
     private final JButton enter;
     private final JButton cancel;
 
     public DeleteFoodItemView(DeleteFoodItemViewModel deleteFoodItemViewModel,
-                              DeleteFoodItemController deleteFoodItemController) {
+                              DeleteFoodItemController deleteFoodItemController,
+                              MainMenuViewModel mainMenuViewModel,
+                              MainMenuController mainMenuController) {
         this.deleteFoodItemViewModel = deleteFoodItemViewModel;
         this.deleteFoodItemController = deleteFoodItemController;
+        this.mainMenuViewModel = mainMenuViewModel;
+        this.mainMenuController = mainMenuController;
         deleteFoodItemViewModel.addPropertyChangeListener(this);
 
         JLabel title = new JLabel(DeleteFoodItemViewModel.TITLE_LABEL);
@@ -64,8 +73,9 @@ public class DeleteFoodItemView extends JPanel implements ActionListener, Proper
                     @Override
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(cancel)) {
-                            //TODO: implement cancel - go to main menu
-                        }
+                            MainMenuState currentState = mainMenuViewModel.getState();
+                            currentState.setView_name("main menu");
+                            mainMenuController.execute(currentState.getView_name());                        }
                     }
                 }
         );
@@ -148,8 +158,6 @@ public class DeleteFoodItemView extends JPanel implements ActionListener, Proper
                 // when no error occurs, a message with deleted food item and amount pops up
                 JOptionPane.showMessageDialog(this, state.getDeletedFoodItem());
             }
-
-//            deleteFoodItemViewModel.setState(new DeleteFoodItemState());
         }
     }
 
