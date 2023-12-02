@@ -15,6 +15,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -22,25 +25,33 @@ public class GetRecipeView extends JPanel implements ActionListener, PropertyCha
     public final String viewName = "get recipe";
     public final JButton MainMenu;
     private final GetRecipeViewModel getRecipeViewModel;
+    private final GetShoppingListViewModel getShoppingListViewModel;
     private final ViewManagerModel viewManagerModel;
     private final GetRecipeController getRecipeController;
     private final MainMenuViewModel mainMenuViewModel;
     private final MainMenuController mainMenuController;
+    private final GetShoppingListController getShoppingListController;
+
     private final JButton generate;
-    private final JTextArea resultTextArea;
+    private final JPanel recipesPanel;
 
     public GetRecipeView(ViewManagerModel viewManagerModel,
                          GetRecipeViewModel getRecipeViewModel,
                          GetRecipeController getRecipeController,
+                         GetShoppingListViewModel getShoppingListViewModel,
+                         GetShoppingListController getShoppingListController,
                          MainMenuViewModel mainMenuViewModel,
-                         MainMenuController mainMenuController
-                         ) {
+                         MainMenuController mainMenuController) {
         this.getRecipeViewModel = getRecipeViewModel;
         this.viewManagerModel = viewManagerModel;
         this.getRecipeController = getRecipeController;
         this.mainMenuViewModel = mainMenuViewModel;
         this.mainMenuController = mainMenuController;
+        this.getShoppingListViewModel = getShoppingListViewModel;
+        this.getShoppingListController = getShoppingListController;
+        ShoppingListGenerator.setPath("./output/Shopping_List.md");
         getRecipeViewModel.addPropertyChangeListener(this);
+        getShoppingListViewModel.addPropertyChangeListener(this);
 
         JLabel title = new JLabel(GetRecipeViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -58,12 +69,19 @@ public class GetRecipeView extends JPanel implements ActionListener, PropertyCha
         buttons.add(generate);
         add(buttons);
 
-        resultTextArea = new JTextArea();
-        resultTextArea.setEditable(false);
-        resultTextArea.setLineWrap(true);
-        resultTextArea.setWrapStyleWord(true);
-        JScrollPane scrollPane = new JScrollPane(resultTextArea);
+        recipesPanel = new JPanel();
+//        recipesPanel.setPreferredSize(new Dimension(640, 500));
+        JScrollPane scrollPane = new JScrollPane(recipesPanel);
+        scrollPane.setPreferredSize(new Dimension(640,180));
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         add(scrollPane);
+
+//        resultTextArea = new JTextArea();
+//        resultTextArea.setEditable(false);
+//        resultTextArea.setLineWrap(true);
+//        resultTextArea.setWrapStyleWord(true);
+//        JScrollPane scrollPane = new JScrollPane(resultTextArea);
+//        add(scrollPane);
 
         generate.addActionListener(new ActionListener() {
 
@@ -92,11 +110,46 @@ public class GetRecipeView extends JPanel implements ActionListener, PropertyCha
         });
     }
 
+    private class RecipePanel extends JPanel {
+        private String recipe;
+        private List<String> ingredients;
+        private JTextArea resultTextArea;
+        private final JButton selectButton;
+
+        public RecipePanel(String recipe, List<String> ingredients) {
+            super();
+            this.recipe = recipe;
+            this.ingredients = ingredients;
+
+            this.resultTextArea = new JTextArea(recipe);
+            this.resultTextArea.setLineWrap(true);
+            this.selectButton = new JButton("Make a Shopping List");
+
+            JScrollPane scrollPane = new JScrollPane(resultTextArea);
+            scrollPane.setPreferredSize(new Dimension(600, 90));
+            this.add(scrollPane);
+
+            this.add(selectButton);
+            this.setBackground(Color.WHITE);
+
+            selectButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent evt) {
+                    System.out.println("Make Shopping List button clicked.");
+                    getShoppingListController.execute(ingredients);
+                }
+            });
+        }
+    }
+
     private void showRecipes(List<Map<String, List<String>>> recipes) {
         resultTextArea.setText("");
 //        for (String recipe : recipes) {
 //            resultTextArea.append(recipe + "\n");
 //        }
+
+        recipesPanel.removeAll();
+        recipesPanel.setPreferredSize(new Dimension(600, 150 * recipes.size()));
 
         for (Map<String, List<String>> recipe: recipes) {
             StringBuilder display = new StringBuilder();
@@ -121,8 +174,13 @@ public class GetRecipeView extends JPanel implements ActionListener, PropertyCha
                 }
             }
 
-            resultTextArea.append(display.toString());
+            RecipePanel recipePanel = new RecipePanel(display.toString(), recipe.get("Ingredients"));
+            recipePanel.setPreferredSize(new Dimension(600, 150));
+            recipesPanel.add(recipePanel);
         }
+
+        recipesPanel.repaint();
+        recipesPanel.revalidate();
     }
 
     @Override
@@ -132,13 +190,59 @@ public class GetRecipeView extends JPanel implements ActionListener, PropertyCha
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        GetRecipeState state = (GetRecipeState) evt.getNewValue();
-        if (state.getError() != null) {
-            String error = state.getError();
-            JOptionPane.showMessageDialog(this, error);
+        if(evt.getPropertyName().equals("recipeState")) {
+            GetRecipeState state = (GetRecipeState) evt.getNewValue();
+            if (state.getError() != null) {
+                String error = state.getError();
+                JOptionPane.showMessageDialog(this, error);
+            }
+        }
+        else {
+            GetShoppingListState state = (GetShoppingListState) evt.getNewValue();
+            if (state.getError() == null) {
+                System.out.println(state.getShoppingList());
+                ShoppingListGenerator.writeShoppingListToFile(state.getShoppingList());
+            }
+            else {
+                JOptionPane.showMessageDialog(this, state.getError());
+            }
+
+        }
+
+    }
+
+    private static class ShoppingListGenerator {
+        private static FileWriter shoppingListFile;
+
+        public static void setPath(String filePath) {
+            try {
+                shoppingListFile = new FileWriter(filePath);
+            }
+            catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        public static void writeShoppingListToFile(List<String> shoppingList) {
+            try {
+                BufferedWriter bufferedWriter = new BufferedWriter(shoppingListFile);
+                bufferedWriter.write("**Shopping List**");
+                bufferedWriter.newLine();
+                bufferedWriter.newLine();
+                bufferedWriter.write("|Name    | Amount |");
+                bufferedWriter.newLine();
+                bufferedWriter.write("|-----| ---:|");
+                bufferedWriter.newLine();
+                for (String foodItem : shoppingList) {
+                    String[] foodItemData = foodItem.split(":");
+                    bufferedWriter.write("| " + foodItemData[0] + " | " + foodItemData[1] + " |");
+                    bufferedWriter.newLine();
+                }
+                bufferedWriter.close();
+            }
+            catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 }
-
-
-

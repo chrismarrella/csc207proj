@@ -8,13 +8,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import use_case.add_fooditem.AddFoodItemDataAccessInterface;
 import use_case.get_recipe.GetRecipeDataAccessInterface;
+import use_case.get_shopping_list.GetShoppingListDataAccessInterface;
 import use_case.main_menu.MainMenuDataAccessInterface;
 import use_case.update_restrictions.UpdateRestrictionsDataAccessInterface;
 
 import java.io.*;
 import java.util.*;
 
-public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, MainMenuDataAccessInterface, AddFoodItemDataAccessInterface, UpdateRestrictionsDataAccessInterface {
+public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, MainMenuDataAccessInterface, AddFoodItemDataAccessInterface, UpdateRestrictionsDataAccessInterface, GetShoppingListDataAccessInterface{
     private final File csvFile;
 
     private final Map<String, Integer> headers = new LinkedHashMap<>();
@@ -105,6 +106,11 @@ public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, M
         return res;
     }
 
+    public List<FoodItem> getInventory() {
+        User user = accounts.get(0);
+        return new ArrayList<FoodItem>(user.getInventory().getQueue());
+    }
+
     private void save() {
         BufferedWriter writer;
         try {
@@ -188,4 +194,11 @@ public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, M
         user.addItem(foodItem);
         this.save();
     }
+
+
+    @Override
+    public List<String> standardizeNames(List<String> names) {
+        return FoodNameParser.parseFoodItemNames(key, names);
+    }
+
 }
