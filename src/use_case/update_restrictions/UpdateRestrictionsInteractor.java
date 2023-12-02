@@ -8,12 +8,20 @@ import java.util.Set;
 import java.util.Arrays;
 import java.util.HashSet;
 
-
+/**
+ * The UpdateRestrictionsInteractor class is responsible for executing the update restrictions use case.
+ */
 public class UpdateRestrictionsInteractor implements UpdateRestrictionsInputBoundary {
     final UpdateRestrictionsDataAccessInterface urDataAccessInterface;
     final UpdateRestrictionsOutputBoundary urOutputBoundary;
     final UserDietaryPreferences usermap;
 
+    /**
+     * Constructor for UpdateRestrictionsInteractor.
+     * @param urDataAccessInterface The UpdateRestrictionsDataAccessInterface instance.
+     * @param urOutputBoundary The UpdateRestrictionsOutputBoundary instance.
+     * @param usermap The UserDietaryPreferences instance.
+     */
     public UpdateRestrictionsInteractor(UpdateRestrictionsDataAccessInterface urDataAccessInterface,
                                         UpdateRestrictionsOutputBoundary urOutputBoundary,
                                         UserDietaryPreferences usermap) {
@@ -21,6 +29,12 @@ public class UpdateRestrictionsInteractor implements UpdateRestrictionsInputBoun
         this.urOutputBoundary = urOutputBoundary;
         this.usermap = usermap;
     }
+
+    /**
+     * Executes the update restrictions use case. If the restriction is a diet type, then the existing restriction is passed,
+     * errors if the food item is a string of numbers because unfortunately numbers aren't a food.
+     * @param updateRestrictionsInputData The UpdateRestrictionsInputData instance.
+     */
     @Override
     public void execute(UpdateRestrictionsInputData updateRestrictionsInputData) {
         String restriction = updateRestrictionsInputData.getRestriction();

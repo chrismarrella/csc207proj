@@ -17,6 +17,15 @@ import java.util.HashMap;
 public class UpdateRestrictionsUseCaseFactory {
     private UpdateRestrictionsUseCaseFactory() {}
 
+
+    /**
+     * Creates an UpdateRestrictionsView instance.
+     * @param viewManagerModel The ViewManagerModel instance.
+     * @param updateRestrictionsViewModel The UpdateRestrictionsViewModel instance.
+     * @param updateRestrictionsDataAccessInterface The UpdateRestrictionsDataAccessInterface instance.
+     * @param mainMenuController The MainMenuController instance.
+     * @param mainMenuViewModel The MainMenuViewModel instance.
+     */
     public static UpdateRestrictionsView create(
             ViewManagerModel viewManagerModel,
             UpdateRestrictionsViewModel updateRestrictionsViewModel, UpdateRestrictionsDataAccessInterface updateRestrictionsDataAccessInterface, MainMenuController mainMenuController, MainMenuViewModel mainMenuViewModel) {

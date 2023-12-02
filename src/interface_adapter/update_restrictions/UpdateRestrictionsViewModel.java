@@ -27,17 +27,35 @@ public class UpdateRestrictionsViewModel extends ViewModel {
     public static final Float FALSE = 0.0f;
     private UpdateRestrictionsState currState = new UpdateRestrictionsState();
 
+    /**
+     * Initializes the Constructor for UpdateRestrictionsViewModel.
+     */
     public UpdateRestrictionsViewModel() {super("Update Dietary Restrictions");}
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
+    /**
+     * Sets the state.
+     * @param state The UpdateRestrictionsState instance.
+     */
     public void setState(UpdateRestrictionsState state) {this.currState = state;}
 
+    /**
+     * Adds a property change listener.
+     * @param listener The PropertyChangeListener instance.
+     */
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         this.pcs.addPropertyChangeListener(listener);
     }
 
+    /**
+     * Fires a property change.
+     */
     public void firePropertyChange() {pcs.firePropertyChange("state", null, this.currState);}
 
+    /**
+     * Gets the current state.
+     * @return The current state.
+     */
     public UpdateRestrictionsState getCurrState() {
         return currState;}
 }

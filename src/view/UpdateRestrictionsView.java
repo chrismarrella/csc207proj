@@ -110,6 +110,7 @@ public class UpdateRestrictionsView extends JPanel implements ActionListener, Pr
         add(new JLabel("Enter Restricted Food Item:"));
         add(FoodItemTextBox);
 
+
         SpinnerNumberModel maxcalModel = new SpinnerNumberModel(0, 0, 800, 1);
         SpinnerNumberModel mincalModel = new SpinnerNumberModel(0, 0, 800, 1);
         SpinnerNumberModel maxcarbModel = new SpinnerNumberModel(0, 0, 100, 1);
@@ -188,11 +189,17 @@ public class UpdateRestrictionsView extends JPanel implements ActionListener, Pr
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource().equals(savemaxcals)) {
                     UpdateRestrictionsState currentState = updateRestrictionsViewModel.getCurrState();
-
-                    updateRestrictionController.execute("maxCalories", currentState.getMaxcals());
+                    if (currentState.getMaxcals() == null) {
+                        currentState.setMaxcals(0.0f);
+                        maxcalspinner.setValue(0.0f);
+                    } else {
+                        updateRestrictionController.execute("MaxCalories", currentState.getMincals());
+                        maxcalspinner.setValue(0.0f);
+                    }
                 }
             }
         });
+
         savemincals.addActionListener(new ActionListener() {
             /**
              * Called when button to save min calories is pressed.
@@ -202,8 +209,13 @@ public class UpdateRestrictionsView extends JPanel implements ActionListener, Pr
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource().equals(savemincals)) {
                     UpdateRestrictionsState currentState = updateRestrictionsViewModel.getCurrState();
-
-                    updateRestrictionController.execute("minCalories", currentState.getMincals());
+                    if (currentState.getMincals() == null) {
+                        currentState.setMincals(0.0f);
+                        mincalspinner.setValue(0.0f);
+                    } else {
+                        updateRestrictionController.execute("minCalories", currentState.getMincals());
+                        mincalspinner.setValue(0.0f);
+                    }
                 }
             }
         });
@@ -245,8 +257,13 @@ public class UpdateRestrictionsView extends JPanel implements ActionListener, Pr
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource().equals(savemaxcarbs)) {
                     UpdateRestrictionsState currentState = updateRestrictionsViewModel.getCurrState();
-
-                    updateRestrictionController.execute("maxCarbs", currentState.getMaxcarbs());
+                    if (currentState.getMaxcarbs() == null) {
+                        currentState.setMaxcarbs(0.0f);
+                        maxcarbspinner.setValue(0.0f);
+                    } else {
+                        updateRestrictionController.execute("maxCarbs", currentState.getMaxcarbs());
+                        maxcarbspinner.setValue(0.0f);
+                    }
                 }
             }
         });
@@ -259,8 +276,13 @@ public class UpdateRestrictionsView extends JPanel implements ActionListener, Pr
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource().equals(savemincarbs)) {
                     UpdateRestrictionsState currentState = updateRestrictionsViewModel.getCurrState();
-
-                    updateRestrictionController.execute("minCarbs", currentState.getMincarbs());
+                    if (currentState.getMincarbs() == null) {
+                        currentState.setMincarbs(0.0f);
+                        mincarbspinner.setValue(0.0f);
+                    } else {
+                        updateRestrictionController.execute("minCarbs", currentState.getMincarbs());
+                        mincarbspinner.setValue(0.0f);
+                    }
                 }
             }
         });
@@ -369,8 +391,8 @@ public class UpdateRestrictionsView extends JPanel implements ActionListener, Pr
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource().equals(savemaxprotein)) {
                     UpdateRestrictionsState currentState = updateRestrictionsViewModel.getCurrState();
-                    if (currentState.getMinprotein() == null) {
-                        currentState.setMinprotein(0.0f);
+                    if (currentState.getMaxprotein() == null) {
+                        currentState.setMaxprotein(0.0f);
                         minproteinspinner.setValue(0.0f);
                     } else {
                         updateRestrictionController.execute("maxProtein", currentState.getMaxprotein());
@@ -409,9 +431,8 @@ public class UpdateRestrictionsView extends JPanel implements ActionListener, Pr
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource().equals(savefooditem)) {
                     UpdateRestrictionsState currentState = updateRestrictionsViewModel.getCurrState();
-
                     updateRestrictionController.execute(currentState.getRestriction(), 1.0f);
-                    System.out.println("Save food item button worked " + currentState.getRestriction());
+                    FoodItemTextBox.setText("");
 
                 }
             }
