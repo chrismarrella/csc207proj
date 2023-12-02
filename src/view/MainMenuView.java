@@ -63,6 +63,7 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
                 }
             }
         });
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
     }
 
     @Override

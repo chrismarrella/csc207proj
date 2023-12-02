@@ -4,16 +4,16 @@ import interface_adapter.ViewManagerModel;
 import interface_adapter.get_recipe.GetRecipeController;
 import interface_adapter.get_recipe.GetRecipePresenter;
 import interface_adapter.get_recipe.GetRecipeViewModel;
-import interface_adapter.get_shopping_list.GetShoppingListController;
-import interface_adapter.get_shopping_list.GetShoppingListPresenter;
-import interface_adapter.get_shopping_list.GetShoppingListViewModel;
-import interface_adapter.main_menu.MainMenuController;
 import use_case.get_recipe.GetRecipeDataAccessInterface;
 import use_case.get_recipe.GetRecipeInputBoundary;
 import use_case.get_recipe.GetRecipeInteractor;
 import use_case.get_recipe.GetRecipeOutputBoundary;
-import use_case.get_shopping_list.*;
 import view.GetRecipeView;
+
+import use_case.get_shopping_list.*;
+import interface_adapter.get_shopping_list.GetShoppingListController;
+import interface_adapter.get_shopping_list.GetShoppingListPresenter;
+
 
 import javax.swing.*;
 import java.io.IOException;
