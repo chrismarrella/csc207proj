@@ -57,7 +57,7 @@ public class Main {
                 mainMenuViewModel, getrecipeViewModel, userDataAccessObject, new UserFactory());
         views.add(mainMenuView, mainMenuView.viewName);
 
-        GetRecipeView getRecipeView = GetRecipeUseCaseFactory.create(viewManagerModel, getrecipeViewModel, userDataAccessObject,  getShoppingListViewModel);
+        GetRecipeView getRecipeView = GetRecipeUseCaseFactory.create(viewManagerModel, getrecipeViewModel, userDataAccessObject,  getShoppingListViewModel, userDataAccessObject);
         views.add(getRecipeView, getRecipeView.viewName);
 
 

@@ -16,5 +16,7 @@ public class GetShoppingListState {
         this.error = error;
     }
 
+    public String getError() { return this.error; }
+
     public List<String> getShoppingList() { return groceryItems; }
 }

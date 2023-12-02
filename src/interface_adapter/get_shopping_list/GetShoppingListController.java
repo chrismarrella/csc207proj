@@ -1,6 +1,9 @@
 package interface_adapter.get_shopping_list;
 
 import use_case.get_shopping_list.GetShoppingListInputBoundary;
+import use_case.get_shopping_list.GetShoppingListInputData;
+
+import java.util.List;
 
 public class GetShoppingListController {
     private GetShoppingListInputBoundary getShoppingListInteractor;
@@ -9,5 +12,8 @@ public class GetShoppingListController {
         this.getShoppingListInteractor = getShoppingListInteractor;
     }
 
-    public void execute() { getShoppingListInteractor.execute(); }
+    public void execute(List<String> recipeIngredients) {
+        GetShoppingListInputData getShoppingListInputData = new GetShoppingListInputData(recipeIngredients);
+        getShoppingListInteractor.execute(getShoppingListInputData);
+    }
 }

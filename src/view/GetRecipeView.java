@@ -4,6 +4,8 @@ import entities.Recipe;
 import interface_adapter.get_recipe.GetRecipeController;
 import interface_adapter.get_recipe.GetRecipeState;
 import interface_adapter.get_recipe.GetRecipeViewModel;
+import interface_adapter.get_shopping_list.GetShoppingListController;
+import interface_adapter.get_shopping_list.GetShoppingListState;
 import interface_adapter.get_shopping_list.GetShoppingListViewModel;
 import interface_adapter.ViewManagerModel;
 import javax.swing.*;
@@ -22,19 +24,20 @@ public class GetRecipeView extends JPanel implements ActionListener, PropertyCha
     private final GetShoppingListViewModel getShoppingListViewModel;
     private final ViewManagerModel viewManagerModel;
     private final GetRecipeController getRecipeController;
+    private final GetShoppingListController getShoppingListController;
     private final JButton generate;
-
-    private final JTextArea resultTextArea;
-//    private final JPanel recipesPanel;
+    private final JPanel recipesPanel;
 
     public GetRecipeView(ViewManagerModel viewManagerModel,
                          GetRecipeViewModel getRecipeViewModel,
                          GetRecipeController getRecipeController,
-                         GetShoppingListViewModel getShoppingListViewModel) {
+                         GetShoppingListViewModel getShoppingListViewModel,
+                         GetShoppingListController getShoppingListController) {
         this.getRecipeViewModel = getRecipeViewModel;
         this.viewManagerModel = viewManagerModel;
         this.getRecipeController = getRecipeController;
         this.getShoppingListViewModel = getShoppingListViewModel;
+        this.getShoppingListController = getShoppingListController;
         getRecipeViewModel.addPropertyChangeListener(this);
         getShoppingListViewModel.addPropertyChangeListener(this);
 
@@ -54,18 +57,19 @@ public class GetRecipeView extends JPanel implements ActionListener, PropertyCha
         buttons.add(generate);
         add(buttons);
 
-//        recipesPanel = new JPanel();
-//        JScrollPane scrollPane = new JScrollPane(recipesPanel);
-//        add(scrollPane);
-
-
-        resultTextArea = new JTextArea();
-        resultTextArea.setEditable(false);
-        resultTextArea.setLineWrap(true);
-        resultTextArea.setWrapStyleWord(true);
-        JScrollPane scrollPane = new JScrollPane(resultTextArea);
+        recipesPanel = new JPanel();
+//        recipesPanel.setPreferredSize(new Dimension(640, 500));
+        JScrollPane scrollPane = new JScrollPane(recipesPanel);
+        scrollPane.setPreferredSize(new Dimension(640,180));
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         add(scrollPane);
 
+//        resultTextArea = new JTextArea();
+//        resultTextArea.setEditable(false);
+//        resultTextArea.setLineWrap(true);
+//        resultTextArea.setWrapStyleWord(true);
+//        JScrollPane scrollPane = new JScrollPane(resultTextArea);
+//        add(scrollPane);
 
         generate.addActionListener(new ActionListener() {
 
@@ -89,29 +93,45 @@ public class GetRecipeView extends JPanel implements ActionListener, PropertyCha
         });
     }
 
-//    private class RecipePanel extends JPanel {
-//        private String recipe;
-//        private final JButton selectButton;
-//
-//        public RecipePanel(String recipe) {
-//            this.recipe = recipe;
-//            selectButton = new JButton("Make a Shopping List");
-//
-//            selectButton.addActionListener(new ActionListener() {
-//                @Override
-//                public void actionPerformed(ActionEvent evt) {
-//                    System.out.println("Make Shopping List button clicked.");
-//                    getShoppingListViewModel.firePropertyChange();
-//                }
-//            });
-//        }
-//    }
+    private class RecipePanel extends JPanel {
+        private String recipe;
+        private List<String> ingredients;
+        private JTextArea resultTextArea;
+        private final JButton selectButton;
+
+        public RecipePanel(String recipe, List<String> ingredients) {
+            super();
+            this.recipe = recipe;
+            this.ingredients = ingredients;
+
+            this.resultTextArea = new JTextArea(recipe);
+            this.resultTextArea.setLineWrap(true);
+            this.selectButton = new JButton("Make a Shopping List");
+
+            JScrollPane scrollPane = new JScrollPane(resultTextArea);
+            scrollPane.setPreferredSize(new Dimension(600, 90));
+            this.add(scrollPane);
+
+            this.add(selectButton);
+            this.setBackground(Color.WHITE);
+
+            selectButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent evt) {
+                    System.out.println("Make Shopping List button clicked.");
+                    getShoppingListController.execute(ingredients);
+                }
+            });
+        }
+    }
 
     private void showRecipes(List<Map<String, List<String>>> recipes) {
-        resultTextArea.setText("");
 //        for (String recipe : recipes) {
 //            resultTextArea.append(recipe + "\n");
 //        }
+
+        recipesPanel.removeAll();
+        recipesPanel.setPreferredSize(new Dimension(600, 150 * recipes.size()));
 
         for (Map<String, List<String>> recipe: recipes) {
             StringBuilder display = new StringBuilder();
@@ -136,8 +156,13 @@ public class GetRecipeView extends JPanel implements ActionListener, PropertyCha
                 }
             }
 
-            resultTextArea.append(display.toString());
+            RecipePanel recipePanel = new RecipePanel(display.toString(), recipe.get("Ingredients"));
+            recipePanel.setPreferredSize(new Dimension(600, 150));
+            recipesPanel.add(recipePanel);
         }
+
+        recipesPanel.repaint();
+        recipesPanel.revalidate();
     }
 
     @Override
@@ -147,9 +172,22 @@ public class GetRecipeView extends JPanel implements ActionListener, PropertyCha
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        GetRecipeState state = (GetRecipeState) evt.getNewValue();
-        if (state.getError() != null)
-            JOptionPane.showMessageDialog(this, "Recipes: Will finalize when API works");
+        if(evt.getPropertyName().equals("recipeState")) {
+            GetRecipeState state = (GetRecipeState) evt.getNewValue();
+            if (state.getError() != null)
+                JOptionPane.showMessageDialog(this, "Recipes: Will finalize when API works");
+        }
+        else {
+            GetShoppingListState state = (GetShoppingListState) evt.getNewValue();
+            if (state.getError() == null) {
+                System.out.println(state.getShoppingList());
+            }
+            else {
+                JOptionPane.showMessageDialog(this, state.getError());
+            }
+
+        }
+
     }
 }
 

@@ -12,16 +12,24 @@ public class GetShoppingListOutputData {
 
     public GetShoppingListOutputData(List<FoodItem> recipeItems, List<FoodItem> userInventory, boolean useCaseFailed) {
         this.useCaseFailed = useCaseFailed;
-
         String foodItemString;
         foodItemData = new ArrayList<String>();
         for (FoodItem foodItem : recipeItems) {
-            int index = userInventory.indexOf(foodItem);
-            if (index != -1) {
-                float amount_difference = userInventory.get(index).getAmount() - foodItem.getAmount();
-                foodItemString = foodItem.getName() + ": " + amount_difference; // "Name: Amount"
-                foodItemData.add(foodItemString);
+            double amount_difference = foodItem.getAmount();
+
+            for (FoodItem userItem : userInventory) {
+                if (userItem.getName().equals(foodItem.getName())) {
+                    amount_difference = foodItem.getAmount() - userItem.getAmount();
+                    break;
+                }
             }
+
+            if (amount_difference <= 0.0) {
+                continue;
+            }
+
+            foodItemString = foodItem.getName() + ":" + amount_difference; // "Name: Amount"
+            foodItemData.add(foodItemString);
         }
     }
 

@@ -24,7 +24,7 @@ FileUserDataAccessObject implements GetRecipeDataAccessInterface, MainMenuDataAc
 
     private UserFactory userFactory;
 
-    private final String key = "1178e228ddeb4ba484e64911de9db1a8";
+    private final String key = "2be678a560c44dcd818f331ebb96b006";
 
     public FileUserDataAccessObject(String csvPath, UserFactory userFactory) throws IOException {
         this.userFactory = userFactory;
@@ -107,7 +107,7 @@ FileUserDataAccessObject implements GetRecipeDataAccessInterface, MainMenuDataAc
     }
 
     public List<FoodItem> getInventory() {
-        User user = this.get(0);
+        User user = accounts.get(0);
         return new ArrayList<FoodItem>(user.getInventory().getQueue());
     }
 
