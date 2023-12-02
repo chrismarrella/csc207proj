@@ -13,6 +13,8 @@ import view.GetRecipeView;
 import use_case.get_shopping_list.*;
 import interface_adapter.get_shopping_list.GetShoppingListController;
 import interface_adapter.get_shopping_list.GetShoppingListPresenter;
+import interface_adapter.get_shopping_list.GetShoppingListViewModel;
+import use_case.get_shopping_list.GetShoppingListDataAccessInterface;
 
 
 import javax.swing.*;

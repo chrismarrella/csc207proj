@@ -7,7 +7,6 @@ import interface_adapter.get_shopping_list.GetShoppingListController;
 import interface_adapter.get_shopping_list.GetShoppingListState;
 import interface_adapter.get_shopping_list.GetShoppingListViewModel;
 import interface_adapter.ViewManagerModel;
-import org.junit.jupiter.api.Nested;
 
 import javax.swing.*;
 import java.awt.*;
