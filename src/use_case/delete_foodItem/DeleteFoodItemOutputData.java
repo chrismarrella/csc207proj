@@ -9,7 +9,7 @@ public class DeleteFoodItemOutputData {
 
     public DeleteFoodItemOutputData(FoodItem foodItem, float amount) {
         this.deletedFoodItem =
-                amount + "g/mL of " + foodItem.getName() + " removed from the inventory";
+                amount + " units of " + foodItem.getName() + " removed from the inventory";
     }
 
     public String getDeletedFoodItem() {

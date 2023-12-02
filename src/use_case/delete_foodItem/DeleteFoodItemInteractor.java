@@ -44,33 +44,38 @@ public class DeleteFoodItemInteractor implements DeleteFoodItemInputBoundary {
                 i += 1;
             }
 
-            if (!found) {
-                // if the food item to remove is not in the user inventory
-                deleteFoodItemPresenter.prepareFailView("No such food item.");
-            } else {
+            if (found) {
                 float foundAmount = foundFoodItem.getAmount();
 
                 if (floatAmount > foundAmount) {
                     deleteFoodItemPresenter.prepareFailView("Too large amount.");
+
                 } else {
+
                     if (floatAmount < foundAmount) {
                         // when certain amount of food is removed and there's some leftover in the inventory
                         boolean deleted = deleteFoodItemDataAccessObject.removeSpecificItem(foundFoodItem);
                         foundFoodItem.setAmount(foundAmount - floatAmount);
                         deleteFoodItemDataAccessObject.addItem(foundFoodItem);
+
                     } else {
                         // when amount == foundAmount
                         boolean deleted = deleteFoodItemDataAccessObject.removeSpecificItem(foundFoodItem);
+
                     }
 
                     DeleteFoodItemOutputData deleteFoodItemOutputData =
                             new DeleteFoodItemOutputData(foundFoodItem, floatAmount);
                     deleteFoodItemPresenter.prepareSuccessView(deleteFoodItemOutputData);
                 }
+
+            } else {
+                // if the food item to remove is not in the user inventory
+                deleteFoodItemPresenter.prepareFailView("No such food item.");
             }
 
         } catch (Exception e) {
-            deleteFoodItemPresenter.prepareFailView("Input amount is not number.");
+            deleteFoodItemPresenter.prepareFailView("Input amount is not a number.");
         }
     }
 }

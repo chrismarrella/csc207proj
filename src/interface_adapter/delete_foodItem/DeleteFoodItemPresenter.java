@@ -26,15 +26,9 @@ public class DeleteFoodItemPresenter implements DeleteFoodItemOutputBoundary {
     @Override
     public void prepareSuccessView(DeleteFoodItemOutputData deleteFoodItemOutputData) {
         DeleteFoodItemState state = deleteFoodItemViewModel.getState();
-        deleteFoodItemViewModel.setState(state);
         state.setDeletedFoodItem(deleteFoodItemOutputData.getDeletedFoodItem());
+        deleteFoodItemViewModel.setState(state);
         deleteFoodItemViewModel.firePropertyChange();
-
-        MainMenuState mainMenuState = new MainMenuState();
-        this.mainMenuViewModel.setState(mainMenuState);
-
-        viewManagerModel.setActiveView(mainMenuViewModel.getViewName());
-        viewManagerModel.firePropertyChange();
     }
 
     @Override
@@ -49,6 +43,7 @@ public class DeleteFoodItemPresenter implements DeleteFoodItemOutputBoundary {
             state.setAmountDataTypeError(error);
         }
 
+        deleteFoodItemViewModel.setState(state);
         deleteFoodItemViewModel.firePropertyChange();
     }
 }

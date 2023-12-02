@@ -33,11 +33,6 @@ public class DeleteFoodItemView extends JPanel implements ActionListener, Proper
         JLabel title = new JLabel(DeleteFoodItemViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-//        JPanel inputFields = new JPanel();
-//        foodItemInputField = new JTextField();
-//        inputFields.add(DeleteFoodItemViewModel.DELETE_LABEL, new JLabel());
-//        inputFields.add(foodItemInputField);
-
         LabelTextPanel foodItemInput = new LabelTextPanel(
                 new JLabel(DeleteFoodItemViewModel.DELETE_LABEL), foodItemInputField
         );
@@ -56,11 +51,10 @@ public class DeleteFoodItemView extends JPanel implements ActionListener, Proper
                     @Override
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(enter)) {
+                            System.out.println("enter button clicked");
                             DeleteFoodItemState currState = deleteFoodItemViewModel.getState();
 
-                            deleteFoodItemController.execute(
-                                    currState.getFoodItem(),
-                                    currState.getAmount());
+                            deleteFoodItemController.execute(currState.getFoodItem(), currState.getAmount());
                         }
                     }
         });
@@ -135,22 +129,27 @@ public class DeleteFoodItemView extends JPanel implements ActionListener, Proper
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        if (evt.getPropertyName().equals("deleteFoodItemState")) {
+        if (evt.getPropertyName().equals("delete food item")) {
             DeleteFoodItemState state = (DeleteFoodItemState) evt.getNewValue();
 
             // pop-up error messages for each error cases
             if (state.getFoodItemError() != null) {
                 JOptionPane.showMessageDialog(this, state.getFoodItemError());
-            } else if (state.getAmountError() != null){
-                JOptionPane.showMessageDialog(this, state.getAmountError());
-                setFields(state);
+                state.setFoodItemError(null);
             } else if (state.getAmountDataTypeError() != null) {
                 JOptionPane.showMessageDialog(this, state.getAmountDataTypeError());
                 setFields(state);
+                state.setAmountDataTypeError(null);
+            } else if (state.getAmountError() != null){
+                JOptionPane.showMessageDialog(this, state.getAmountError());
+                setFields(state);
+                state.setAmountError(null);
             } else {
                 // when no error occurs, a message with deleted food item and amount pops up
                 JOptionPane.showMessageDialog(this, state.getDeletedFoodItem());
             }
+
+//            deleteFoodItemViewModel.setState(new DeleteFoodItemState());
         }
     }
 

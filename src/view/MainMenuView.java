@@ -117,9 +117,11 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
         // preventing error caused from casting state that is not MainMenuState
         if (evt.getPropertyName().equals("main menu")) {
             MainMenuState state = (MainMenuState) evt.getNewValue();
+
             if (state.getError() != null) {
                 JOptionPane.showMessageDialog(this, state.getError());
             }
+
         } else if (evt.getPropertyName().equals("remove food items")) {
             RemoveExpiredState state = (RemoveExpiredState) evt.getNewValue();
         }

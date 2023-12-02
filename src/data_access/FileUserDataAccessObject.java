@@ -185,7 +185,9 @@ public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, M
 
     @Override
     public boolean removeSpecificItem(FoodItem item) {
-        return accounts.get(0).removeSpecificItem(item);
+        boolean res = accounts.get(0).removeSpecificItem(item);
+        this.save();
+        return res;
     }
 
     @Override
@@ -202,5 +204,6 @@ public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, M
     @Override
     public void addItem(FoodItem item) {
         accounts.get(0).addItem(item);
+        this.save();
     }
 }
