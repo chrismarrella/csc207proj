@@ -199,7 +199,7 @@ public class GetRecipeView extends JPanel implements ActionListener, PropertyCha
     private static class ShoppingListGenerator {
         private static FileWriter shoppingListFile;
 
-        public static void setPath(String filePath) {
+        private static void setPath(String filePath) {
             try {
                 shoppingListFile = new FileWriter(filePath);
             }
@@ -208,7 +208,7 @@ public class GetRecipeView extends JPanel implements ActionListener, PropertyCha
             }
         }
 
-        public static void writeShoppingListToFile(List<String> shoppingList) {
+        private static void writeShoppingListToFile(List<String> shoppingList) {
             try {
                 BufferedWriter bufferedWriter = new BufferedWriter(shoppingListFile);
                 bufferedWriter.write("**Shopping List**");
