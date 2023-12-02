@@ -18,6 +18,11 @@ import java.awt.*;
 import java.io.IOException;
 
 public class Main {
+    /**
+     * Main method that runs the application.
+     * @param args String[] args is the array of strings representing command-line arguments.
+     * @throws IOException FileUserDataAccessObject may involve file operations that can result in an IOException
+     */
     public static void main(String[] args) throws IOException {
 
         JFrame application = new JFrame("CHEFFI");

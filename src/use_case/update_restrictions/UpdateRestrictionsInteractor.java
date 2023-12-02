@@ -51,11 +51,16 @@ public class UpdateRestrictionsInteractor implements UpdateRestrictionsInputBoun
                 urDataAccessInterface.save(user);
             }
         } else {
-            // Add the new restriction
-            dietaryPreferences.addRestriction(restriction, value);
-            urOutputBoundary.prepareUpdatedView("Successfully Updated restriction: " + restriction);
-            urDataAccessInterface.save(user);
+            if (!restriction.chars().allMatch(Character::isLetter)) {
+                //make sure that the restriction is a string of letters and you're not adding a number as a food item.
+                urOutputBoundary.prepareFailView("Invalid restriction: " + restriction);
+            } else {
+                // Add the new restriction
+                dietaryPreferences.addRestriction(restriction, value);
+                urOutputBoundary.prepareUpdatedView("Successfully Updated restriction: " + restriction);
+                urDataAccessInterface.save(user);
 
+            }
         }
     }
 }

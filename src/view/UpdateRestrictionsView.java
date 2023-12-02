@@ -43,8 +43,13 @@ public class UpdateRestrictionsView extends JPanel implements ActionListener, Pr
     private final UpdateRestrictionsController updateRestrictionController;
     private final MainMenuController mainMenuController;
 
+    /**
+     * The user that is currently using CHEFFI.
+     */
     public User user;
-
+    /**
+     * A window with a title and a JButton.
+     */
     public UpdateRestrictionsView(UpdateRestrictionsController updateRestrictionController,UpdateRestrictionsViewModel updateRestrictionsViewModel, MainMenuController mainMenuController, MainMenuViewModel mainMenuViewModel) {
         this.updateRestrictionsViewModel = updateRestrictionsViewModel;
         this.updateRestrictionController = updateRestrictionController;
@@ -147,6 +152,10 @@ public class UpdateRestrictionsView extends JPanel implements ActionListener, Pr
 
         // Add a listener to handle changes in the spinners' values
         maxcalspinner.addChangeListener(new ChangeListener() {
+            /**
+             * Called when the spinner's value changes.
+             * @param e  a ChangeEvent object
+             */
             @Override
             public void stateChanged(ChangeEvent e) {
                 UpdateRestrictionsState currentState = updateRestrictionsViewModel.getCurrState();
@@ -157,6 +166,10 @@ public class UpdateRestrictionsView extends JPanel implements ActionListener, Pr
         });
 
         mincalspinner.addChangeListener(new ChangeListener() {
+            /**
+             * Called when the spinner's value changes.
+             * @param e  a ChangeEvent object
+             */
             @Override
             public void stateChanged(ChangeEvent e) {
                 UpdateRestrictionsState currentState = updateRestrictionsViewModel.getCurrState();
@@ -167,6 +180,10 @@ public class UpdateRestrictionsView extends JPanel implements ActionListener, Pr
         });
 
         savemaxcals.addActionListener(new ActionListener() {
+            /**
+             * Called when button to save max calories is pressed.
+             * @param e  an ActionEvent object
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource().equals(savemaxcals)) {
@@ -177,6 +194,10 @@ public class UpdateRestrictionsView extends JPanel implements ActionListener, Pr
             }
         });
         savemincals.addActionListener(new ActionListener() {
+            /**
+             * Called when button to save min calories is pressed.
+             * @param e  an ActionEvent object
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource().equals(savemincals)) {
@@ -188,6 +209,10 @@ public class UpdateRestrictionsView extends JPanel implements ActionListener, Pr
         });
 
         maxcarbspinner.addChangeListener(new ChangeListener() {
+            /**
+             * Called when the spinner's value changes.
+             * @param e  a ChangeEvent object
+             */
             @Override
             public void stateChanged(ChangeEvent e) {
                 UpdateRestrictionsState currentState = updateRestrictionsViewModel.getCurrState();
@@ -198,6 +223,10 @@ public class UpdateRestrictionsView extends JPanel implements ActionListener, Pr
         });
 
         mincarbspinner.addChangeListener(new ChangeListener() {
+            /**
+             * Called when the spinner's value changes.
+             * @param e  a ChangeEvent object
+             */
             @Override
             public void stateChanged(ChangeEvent e) {
                 UpdateRestrictionsState currentState = updateRestrictionsViewModel.getCurrState();
@@ -208,6 +237,10 @@ public class UpdateRestrictionsView extends JPanel implements ActionListener, Pr
         });
 
         savemaxcarbs.addActionListener(new ActionListener() {
+            /**
+             * Called when button to save max carbs is pressed.
+             * @param e  an ActionEvent object
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource().equals(savemaxcarbs)) {
@@ -218,6 +251,10 @@ public class UpdateRestrictionsView extends JPanel implements ActionListener, Pr
             }
         });
         savemincarbs.addActionListener(new ActionListener() {
+            /**
+             * Called when button to save min carbs is pressed.
+             * @param e  a ChangeEvent object
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource().equals(savemincarbs)) {
@@ -229,6 +266,10 @@ public class UpdateRestrictionsView extends JPanel implements ActionListener, Pr
         });
 
         maxfatspinner.addChangeListener(new ChangeListener() {
+            /**
+             * Called when the spinner's value changes.
+             * @param e  a ChangeEvent object
+             */
             @Override
             public void stateChanged(ChangeEvent e) {
                 UpdateRestrictionsState currentState = updateRestrictionsViewModel.getCurrState();
@@ -239,6 +280,10 @@ public class UpdateRestrictionsView extends JPanel implements ActionListener, Pr
         });
 
         minfatspinner.addChangeListener(new ChangeListener() {
+            /**
+             * Called when the spinner's value changes.
+             * @param e  a ChangeEvent object
+             */
             @Override
             public void stateChanged(ChangeEvent e) {
                 UpdateRestrictionsState currentState = updateRestrictionsViewModel.getCurrState();
@@ -249,6 +294,10 @@ public class UpdateRestrictionsView extends JPanel implements ActionListener, Pr
         });
 
         savemaxfats.addActionListener(new ActionListener() {
+            /**
+             * Called when button to save max fats is pressed.
+             * @param e  an ActionEvent object
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource().equals(savemaxfats)) {
@@ -265,6 +314,10 @@ public class UpdateRestrictionsView extends JPanel implements ActionListener, Pr
             }
         });
         saveminfats.addActionListener(new ActionListener() {
+            /**
+             * Called when button to save min fats is pressed.
+             * @param e  an ActionEvent object
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource().equals(saveminfats)) {
@@ -281,6 +334,10 @@ public class UpdateRestrictionsView extends JPanel implements ActionListener, Pr
             });
 
         maxproteinspinner.addChangeListener(new ChangeListener() {
+            /**
+             * Called when the spinner's value changes.
+             * @param e  a ChangeEvent object
+             */
             @Override
             public void stateChanged(ChangeEvent e) {
                 UpdateRestrictionsState currentState = updateRestrictionsViewModel.getCurrState();
@@ -291,6 +348,10 @@ public class UpdateRestrictionsView extends JPanel implements ActionListener, Pr
         });
 
         minproteinspinner.addChangeListener(new ChangeListener() {
+            /**
+             * Called when the spinner's value changes.
+             * @param e  a ChangeEvent object
+             */
             @Override
             public void stateChanged(ChangeEvent e) {
                 UpdateRestrictionsState currentState = updateRestrictionsViewModel.getCurrState();
@@ -300,6 +361,10 @@ public class UpdateRestrictionsView extends JPanel implements ActionListener, Pr
             }
         });
         savemaxprotein.addActionListener(new ActionListener() {
+            /**
+             * Called when button to save max protein is pressed.
+             * @param e  an ActionEvent object
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource().equals(savemaxprotein)) {
@@ -316,6 +381,10 @@ public class UpdateRestrictionsView extends JPanel implements ActionListener, Pr
         });
 
         saveminprotein.addActionListener(new ActionListener() {
+            /**
+             * Called when button to save min protein is pressed.
+             * @param e  an ActionEvent object
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource().equals(saveminprotein)) {
@@ -332,6 +401,10 @@ public class UpdateRestrictionsView extends JPanel implements ActionListener, Pr
         });
 
         savefooditem.addActionListener(new ActionListener() {
+            /**
+             * Called when button to save food item is pressed.
+             * @param e  an ActionEvent object
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource().equals(savefooditem)) {
@@ -345,6 +418,10 @@ public class UpdateRestrictionsView extends JPanel implements ActionListener, Pr
         });
 
         FoodItemTextBox.addKeyListener(new KeyListener() {
+            /**
+             * Called when the spinner's value changes.
+             * @param e  a ChangeEvent object
+             */
             @Override
             public void keyTyped(KeyEvent e) {
                 UpdateRestrictionsState currentState = updateRestrictionsViewModel.getCurrState();
@@ -353,18 +430,29 @@ public class UpdateRestrictionsView extends JPanel implements ActionListener, Pr
                 updateRestrictionsViewModel.setState(currentState);
             }
 
+            /**
+             * Called when a key is pressed.
+             * @param e  a ChangeEvent object
+             */
             @Override
             public void keyPressed(KeyEvent e) {
 
             }
 
+            /**
+             * Called when a key is released.
+             * @param e  a ChangeEvent object
+             */
             @Override
             public void keyReleased(KeyEvent e) {
 
             }
         });
 
-        //Back Button
+        /**
+         * Called when button to go to main menu is pressed to send you back to the main menu.
+         * @param e  an ActionEvent object
+         */
         main_menu.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 if (evt.getSource().equals(main_menu)) {
@@ -376,6 +464,10 @@ public class UpdateRestrictionsView extends JPanel implements ActionListener, Pr
         });
 
         enableKeto.addItemListener(new ItemListener() {
+            /**
+             * Called when the keto diet checkbox is selected or deselected.
+             * @param e  a ChangeEvent object
+             */
             @Override
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
@@ -395,6 +487,10 @@ public class UpdateRestrictionsView extends JPanel implements ActionListener, Pr
         });
 
         enableVegan.addItemListener(new ItemListener() {
+            /**
+             * Called when the vegan diet checkbox is selected or deselected.
+             * @param e  a ChangeEvent object
+             */
             @Override
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
@@ -416,6 +512,10 @@ public class UpdateRestrictionsView extends JPanel implements ActionListener, Pr
 
 
         enableVegetarian.addItemListener(new ItemListener() {
+            /**
+             * Called when the vegetarian diet checkbox is selected or deselected.
+             * @param e  a ChangeEvent object
+             */
             @Override
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
@@ -434,18 +534,26 @@ public class UpdateRestrictionsView extends JPanel implements ActionListener, Pr
             }
         });
     }
-
+    /**
+     * Called when button is pressed.
+     * @param e  an ActionEvent object
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         JOptionPane.showConfirmDialog(this, "Not implemented");
     }
-
+    /**
+     * Called when button is pressed and the success popup.
+     * @param evt  an ActionEvent object
+     */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         UpdateRestrictionsState state = (UpdateRestrictionsState) evt.getNewValue();
-        if (state.getSuccess() != null) {
-            JOptionPane.showMessageDialog(null, "Successfully Updated Restriction", "Success", JOptionPane.INFORMATION_MESSAGE);
+        if (state.getError() != null) {
+            JOptionPane.showMessageDialog(null, "Cannot put number in the Food Text Box ", "Error", JOptionPane.INFORMATION_MESSAGE);
 
+        } else {
+            JOptionPane.showMessageDialog(null, "Successfully Updated Restriction", "Success", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 }

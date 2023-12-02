@@ -5,6 +5,11 @@ public class UpdateRestrictionsInputData {
     final private String restriction;
     final private Float value;
 
+    /**
+     * Constructor for UpdateRestrictionsInputData.
+     * @param restriction
+     * @param value
+     */
     public UpdateRestrictionsInputData(String restriction, Float value) {
         this.restriction = restriction;
         this.value = value;

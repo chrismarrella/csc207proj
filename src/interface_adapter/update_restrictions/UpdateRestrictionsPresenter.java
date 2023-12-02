@@ -18,7 +18,7 @@ public class UpdateRestrictionsPresenter implements UpdateRestrictionsOutputBoun
     @Override
     public void prepareUpdatedView(String success) {
         UpdateRestrictionsState updateRestrictionsState = updateRestrictionsViewModel.getCurrState();
-        updateRestrictionsState.setSuccess(success);
+        updateRestrictionsState.setError(null);
         updateRestrictionsViewModel.firePropertyChange();
     }
 

@@ -4,7 +4,6 @@ public class UpdateRestrictionsState {
     private String restriction = null;
     private Float value = null;
     private String error = null;
-    private String success = null;
     private String view_name = null;
     private Float maxcals = null;
     private Float mincals = null;
@@ -23,7 +22,6 @@ public class UpdateRestrictionsState {
         restriction = copy.restriction;
         value = copy.value;
         error = copy.error;
-        success = copy.success;
         view_name = copy.view_name;
         maxcals = copy.maxcals;
         mincals = copy.mincals;
@@ -87,9 +85,6 @@ public class UpdateRestrictionsState {
 
     public void setError(String error) {this.error = error;}
 
-    public String getSuccess() { return success; }
-
-    public void setSuccess(String success) { this.success = success; }
 
     public void setView_name(String getRecipe) { this.view_name = view_name; }
     public String getView_name() { return view_name;}
