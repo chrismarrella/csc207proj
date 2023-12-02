@@ -7,13 +7,14 @@ import okhttp3.Response;
 import org.json.JSONException;
 import org.json.JSONObject;
 import use_case.get_recipe.GetRecipeDataAccessInterface;
+import use_case.get_shopping_list.GetShoppingListDataAccessInterface;
 import use_case.main_menu.MainMenuDataAccessInterface;
 import use_case.update_restrictions.UpdateRestrictionsDataAccessInterface;
 
 import java.io.*;
 import java.util.*;
 
-public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, MainMenuDataAccessInterface, UpdateRestrictionsDataAccessInterface {
+public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, MainMenuDataAccessInterface, UpdateRestrictionsDataAccessInterface, GetShoppingListDataAccessInterface {
     private final File csvFile;
 
     private final Map<String, Integer> headers = new LinkedHashMap<>();
@@ -22,7 +23,7 @@ public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, M
 
     private UserFactory userFactory;
 
-    private final String key = "1178e228ddeb4ba484e64911de9db1a8";
+    private final String key = "2be678a560c44dcd818f331ebb96b006";
 
     public FileUserDataAccessObject(String csvPath, UserFactory userFactory) throws IOException {
         this.userFactory = userFactory;
@@ -104,6 +105,11 @@ public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, M
         return res;
     }
 
+    public List<FoodItem> getInventory() {
+        User user = accounts.get(0);
+        return new ArrayList<FoodItem>(user.getInventory().getQueue());
+    }
+
     private void save() {
         BufferedWriter writer;
         try {
@@ -180,4 +186,11 @@ public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, M
 
         return res;
     }
+
+
+    @Override
+    public List<String> standardizeNames(List<String> names) {
+        return FoodNameParser.parseFoodItemNames(key, names);
+    }
+
 }

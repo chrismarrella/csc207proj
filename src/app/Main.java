@@ -4,6 +4,7 @@ import data_access.FileUserDataAccessObject;
 import entities.UserFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.get_recipe.GetRecipeViewModel;
+import interface_adapter.get_shopping_list.GetShoppingListViewModel;
 import interface_adapter.main_menu.MainMenuController;
 import interface_adapter.update_restrictions.UpdateRestrictionsViewModel;
 import interface_adapter.main_menu.MainMenuViewModel;
@@ -41,6 +42,8 @@ public class Main {
 
         UpdateRestrictionsViewModel updateRestrictionsViewModel = new UpdateRestrictionsViewModel();
         GetRecipeViewModel getrecipeViewModel = new GetRecipeViewModel();
+        GetShoppingListViewModel getShoppingListViewModel = new GetShoppingListViewModel();
+
 
         FileUserDataAccessObject userDataAccessObject;
         try {
@@ -57,7 +60,7 @@ public class Main {
         UpdateRestrictionsView updateRestrictionsView = UpdateRestrictionsUseCaseFactory.create(viewManagerModel, updateRestrictionsViewModel, userDataAccessObject, mainMenuController, mainMenuViewModel);
         views.add(updateRestrictionsView, updateRestrictionsView.viewName);
 
-        GetRecipeView getRecipeView = GetRecipeUseCaseFactory.create(viewManagerModel, getrecipeViewModel, userDataAccessObject);
+        GetRecipeView getRecipeView = GetRecipeUseCaseFactory.create(viewManagerModel, getrecipeViewModel, userDataAccessObject, getShoppingListViewModel, userDataAccessObject);
         views.add(getRecipeView, getRecipeView.viewName);
 
 
