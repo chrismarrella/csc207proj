@@ -8,7 +8,6 @@ public class AddFoodItemState {
     private String day = "";
     private String year = "";
     private String dateError = null;
-    private String error = null;
     private String amount = "";
     private String amountError = null;
     public AddFoodItemState(AddFoodItemState copy) {
@@ -24,9 +23,7 @@ public class AddFoodItemState {
     public String getIngredient() {
         return ingredient;
     }
-    public String getFailViewError() {
-        return this.error;
-    }
+
     public void setIngredient(String ingredient) {
         this.ingredient = ingredient;
     }
@@ -86,7 +83,7 @@ public class AddFoodItemState {
         this.amountError = amountError;
     }
     public boolean hasErrors() {
-        return ingredientError != null || amountError != null || error != null || dateError != null;
+        return ingredientError != null || amountError != null || dateError != null;
     }
 
 }
