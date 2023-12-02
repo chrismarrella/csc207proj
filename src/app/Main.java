@@ -9,13 +9,12 @@ import interface_adapter.add_fooditem.AddFoodItemController;
 import interface_adapter.add_fooditem.AddFoodItemViewModel;
 //import interface_adapter.update_restrictions.UpdateRestrictionsViewModel;
 import use_case.main_menu.MainMenuInteractor;
+import interface_adapter.update_restrictions.UpdateRestrictionsViewModel;
 import interface_adapter.main_menu.MainMenuViewModel;
-import app.MainMenuUseCaseFactory;
-import entities.User;
 
-import use_case.main_menu.MainMenuInputBoundary;
 import view.GetRecipeView;
 import view.MainMenuView;
+import view.UpdateRestrictionsView;
 import view.AddFoodItemView;
 //import view.UpdateRestrictionsView;
 import view.ViewManager;
@@ -25,11 +24,16 @@ import java.awt.*;
 import java.io.IOException;
 
 public class Main {
+    /**
+     * Main method that runs the application.
+     * @param args String[] args is the array of strings representing command-line arguments.
+     * @throws IOException FileUserDataAccessObject may involve file operations that can result in an IOException
+     */
     public static void main(String[] args) throws IOException {
 
         JFrame application = new JFrame("CHEFFI");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        int width = 1900;
+        int width = 1920;
         int height = 400;
         application.setSize(width, height);
 
@@ -37,13 +41,11 @@ public class Main {
 
         JPanel views = new JPanel(cardLayout);
         application.add(views);
-
+        MainMenuViewModel mainMenuViewModel = new MainMenuViewModel();
         ViewManagerModel viewManagerModel = new ViewManagerModel();
         new ViewManager(views, cardLayout, viewManagerModel);
 
-
-//        UpdateRestrictionsViewModel updateRestrictionsViewModel = new UpdateRestrictionsViewModel();
-        MainMenuViewModel mainMenuViewModel = new MainMenuViewModel();
+        UpdateRestrictionsViewModel updateRestrictionsViewModel = new UpdateRestrictionsViewModel();
         GetRecipeViewModel getrecipeViewModel = new GetRecipeViewModel();
         AddFoodItemViewModel addFoodItemViewModel = new AddFoodItemViewModel();
 
@@ -54,10 +56,13 @@ public class Main {
             throw new RuntimeException(e);
         }
 
-        MainMenuController mainMenuController = MainMenuUseCaseFactory.createMainMenuUseCase(viewManagerModel, mainMenuViewModel,userDataAccessObject, new UserFactory());
+        MainMenuController mainMenuController = MainMenuUseCaseFactory.createMainMenuUseCase(viewManagerModel, mainMenuViewModel, userDataAccessObject, new UserFactory());
         MainMenuView mainMenuView = MainMenuUseCaseFactory.create(viewManagerModel,
                 mainMenuViewModel, getrecipeViewModel, userDataAccessObject, new UserFactory());
         views.add(mainMenuView, mainMenuView.viewName);
+
+        UpdateRestrictionsView updateRestrictionsView = UpdateRestrictionsUseCaseFactory.create(viewManagerModel, updateRestrictionsViewModel, userDataAccessObject, mainMenuController, mainMenuViewModel);
+        views.add(updateRestrictionsView, updateRestrictionsView.viewName);
 
         GetRecipeView getRecipeView = GetRecipeUseCaseFactory.create(viewManagerModel, getrecipeViewModel, userDataAccessObject, mainMenuController, mainMenuViewModel);
         views.add(getRecipeView, getRecipeView.viewName);
@@ -68,6 +73,7 @@ public class Main {
         viewManagerModel.setActiveView(mainMenuView.viewName);
         viewManagerModel.firePropertyChange();
 
+        application.pack();
         application.setVisible(true);
     }
 }

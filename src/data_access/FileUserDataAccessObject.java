@@ -9,11 +9,12 @@ import org.json.JSONObject;
 import use_case.add_fooditem.AddFoodItemDataAccessInterface;
 import use_case.get_recipe.GetRecipeDataAccessInterface;
 import use_case.main_menu.MainMenuDataAccessInterface;
+import use_case.update_restrictions.UpdateRestrictionsDataAccessInterface;
 
 import java.io.*;
 import java.util.*;
 
-public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, MainMenuDataAccessInterface, AddFoodItemDataAccessInterface {
+public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, MainMenuDataAccessInterface, AddFoodItemDataAccessInterface, UpdateRestrictionsDataAccessInterfac3 {
     private final File csvFile;
 
     private final Map<String, Integer> headers = new LinkedHashMap<>();
@@ -22,7 +23,7 @@ public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, M
 
     private UserFactory userFactory;
 
-    private final String key = "5a88d61f591e4cf590857f6a9ed57e44";
+    private final String key = "1178e228ddeb4ba484e64911de9db1a8";
 
     public FileUserDataAccessObject(String csvPath, UserFactory userFactory) throws IOException {
         this.userFactory = userFactory;
