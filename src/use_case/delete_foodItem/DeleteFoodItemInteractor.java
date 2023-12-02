@@ -47,7 +47,10 @@ public class DeleteFoodItemInteractor implements DeleteFoodItemInputBoundary {
             if (found) {
                 float foundAmount = foundFoodItem.getAmount();
 
-                if (floatAmount > foundAmount) {
+                if (floatAmount <= 0) {
+                    deleteFoodItemPresenter.prepareFailView("Input amount is not a valid number.");
+
+                } else if (floatAmount > foundAmount) {
                     deleteFoodItemPresenter.prepareFailView("Too large amount.");
 
                 } else {
@@ -75,7 +78,7 @@ public class DeleteFoodItemInteractor implements DeleteFoodItemInputBoundary {
             }
 
         } catch (Exception e) {
-            deleteFoodItemPresenter.prepareFailView("Input amount is not a number.");
+            deleteFoodItemPresenter.prepareFailView("Input amount is not a valid number.");
         }
     }
 }
