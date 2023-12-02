@@ -8,6 +8,8 @@ import interface_adapter.get_shopping_list.GetShoppingListController;
 import interface_adapter.get_shopping_list.GetShoppingListState;
 import interface_adapter.get_shopping_list.GetShoppingListViewModel;
 import interface_adapter.ViewManagerModel;
+import view.helper.ShoppingListGenerator;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -25,6 +27,8 @@ public class GetRecipeView extends JPanel implements ActionListener, PropertyCha
     private final ViewManagerModel viewManagerModel;
     private final GetRecipeController getRecipeController;
     private final GetShoppingListController getShoppingListController;
+
+    private final ShoppingListGenerator shoppingListGenerator;
     private final JButton generate;
     private final JPanel recipesPanel;
 
@@ -38,6 +42,7 @@ public class GetRecipeView extends JPanel implements ActionListener, PropertyCha
         this.getRecipeController = getRecipeController;
         this.getShoppingListViewModel = getShoppingListViewModel;
         this.getShoppingListController = getShoppingListController;
+        this.shoppingListGenerator = new ShoppingListGenerator("./output/Shopping_List.md");
         getRecipeViewModel.addPropertyChangeListener(this);
         getShoppingListViewModel.addPropertyChangeListener(this);
 
@@ -181,6 +186,7 @@ public class GetRecipeView extends JPanel implements ActionListener, PropertyCha
             GetShoppingListState state = (GetShoppingListState) evt.getNewValue();
             if (state.getError() == null) {
                 System.out.println(state.getShoppingList());
+                shoppingListGenerator.writeShoppingListToFile(state.getShoppingList());
             }
             else {
                 JOptionPane.showMessageDialog(this, state.getError());
