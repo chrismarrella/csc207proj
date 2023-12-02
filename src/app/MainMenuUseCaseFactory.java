@@ -1,7 +1,6 @@
 package app;
 
 import data_access.FileUserDataAccessObject;
-import entities.User;
 import entities.UserFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.main_menu.MainMenuController;
@@ -40,7 +39,7 @@ public class MainMenuUseCaseFactory {
             MainMenuController mainMenuController = createMainMenuUseCase(viewManagerModel, mainMenuViewModel, dataAccessObject, userFactory);
             RemoveExpiredController removeExpiredController = createRemoveExpiredUseCase(viewManagerModel,
                     removeExpiredViewModel, dataAccessObject);
-            
+
             return new MainMenuView(mainMenuController, mainMenuViewModel, removeExpiredController, removeExpiredViewModel);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Could not open user data file.");
@@ -48,7 +47,7 @@ public class MainMenuUseCaseFactory {
 
         return null;
     }
-    private static MainMenuController createMainMenuUseCase(
+    static MainMenuController createMainMenuUseCase(
             ViewManagerModel viewManagerModel,
             MainMenuViewModel mainMenuViewModel,
             MainMenuDataAccessInterface dataAccessInterface,
@@ -58,7 +57,7 @@ public class MainMenuUseCaseFactory {
         MainMenuOutputBoundary mainMenuOutputBoundary = new MainMenuPresenter(viewManagerModel,
                 mainMenuViewModel);
 
-        MainMenuInputBoundary mainMenuInteractor = 
+        MainMenuInputBoundary mainMenuInteractor =
                 new MainMenuInteractor(mainMenuOutputBoundary, dataAccessInterface, userFactory);
 
         return new MainMenuController(mainMenuInteractor);

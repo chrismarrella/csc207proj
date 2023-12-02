@@ -24,7 +24,9 @@ import java.util.Calendar;
 
 public class MainMenuView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "main menu";
+    public final JButton GoToGetRecipes;
     private final MainMenuViewModel mainMenuViewModel;
+    private final JButton GoToUpdateRestrictions;
     private final MainMenuController mainMenuController;
     private final RemoveExpiredViewModel removeExpiredViewModel;
     private final RemoveExpiredController removeExpiredController;
@@ -71,6 +73,7 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
                 }
             }
         });
+
         GoToUpdateRestrictions.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 if (evt.getSource().equals(GoToUpdateRestrictions)) {
@@ -81,6 +84,7 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
                 }
             }
         });
+
         GoToDeleteFoodItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 if (evt.getSource().equals(GoToDeleteFoodItem)) {
@@ -90,6 +94,8 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
                 }
             }
         });
+
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         removeExpired(this.removeExpiredController, this.removeExpiredViewModel);
     }
@@ -110,6 +116,7 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
     @Override
     public void actionPerformed(ActionEvent e) {
         JOptionPane.showConfirmDialog(this, "Cancel not implemented yet.");
+
     }
 
     @Override

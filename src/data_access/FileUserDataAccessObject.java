@@ -10,12 +10,12 @@ import use_case.get_recipe.GetRecipeDataAccessInterface;
 import use_case.main_menu.MainMenuDataAccessInterface;
 import use_case.delete_foodItem.DeleteFoodItemDataAccessInterface;
 import use_case.removeExpired.RemoveExpiredDataAccessInterface;
+import use_case.update_restrictions.UpdateRestrictionsDataAccessInterface;
 
 import java.io.*;
 import java.util.*;
-import java.util.function.Predicate;
 
-public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, MainMenuDataAccessInterface, DeleteFoodItemDataAccessInterface, RemoveExpiredDataAccessInterface {
+public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, MainMenuDataAccessInterface, DeleteFoodItemDataAccessInterface, UpdateRestrictionsDataAccessInterface, RemoveExpiredDataAccessInterface {
     private final File csvFile;
 
     private final Map<String, Integer> headers = new LinkedHashMap<>();
