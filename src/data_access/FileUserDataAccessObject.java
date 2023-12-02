@@ -182,15 +182,6 @@ public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, M
     }
 
     @Override
-    /**
-      Adds a FoodItem to the user's list of items.
-
-      This method retrieves the first user from the accounts as we only have one user
-      and adds the specified FoodItem
-      to their list of items. After adding the item, the changes are saved and nothing is returned.
-
-      @param foodItem The FoodItem to be added to the user's list.
-     */
     public void addItem(FoodItem foodItem) {
         User user = accounts.get(0);
         user.addItem(foodItem);
