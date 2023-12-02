@@ -14,7 +14,7 @@ import use_case.update_restrictions.UpdateRestrictionsDataAccessInterface;
 import java.io.*;
 import java.util.*;
 
-public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, MainMenuDataAccessInterface, AddFoodItemDataAccessInterface, UpdateRestrictionsDataAccessInterfac3 {
+public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, MainMenuDataAccessInterface, AddFoodItemDataAccessInterface, UpdateRestrictionsDataAccessInterface {
     private final File csvFile;
 
     private final Map<String, Integer> headers = new LinkedHashMap<>();
