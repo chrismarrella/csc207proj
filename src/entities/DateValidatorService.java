@@ -1,5 +1,5 @@
 package entities;
-
+import java.util.Calendar;
 import java.util.ArrayList;
 
 public class DateValidatorService implements DateValidator{
@@ -17,12 +17,19 @@ public class DateValidatorService implements DateValidator{
                     return false;
                 }
             }
+        }
         if (month == 4 || month == 6 || month == 9 || month == 11 ) {
                 if (day > 30) {
                     return false;
                 }
             }
-        }
-        return true;
+
+        Calendar itemExpDate = Calendar.getInstance();
+        itemExpDate.set(Calendar.YEAR, year);
+        itemExpDate.set(Calendar.MONTH, month - 1);
+        itemExpDate.set(Calendar.DAY_OF_MONTH, day);
+
+        return (itemExpDate.compareTo(Calendar.getInstance()) >= 0);
     }
+
 }
