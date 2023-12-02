@@ -24,9 +24,7 @@ import java.util.Calendar;
 
 public class MainMenuView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "main menu";
-    public final JButton GoToGetRecipes;
     private final MainMenuViewModel mainMenuViewModel;
-    private final JButton GoToUpdateRestrictions;
     private final MainMenuController mainMenuController;
     private final RemoveExpiredViewModel removeExpiredViewModel;
     private final RemoveExpiredController removeExpiredController;
