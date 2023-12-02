@@ -5,6 +5,9 @@ import interface_adapter.get_recipe.GetRecipeController;
 import interface_adapter.get_recipe.GetRecipeState;
 import interface_adapter.get_recipe.GetRecipeViewModel;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.get_shopping_list.GetShoppingListController;
+import interface_adapter.get_shopping_list.GetShoppingListState;
+import interface_adapter.get_shopping_list.GetShoppingListViewModel;
 import interface_adapter.main_menu.MainMenuState;
 import interface_adapter.main_menu.MainMenuController;
 import interface_adapter.main_menu.MainMenuViewModel;
@@ -143,7 +146,7 @@ public class GetRecipeView extends JPanel implements ActionListener, PropertyCha
     }
 
     private void showRecipes(List<Map<String, List<String>>> recipes) {
-        resultTextArea.setText("");
+//        resultTextArea.setText("");
 //        for (String recipe : recipes) {
 //            resultTextArea.append(recipe + "\n");
 //        }
