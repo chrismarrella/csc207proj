@@ -8,11 +8,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import use_case.get_recipe.GetRecipeDataAccessInterface;
 import use_case.main_menu.MainMenuDataAccessInterface;
+import use_case.update_restrictions.UpdateRestrictionsDataAccessInterface;
 
 import java.io.*;
 import java.util.*;
 
-public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, MainMenuDataAccessInterface {
+public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, MainMenuDataAccessInterface, UpdateRestrictionsDataAccessInterface {
     private final File csvFile;
 
     private final Map<String, Integer> headers = new LinkedHashMap<>();

@@ -14,6 +14,8 @@ public class UserDietaryPreferences implements DietaryPreferences{
         return this;
     }
 
+    public Map<String, Float> getRestrictionMap() {return dietaryRestrictions;}
+
     public void setDietaryRestrictions(Map<String, Float> dietaryRestrictions) {
         this.dietaryRestrictions = dietaryRestrictions;
     }
