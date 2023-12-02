@@ -190,10 +190,10 @@ public class UpdateRestrictionsView extends JPanel implements ActionListener, Pr
                 if (e.getSource().equals(savemaxcals)) {
                     UpdateRestrictionsState currentState = updateRestrictionsViewModel.getCurrState();
                     if (currentState.getMaxcals() == null) {
-                        currentState.setMaxcals(0.0f);
+                        currentState.setMaxcals(800f);
                         maxcalspinner.setValue(0.0f);
                     } else {
-                        updateRestrictionController.execute("MaxCalories", currentState.getMincals());
+                        updateRestrictionController.execute("maxCalories", currentState.getMaxcals());
                         maxcalspinner.setValue(0.0f);
                     }
                 }
@@ -210,7 +210,7 @@ public class UpdateRestrictionsView extends JPanel implements ActionListener, Pr
                 if (e.getSource().equals(savemincals)) {
                     UpdateRestrictionsState currentState = updateRestrictionsViewModel.getCurrState();
                     if (currentState.getMincals() == null) {
-                        currentState.setMincals(0.0f);
+                        currentState.setMincals(50f);
                         mincalspinner.setValue(0.0f);
                     } else {
                         updateRestrictionController.execute("minCalories", currentState.getMincals());
@@ -258,7 +258,7 @@ public class UpdateRestrictionsView extends JPanel implements ActionListener, Pr
                 if (e.getSource().equals(savemaxcarbs)) {
                     UpdateRestrictionsState currentState = updateRestrictionsViewModel.getCurrState();
                     if (currentState.getMaxcarbs() == null) {
-                        currentState.setMaxcarbs(0.0f);
+                        currentState.setMaxcarbs(100f);
                         maxcarbspinner.setValue(0.0f);
                     } else {
                         updateRestrictionController.execute("maxCarbs", currentState.getMaxcarbs());
@@ -277,7 +277,7 @@ public class UpdateRestrictionsView extends JPanel implements ActionListener, Pr
                 if (e.getSource().equals(savemincarbs)) {
                     UpdateRestrictionsState currentState = updateRestrictionsViewModel.getCurrState();
                     if (currentState.getMincarbs() == null) {
-                        currentState.setMincarbs(0.0f);
+                        currentState.setMincarbs(10f);
                         mincarbspinner.setValue(0.0f);
                     } else {
                         updateRestrictionController.execute("minCarbs", currentState.getMincarbs());
@@ -325,7 +325,7 @@ public class UpdateRestrictionsView extends JPanel implements ActionListener, Pr
                 if (e.getSource().equals(savemaxfats)) {
                     UpdateRestrictionsState currentState = updateRestrictionsViewModel.getCurrState();
                     if (currentState.getMaxfat() == null) {
-                        currentState.setMaxfat(0.0f);
+                        currentState.setMaxfat(100f);
                         maxfatspinner.setValue(0.0f);
                     } else {
                         updateRestrictionController.execute("maxSaturatedFat", currentState.getMaxfat());
@@ -392,7 +392,7 @@ public class UpdateRestrictionsView extends JPanel implements ActionListener, Pr
                 if (e.getSource().equals(savemaxprotein)) {
                     UpdateRestrictionsState currentState = updateRestrictionsViewModel.getCurrState();
                     if (currentState.getMaxprotein() == null) {
-                        currentState.setMaxprotein(0.0f);
+                        currentState.setMaxprotein(100f);
                         minproteinspinner.setValue(0.0f);
                     } else {
                         updateRestrictionController.execute("maxProtein", currentState.getMaxprotein());
@@ -412,7 +412,7 @@ public class UpdateRestrictionsView extends JPanel implements ActionListener, Pr
                 if (e.getSource().equals(saveminprotein)) {
                     UpdateRestrictionsState currentState = updateRestrictionsViewModel.getCurrState();
                     if (currentState.getMinprotein() == null) {
-                        currentState.setMinprotein(0.0f);
+                        currentState.setMinprotein(10f);
                         minproteinspinner.setValue(0.0f);
                     } else {
                         updateRestrictionController.execute("minProtein", currentState.getMinprotein());
