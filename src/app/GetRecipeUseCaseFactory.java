@@ -21,6 +21,15 @@ public class GetRecipeUseCaseFactory {
     public static GetRecipeView create(ViewManagerModel viewManagerModel,
                                        GetRecipeViewModel getRecipeViewModel,
                                        GetRecipeDataAccessInterface getRecipeDataAccessInterface) {
+        /**
+         * Creates a GetRecipeView for the GetRecipe use case
+         *
+         * @param viewManagerModel  general viewManagerModel.
+         * @param getRecipeViewModel    ViewModel for the get recipe view.
+         * @param getRecipeDataAccessInterface  Data Access object for the get recipes use case
+         * @return the GetRecipe view
+         *
+         */
         try {
             GetRecipeController getRecipeController = createGetRecipeUseCase(getRecipeViewModel, getRecipeDataAccessInterface);
             return new GetRecipeView(viewManagerModel, getRecipeViewModel, getRecipeController);
@@ -33,6 +42,16 @@ public class GetRecipeUseCaseFactory {
 
     private static GetRecipeController createGetRecipeUseCase(GetRecipeViewModel getRecipeViewModel,
                                                               GetRecipeDataAccessInterface getRecipeDataAccessInterface) throws IOException {
+        /**
+         * Creates the controller for the GetRecipe use case
+         *
+         * @param getRecipeViewModel    ViewModel for the get recipe view.
+         * @param getRecipeDataAccessInterface  Data Access object for the get recipes use case
+         * @throws IOException  If OutputBoundary or Interactor is instantiated incorrectly
+         * @return the GetRecipe controller
+         *
+         */
+
         GetRecipeOutputBoundary getRecipeOutputBoundary = new GetRecipePresenter(getRecipeViewModel);
 
         GetRecipeInputBoundary getRecipeInteractor = new GetRecipeInteractor(getRecipeDataAccessInterface, getRecipeOutputBoundary);

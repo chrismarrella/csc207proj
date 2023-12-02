@@ -24,6 +24,17 @@ public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, M
     private final String key = "1178e228ddeb4ba484e64911de9db1a8";
 
     public FileUserDataAccessObject(String csvPath, UserFactory userFactory) throws IOException {
+        /**
+         * Data access object
+         *
+         * @param csvFile   File data is written too
+         * @param headers    Headers of the csv file that delineate what data is being stored
+         * @param accounts  Map containing all users
+         * @param userFactory   User factory to create new users
+         * @param key   api key
+         * @throws IOException  if file readers are incorrectly initialized
+         */
+
         this.userFactory = userFactory;
 
         csvFile = new File(csvPath);
@@ -87,15 +98,27 @@ public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, M
     }
 
     public void save(User user) {
+        /**
+         * Save a new user to accounts
+         * @param user  user to be added to accounts
+         */
         accounts.put(0, user);
         this.save();
     }
 
     public User get(int userNum) {
+        /**
+         * Fetch a user from accounts
+         * @param userNum   number associated with user in accounts
+         */
         return accounts.get(userNum);
     }
 
     public List<User> getAllUsers() {
+        /**
+         * Fetch all users in accounts
+         * @returns a list of all Users in accounts
+         */
         List<User> res = new ArrayList<>();
         for (int key: accounts.keySet()) {
             res.add(accounts.get(key));
@@ -104,6 +127,10 @@ public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, M
     }
 
     private void save() {
+        /**
+         * Save all users in accounts to the csv file by formatting inventory and dietary preferences in a specific
+         * format so that it can be easily parsed again when we initialize the data access object.
+         */
         BufferedWriter writer;
         try {
             writer = new BufferedWriter(new FileWriter(csvFile));
@@ -151,11 +178,22 @@ public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, M
         }
     }
     public DietaryPreferences retrievePreferences() {
+        /**
+         * Fetch the dietary preferences of a user
+         * @returns Dietary preferences object of the first user in accounts.
+         */
         User user = accounts.get(0);
         return user.getDietaryRestrictions();
     }
 
     public List<Recipe> retrieveRecipes(DietaryPreferences preferences) {
+        /**
+         * Using user information, find recipes that coincide with items in the user's inventory
+         * that expire in a week, and also the dietary preferences that the user has specified.
+         *
+         * @param preferences   the user's dietary preferences
+         * @returns a list of Recipes that are relevant to the user's inventory and dietary preferences.
+         */
         User user = accounts.get(0);
         InventoryChecker checker = new InventoryChecker();
         RecipeGetter getter = new RecipeGetter();

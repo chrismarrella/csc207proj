@@ -18,6 +18,14 @@ public class RecipeGetter {
     private final List<String> diets = Arrays.asList("Vegetarian", "Ketogenic", "Vegan");
 
     public JSONObject getRecipe(String key, List<Object> settings) {
+        /**
+         * Retrieve a JSONObject from the api endpoint that contains information about the recipes that are specified
+         * by settings
+         *
+         * @param settings  List of objects that contain settings that can be easily inputted into the http request
+         * @param key   API key for authentication
+         * @return JSONObject that contains recipes specified by the settings
+         */
         String incFood = (String) settings.get(0);
         String excFood = (String) settings.get(1);
         String diet = (String) settings.get(2);
@@ -43,7 +51,19 @@ public class RecipeGetter {
     }
 
     public List<Object> preferenceConverter(List<FoodItem> ingredients, DietaryPreferences dietaryPreferences) {
-        // index 0 will be included food items, index 1 will be excluded food items, index 2 will be diet, index 3 will be macros
+        /**
+         * Create a list of objects that contains strings and floats that can be easily passed into the http request
+         * from the provided ingredients and dietary preferences.
+         *
+         * index 0 will be included food items, index 1 will be excluded food items, index 2 will be diet,
+         * index 3 will be macros
+         *
+         * @param ingredients   List of food items of ingredients that should be used in the recipe
+         * @param dietaryPreferences    The dietary preferences being specified
+         * @returns A list of objects, where index 0 will be included food items, index 1 will be excluded food items,
+         * index 2 will be diet, and index 3 will be macros
+         */
+
         Set<String> prefs = dietaryPreferences.getAllKeys();
         List<Object> res = new ArrayList<>(4);
         StringBuilder includedFood = new StringBuilder();
@@ -92,6 +112,14 @@ public class RecipeGetter {
     }
 
     public JSONObject getIngredients(Integer id, String key) {
+        /**
+         * Get the ingredients from the provided recipe id
+         *
+         * @param id    The id of the specified recipe
+         * @param key   The api key used for the http request
+         * @returns JSONObject containing the necessary ingredients for the provided recipe id
+         *
+         */
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
         Request request = new Request.Builder()
@@ -108,6 +136,14 @@ public class RecipeGetter {
     }
 
     public JSONObject getNutrients(Integer id, String key) {
+        /**
+         * Get the nutrients from the provided recipe id
+         *
+         * @param id    The id of the specified recipe
+         * @param key   The api key used for the http request
+         * @returns JSONObject containing the nutritional value for the provided recipe id
+         *
+         */
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
         Request request = new Request.Builder()
@@ -124,6 +160,14 @@ public class RecipeGetter {
     }
 
     public JSONObject getInstructions(Integer id, String key) {
+        /**
+         * Get the instructions from the provided recipe id
+         *
+         * @param id    The id of the specified recipe
+         * @param key   The api key used for the http request
+         * @returns JSONObject containing the instructions on how to cook the provided recipe corresponding to the id
+         *
+         */
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
         Request request = new Request.Builder()
