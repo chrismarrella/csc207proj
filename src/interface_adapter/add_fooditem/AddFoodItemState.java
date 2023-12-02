@@ -10,14 +10,6 @@ public class AddFoodItemState {
     private String dateError = null;
     private String amount = "";
     private String amountError = null;
-    public AddFoodItemState(AddFoodItemState copy) {
-        ingredient = copy.ingredient;
-        ingredientError = copy.ingredientError;
-        month = copy.month;
-        day = copy.day;
-        dateError = copy.dateError;
-        year = copy.year;
-    }
     public AddFoodItemState() {
     }
     public String getIngredient() {
