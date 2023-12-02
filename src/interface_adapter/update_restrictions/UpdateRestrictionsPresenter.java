@@ -19,7 +19,6 @@ public class UpdateRestrictionsPresenter implements UpdateRestrictionsOutputBoun
     public void prepareUpdatedView(String success) {
         UpdateRestrictionsState updateRestrictionsState = updateRestrictionsViewModel.getCurrState();
         updateRestrictionsState.setSuccess(success);
-        JOptionPane.showMessageDialog(null, "Successfully Updated Restriction", "Success", JOptionPane.INFORMATION_MESSAGE);
         updateRestrictionsViewModel.firePropertyChange();
     }
 

@@ -35,12 +35,10 @@ public class UpdateRestrictionsUseCaseFactory {
             ViewManagerModel viewManagerModel,
             UpdateRestrictionsViewModel updateRestrictionsViewModel, UpdateRestrictionsDataAccessInterface updateRestrictionsDataAccessInterface) throws IOException {
 
-        // Notice how we pass this method's parameters to the Presenter.
         UpdateRestrictionsOutputBoundary updateRestrictionsOutputBoundary = new UpdateRestrictionsPresenter(
                 updateRestrictionsViewModel, viewManagerModel);
 
 
-        //possibly temp
         UserDietaryPreferences usermap = new UserDietaryPreferences(new HashMap<>());
 
 

@@ -26,16 +26,16 @@ public class UpdateRestrictionsView extends JPanel implements ActionListener, Pr
     private final JSpinner minfatspinner;
     private final JSpinner maxproteinspinner;
     private final JSpinner minproteinspinner;
-    private final JButton savemaxcals;
-    private final JButton savemincals;
-    private final JButton savemaxfats;
-    private final JButton saveminfats;
-    private final JButton savemaxcarbs;
-    private final JButton savemincarbs;
-    private final JButton savemaxprotein;
-    private final JButton saveminprotein;
-    private final JButton savefooditem;
-    private final JButton main_menu;
+    public final JButton savemaxcals;
+    public final JButton savemincals;
+    public final JButton savemaxfats;
+    public final JButton saveminfats;
+    public final JButton savemaxcarbs;
+    public final JButton savemincarbs;
+    public final JButton savemaxprotein;
+    public final JButton saveminprotein;
+    public final JButton savefooditem;
+    public final JButton main_menu;
     private final JTextField FoodItemTextBox;
     private final JCheckBox enableKeto;
     private final JCheckBox enableVegan;
@@ -62,38 +62,30 @@ public class UpdateRestrictionsView extends JPanel implements ActionListener, Pr
 
         savemaxcals = new JButton(UpdateRestrictionsViewModel.SET + " Max Calories");
         buttons.add(savemaxcals);
-        add(buttons);
+
         savemincals = new JButton(UpdateRestrictionsViewModel.SET + " Min Calories");
         buttons.add(savemincals);
-        add(buttons);
 
         savemaxfats = new JButton(UpdateRestrictionsViewModel.SET + " Max Fat");
         buttons.add(savemaxfats);
-        add(buttons);
 
         saveminfats = new JButton(UpdateRestrictionsViewModel.SET + " Min Fat");
         buttons.add(saveminfats);
-        add(buttons);
 
         savemaxcarbs = new JButton(UpdateRestrictionsViewModel.SET + " Max Carb");
         buttons.add(savemaxcarbs);
-        add(buttons);
 
         savemincarbs = new JButton(UpdateRestrictionsViewModel.SET + " Min Carb");
         buttons.add(savemincarbs);
-        add(buttons);
 
         savemaxprotein = new JButton(UpdateRestrictionsViewModel.SET + " Max Protein");
         buttons.add(savemaxprotein);
-        add(buttons);
 
         saveminprotein = new JButton(UpdateRestrictionsViewModel.SET + " Min Protein");
         buttons.add(saveminprotein);
-        add(buttons);
 
         savefooditem = new JButton(UpdateRestrictionsViewModel.SAVE);
         buttons.add(savefooditem);
-        add(buttons);
 
         main_menu = new JButton(UpdateRestrictionsViewModel.MAINMENU);
         buttons.add(main_menu);
@@ -395,7 +387,7 @@ public class UpdateRestrictionsView extends JPanel implements ActionListener, Pr
                 } else {
                     System.out.println("Keto is unselected");
                     UpdateRestrictionsState currentState = updateRestrictionsViewModel.getCurrState();
-                    Float False = UpdateRestrictionsViewModel.False;
+                    Float False = UpdateRestrictionsViewModel.FALSE;
                     currentState.setKeto(False);
                     updateRestrictionController.execute("keto", currentState.getKeto());
                 }
@@ -414,7 +406,7 @@ public class UpdateRestrictionsView extends JPanel implements ActionListener, Pr
                 } else {
                     System.out.println("Vegan is unselected");
                     UpdateRestrictionsState currentState = updateRestrictionsViewModel.getCurrState();
-                    Float False = UpdateRestrictionsViewModel.False;
+                    Float False = UpdateRestrictionsViewModel.FALSE;
                     currentState.setVegan(False);
                     updateRestrictionController.execute("vegan", currentState.getVegan());
                 }
@@ -435,7 +427,7 @@ public class UpdateRestrictionsView extends JPanel implements ActionListener, Pr
                 } else {
                     System.out.println("Vegetarian is unselected");
                     UpdateRestrictionsState currentState = updateRestrictionsViewModel.getCurrState();
-                    Float False = UpdateRestrictionsViewModel.False;
+                    Float False = UpdateRestrictionsViewModel.FALSE;
                     currentState.setVegetarian(False);
                     updateRestrictionController.execute("vegetarian", currentState.getVegetarian());
                 }
@@ -451,8 +443,9 @@ public class UpdateRestrictionsView extends JPanel implements ActionListener, Pr
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         UpdateRestrictionsState state = (UpdateRestrictionsState) evt.getNewValue();
-        if (state.getError() != null) {
-            JOptionPane.showMessageDialog(this, state.getError());
+        if (state.getSuccess() != null) {
+            JOptionPane.showMessageDialog(null, "Successfully Updated Restriction", "Success", JOptionPane.INFORMATION_MESSAGE);
+
         }
     }
 }

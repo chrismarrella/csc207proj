@@ -24,7 +24,7 @@ public class UpdateRestrictionsViewModel extends ViewModel {
     public static final String SAVE = "Save Restricted Food Item";
     public static final String SET = "Set";
     public static final Float TRUE = 1.0f;
-    public static final Float False = 0.0f;
+    public static final Float FALSE = 0.0f;
     private UpdateRestrictionsState currState = new UpdateRestrictionsState();
 
     public UpdateRestrictionsViewModel() {super("Update Dietary Restrictions");}
