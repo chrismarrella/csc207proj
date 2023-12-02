@@ -6,6 +6,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 import org.json.JSONException;
 import org.json.JSONObject;
+import use_case.add_fooditem.AddFoodItemDataAccessInterface;
 import use_case.get_recipe.GetRecipeDataAccessInterface;
 import use_case.get_shopping_list.GetShoppingListDataAccessInterface;
 import use_case.main_menu.MainMenuDataAccessInterface;
@@ -14,7 +15,7 @@ import use_case.update_restrictions.UpdateRestrictionsDataAccessInterface;
 import java.io.*;
 import java.util.*;
 
-public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, MainMenuDataAccessInterface, UpdateRestrictionsDataAccessInterface, GetShoppingListDataAccessInterface {
+public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, MainMenuDataAccessInterface, AddFoodItemDataAccessInterface, UpdateRestrictionsDataAccessInterface, GetShoppingListDataAccessInterface{
     private final File csvFile;
 
     private final Map<String, Integer> headers = new LinkedHashMap<>();
@@ -23,7 +24,7 @@ public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, M
 
     private UserFactory userFactory;
 
-    private final String key = "2be678a560c44dcd818f331ebb96b006";
+    private final String key = "1178e228ddeb4ba484e64911de9db1a8";
 
     public FileUserDataAccessObject(String csvPath, UserFactory userFactory) throws IOException {
         this.userFactory = userFactory;
@@ -62,7 +63,7 @@ public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, M
                                 Integer.parseInt(details[1]),
                                 Integer.parseInt(details[2]),
                                 Integer.parseInt(details[3]),
-                                Integer.parseInt(details[4]));
+                                Float.parseFloat(details[4]));
                         user.addItem(newItem);
                     }
 
@@ -185,6 +186,13 @@ public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, M
         }
 
         return res;
+    }
+
+    @Override
+    public void addItem(FoodItem foodItem) {
+        User user = accounts.get(0);
+        user.addItem(foodItem);
+        this.save();
     }
 
 

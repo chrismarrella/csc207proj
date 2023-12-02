@@ -22,6 +22,7 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
     private final MainMenuViewModel mainMenuViewModel;
     private final JButton GoToUpdateRestrictions;
     private final MainMenuController mainMenuController;
+    private final JButton GoToAddFoodItem;
 
     public MainMenuView(MainMenuController mainMenuController ,MainMenuViewModel mainMenuViewModel) {
         this.mainMenuViewModel = mainMenuViewModel;
@@ -44,6 +45,10 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
         buttons.add(GoToUpdateRestrictions);
         add(buttons);
 
+        GoToAddFoodItem = new JButton(MainMenuViewModel.GO_TO_ADD_FOOD_ITEM);
+        buttons.add(GoToAddFoodItem);
+        add(buttons);
+
         GoToGetRecipes.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 if (evt.getSource().equals(GoToGetRecipes)) {
@@ -60,6 +65,16 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
                     currentState.setView_name("update restriction");
                     mainMenuController.execute(currentState.getView_name());
 
+                }
+            }
+        });
+        GoToAddFoodItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (e.getSource().equals(GoToAddFoodItem)) {
+                    MainMenuState currentState = mainMenuViewModel.getState();
+                    currentState.setView_name("add food item");
+                    mainMenuController.execute(currentState.getView_name());
                 }
             }
         });

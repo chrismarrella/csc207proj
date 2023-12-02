@@ -1,5 +1,6 @@
 package app;
 
+import entities.User;
 import entities.UserFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.main_menu.MainMenuController;
@@ -36,7 +37,7 @@ public class MainMenuUseCaseFactory {
 
         return null;
     }
-    static MainMenuController createMainMenuUseCase(
+    public static MainMenuController createMainMenuUseCase(
             ViewManagerModel viewManagerModel,
             MainMenuViewModel mainMenuViewModel,
             MainMenuDataAccessInterface dataAccessInterface,

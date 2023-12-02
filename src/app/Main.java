@@ -6,12 +6,18 @@ import interface_adapter.ViewManagerModel;
 import interface_adapter.get_recipe.GetRecipeViewModel;
 import interface_adapter.get_shopping_list.GetShoppingListViewModel;
 import interface_adapter.main_menu.MainMenuController;
+import interface_adapter.add_fooditem.AddFoodItemController;
+import interface_adapter.add_fooditem.AddFoodItemViewModel;
+//import interface_adapter.update_restrictions.UpdateRestrictionsViewModel;
+import use_case.main_menu.MainMenuInteractor;
 import interface_adapter.update_restrictions.UpdateRestrictionsViewModel;
 import interface_adapter.main_menu.MainMenuViewModel;
 
 import view.GetRecipeView;
 import view.MainMenuView;
 import view.UpdateRestrictionsView;
+import view.AddFoodItemView;
+//import view.UpdateRestrictionsView;
 import view.ViewManager;
 
 import javax.swing.*;
@@ -43,7 +49,7 @@ public class Main {
         UpdateRestrictionsViewModel updateRestrictionsViewModel = new UpdateRestrictionsViewModel();
         GetRecipeViewModel getrecipeViewModel = new GetRecipeViewModel();
         GetShoppingListViewModel getShoppingListViewModel = new GetShoppingListViewModel();
-
+        AddFoodItemViewModel addFoodItemViewModel = new AddFoodItemViewModel();
 
         FileUserDataAccessObject userDataAccessObject;
         try {
@@ -60,9 +66,11 @@ public class Main {
         UpdateRestrictionsView updateRestrictionsView = UpdateRestrictionsUseCaseFactory.create(viewManagerModel, updateRestrictionsViewModel, userDataAccessObject, mainMenuController, mainMenuViewModel);
         views.add(updateRestrictionsView, updateRestrictionsView.viewName);
 
-        GetRecipeView getRecipeView = GetRecipeUseCaseFactory.create(viewManagerModel, getrecipeViewModel, userDataAccessObject, getShoppingListViewModel, userDataAccessObject);
+        GetRecipeView getRecipeView = GetRecipeUseCaseFactory.create(viewManagerModel, getrecipeViewModel, userDataAccessObject, getShoppingListViewModel, userDataAccessObject, mainMenuController, mainMenuViewModel);
         views.add(getRecipeView, getRecipeView.viewName);
 
+        AddFoodItemView addFoodItemView = AddFoodItemUseCaseFactory.create(viewManagerModel, addFoodItemViewModel, mainMenuViewModel, mainMenuController, userDataAccessObject);
+        views.add(addFoodItemView, addFoodItemView.viewName);
 
         viewManagerModel.setActiveView(mainMenuView.viewName);
         viewManagerModel.firePropertyChange();
