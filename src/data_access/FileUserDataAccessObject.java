@@ -22,7 +22,7 @@ public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, M
 
     private UserFactory userFactory;
 
-    private final String key = "1178e228ddeb4ba484e64911de9db1a8";
+    private final String key = "5a88d61f591e4cf590857f6a9ed57e44";
 
     public FileUserDataAccessObject(String csvPath, UserFactory userFactory) throws IOException {
         this.userFactory = userFactory;
@@ -182,6 +182,15 @@ public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, M
     }
 
     @Override
+    /**
+      Adds a FoodItem to the user's list of items.
+
+      This method retrieves the first user from the accounts as we only have one user
+      and adds the specified FoodItem
+      to their list of items. After adding the item, the changes are saved and nothing is returned.
+
+      @param foodItem The FoodItem to be added to the user's list.
+     */
     public void addItem(FoodItem foodItem) {
         User user = accounts.get(0);
         user.addItem(foodItem);
