@@ -10,12 +10,14 @@ import use_case.add_fooditem.AddFoodItemDataAccessInterface;
 import use_case.get_recipe.GetRecipeDataAccessInterface;
 import use_case.get_shopping_list.GetShoppingListDataAccessInterface;
 import use_case.main_menu.MainMenuDataAccessInterface;
+import use_case.delete_foodItem.DeleteFoodItemDataAccessInterface;
+import use_case.removeExpired.RemoveExpiredDataAccessInterface;
 import use_case.update_restrictions.UpdateRestrictionsDataAccessInterface;
 
 import java.io.*;
 import java.util.*;
 
-public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, MainMenuDataAccessInterface, AddFoodItemDataAccessInterface, UpdateRestrictionsDataAccessInterface, GetShoppingListDataAccessInterface{
+public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, MainMenuDataAccessInterface, DeleteFoodItemDataAccessInterface, UpdateRestrictionsDataAccessInterface, RemoveExpiredDataAccessInterface, AddFoodItemDataAccessInterface, GetShoppingListDataAccessInterface {
     private final File csvFile;
 
     private final Map<String, Integer> headers = new LinkedHashMap<>();
@@ -189,12 +191,28 @@ public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, M
     }
 
     @Override
-    public void addItem(FoodItem foodItem) {
-        User user = accounts.get(0);
-        user.addItem(foodItem);
+    public boolean removeSpecificItem(FoodItem item) {
+        boolean res = accounts.get(0).removeSpecificItem(item);
+        this.save();
+        return res;
+    }
+
+    @Override
+    public PriorityQueue<FoodItem> getQueue() {
+        return accounts.get(0).getQueue();
+    }
+
+    @Override
+    public void removeItem() {
+        accounts.get(0).removeItem();
         this.save();
     }
 
+    @Override
+    public void addItem(FoodItem item) {
+        accounts.get(0).addItem(item);
+        this.save();
+    }
 
     @Override
     public List<String> standardizeNames(List<String> names) {
