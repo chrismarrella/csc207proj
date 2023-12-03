@@ -8,11 +8,20 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 public class ViewManager implements PropertyChangeListener {
+    /**
+     * This class represents the view manager.
+     */
     private final CardLayout cardLayout;
     private final JPanel views;
     private ViewManagerModel viewManagerModel;
 
     public ViewManager(JPanel views, CardLayout cardLayout, ViewManagerModel viewManagerModel) {
+        /**
+         * This constructor instantiates a new view manager.
+         * @param views The views.
+         * @param cardLayout The card layout.
+         * @param viewManagerModel The view manager model.
+         */
         this.views = views;
         this.cardLayout = cardLayout;
         this.viewManagerModel = viewManagerModel;
@@ -21,6 +30,10 @@ public class ViewManager implements PropertyChangeListener {
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+        /**
+         * This method handles the property change.
+         * @param evt The property change event.
+         */
         if (evt.getPropertyName().equals("view")) {
             String viewModelName = (String) evt.getNewValue();
             cardLayout.show(views, viewModelName);

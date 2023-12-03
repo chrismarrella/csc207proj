@@ -7,6 +7,11 @@ import javax.swing.*;
  */
 class LabelTextPanel extends JPanel {
     LabelTextPanel(JLabel label, JTextField textField) {
+        /**
+         * This constructor instantiates a new label text panel.
+         * @param label The label.
+         * @param textField The text field.
+         */
         this.add(label);
         this.add(textField);
     }

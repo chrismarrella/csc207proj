@@ -23,6 +23,9 @@ import java.util.Calendar;
 
 
 public class MainMenuView extends JPanel implements ActionListener, PropertyChangeListener {
+    /**
+     * This class represents the view for the main menu.
+     */
     public final String viewName = "main menu";
     private final MainMenuViewModel mainMenuViewModel;
     private final MainMenuController mainMenuController;
@@ -33,8 +36,17 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
     private final JButton GoToDeleteFoodItem;
     private final JButton GoToAddFoodItem;
 
-    public MainMenuView(MainMenuController mainMenuController, MainMenuViewModel mainMenuViewModel,
-                        RemoveExpiredController removeExpiredController, RemoveExpiredViewModel removeExpiredViewModel) {
+    public MainMenuView(MainMenuController mainMenuController,
+                        MainMenuViewModel mainMenuViewModel,
+                        RemoveExpiredController removeExpiredController,
+                        RemoveExpiredViewModel removeExpiredViewModel) {
+        /**
+         * This constructor instantiates a new main menu view.
+         * @param mainMenuController The main menu controller.
+         * @param mainMenuViewModel The main menu view model.
+         * @param removeExpiredController The remove expired controller.
+         * @param removeExpiredViewModel The remove expired view model.
+         */
         this.mainMenuViewModel = mainMenuViewModel;
         this.mainMenuController = mainMenuController;
         this.removeExpiredViewModel = removeExpiredViewModel;
@@ -69,6 +81,10 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
 
         GoToGetRecipes.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
+                /**
+                 * This method executes the action listener for the get recipes button.
+                 * @param evt The action event.
+                 */
                 if (evt.getSource().equals(GoToGetRecipes)) {
                     MainMenuState currentState = mainMenuViewModel.getState();
                     currentState.setView_name("get recipe");
@@ -79,6 +95,10 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
 
         GoToUpdateRestrictions.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
+                /**
+                 * This method executes the action listener for the update restrictions button.
+                 * @param evt The action event.
+                 */
                 if (evt.getSource().equals(GoToUpdateRestrictions)) {
                     MainMenuState currentState = mainMenuViewModel.getState();
                     currentState.setView_name("update restriction");
@@ -91,6 +111,10 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
         GoToAddFoodItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                /**
+                 * This method executes the action listener for the add food item button.
+                 * @param evt The action event.
+                 */
                 if (e.getSource().equals(GoToAddFoodItem)) {
                     MainMenuState currentState = mainMenuViewModel.getState();
                     currentState.setView_name("add food item");
@@ -101,6 +125,10 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
 
         GoToDeleteFoodItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
+                /**
+                 * This method executes the action listener for the delete food item button.
+                 * @param evt The action event.
+                 */
                 if (evt.getSource().equals(GoToDeleteFoodItem)) {
                     MainMenuState currentState = mainMenuViewModel.getState();
                     currentState.setView_name("delete food item");
@@ -116,6 +144,11 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
 
     public void removeExpired(RemoveExpiredController removeExpiredController,
                               RemoveExpiredViewModel removeExpiredViewModel) {
+        /**
+         * This method removes expired food items.
+         * @param removeExpiredController The remove expired controller.
+         * @param removeExpiredViewModel The remove expired view model.
+         */
 
         removeExpiredController.execute(Calendar.getInstance());
         RemoveExpiredState currState = removeExpiredViewModel.getState();
@@ -132,12 +165,20 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        /**
+         * This method executes the action listener for the main menu view.
+         * @param e The action event.
+         */
         JOptionPane.showConfirmDialog(this, "Cancel not implemented yet.");
 
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+        /**
+         * This method executes the property change listener for the main menu view.
+         * @param evt The property change event.
+         */
         // preventing error caused from casting state that is not MainMenuState
         if (evt.getPropertyName().equals("main menu")) {
             MainMenuState state = (MainMenuState) evt.getNewValue();
