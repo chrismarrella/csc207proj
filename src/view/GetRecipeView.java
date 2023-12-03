@@ -42,7 +42,6 @@ public class GetRecipeView extends JPanel implements ActionListener, PropertyCha
         this.getRecipeController = getRecipeController;
         this.getShoppingListViewModel = getShoppingListViewModel;
         this.getShoppingListController = getShoppingListController;
-        ShoppingListGenerator.setPath("./output/Shopping_List.md");
         getRecipeViewModel.addPropertyChangeListener(this);
         getShoppingListViewModel.addPropertyChangeListener(this);
 
@@ -186,7 +185,7 @@ public class GetRecipeView extends JPanel implements ActionListener, PropertyCha
             GetShoppingListState state = (GetShoppingListState) evt.getNewValue();
             if (state.getError() == null) {
                 System.out.println(state.getShoppingList());
-                ShoppingListGenerator.writeShoppingListToFile(state.getShoppingList());
+                writeShoppingListToFile(state.getShoppingList(), "./output/Shopping_List.md");
             }
             else {
                 JOptionPane.showMessageDialog(this, state.getError());
@@ -195,39 +194,26 @@ public class GetRecipeView extends JPanel implements ActionListener, PropertyCha
         }
 
     }
-
-    private static class ShoppingListGenerator {
-        private static FileWriter shoppingListFile;
-
-        public static void setPath(String filePath) {
-            try {
-                shoppingListFile = new FileWriter(filePath);
+    private void writeShoppingListToFile(List<String> shoppingList, String filePath) {
+        try {
+            FileWriter shoppingListFile = new FileWriter(filePath);
+            BufferedWriter bufferedWriter = new BufferedWriter(shoppingListFile);
+            bufferedWriter.write("**Shopping List**");
+            bufferedWriter.newLine();
+            bufferedWriter.newLine();
+            bufferedWriter.write("|Name    | Amount |");
+            bufferedWriter.newLine();
+            bufferedWriter.write("|-----| ---:|");
+            bufferedWriter.newLine();
+            for (String foodItem : shoppingList) {
+                String[] foodItemData = foodItem.split(":");
+                bufferedWriter.write("| " + foodItemData[0] + " | " + foodItemData[1] + " |");
+                bufferedWriter.newLine();
             }
-            catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            bufferedWriter.close();
         }
-
-        public static void writeShoppingListToFile(List<String> shoppingList) {
-            try {
-                BufferedWriter bufferedWriter = new BufferedWriter(shoppingListFile);
-                bufferedWriter.write("**Shopping List**");
-                bufferedWriter.newLine();
-                bufferedWriter.newLine();
-                bufferedWriter.write("|Name    | Amount |");
-                bufferedWriter.newLine();
-                bufferedWriter.write("|-----| ---:|");
-                bufferedWriter.newLine();
-                for (String foodItem : shoppingList) {
-                    String[] foodItemData = foodItem.split(":");
-                    bufferedWriter.write("| " + foodItemData[0] + " | " + foodItemData[1] + " |");
-                    bufferedWriter.newLine();
-                }
-                bufferedWriter.close();
-            }
-            catch (Exception e) {
-                throw new RuntimeException(e);
-            }
+        catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 }
