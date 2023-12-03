@@ -1,9 +1,6 @@
 package interface_adapter.get_shopping_list;
 
 import entities.FoodItem;
-import interface_adapter.get_recipe.GetRecipePresenter;
-import interface_adapter.get_recipe.GetRecipeState;
-import use_case.get_recipe.GetRecipeInteractor;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -18,7 +15,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class GetShoppingListPresenterTest {
     private GetShoppingListPresenter getShoppingListPresenter;
-    private GetShoppingListState getShoppingListState;
     private GetShoppingListViewModel getShoppingListViewModel;
 
     private TestView testView;
@@ -37,7 +33,6 @@ class GetShoppingListPresenterTest {
     void init() {
         getShoppingListViewModel = new GetShoppingListViewModel();
         getShoppingListPresenter = new GetShoppingListPresenter(getShoppingListViewModel);
-        getShoppingListState = getShoppingListViewModel.getState();
         testView = new TestView();
         getShoppingListViewModel.addPropertyChangeListener(testView);
     }
