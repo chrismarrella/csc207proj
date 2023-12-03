@@ -23,6 +23,4 @@ public class GetShoppingListViewModel extends ViewModel {
     public void firePropertyChange() {
         pcs.firePropertyChange("shoppingListState", null, currState);
     }
-
-    public List<String> getShoppingList() { return currState.getShoppingList(); }
 }
