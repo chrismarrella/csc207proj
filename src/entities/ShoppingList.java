@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ShoppingList {
+    /**
+     * This class represents the shopping list of a user.
+     */
     private List<FoodItem> shoppingList;
 
     public ShoppingList() {
