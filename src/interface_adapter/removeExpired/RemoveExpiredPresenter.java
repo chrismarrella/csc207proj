@@ -20,7 +20,6 @@ public class RemoveExpiredPresenter implements RemoveExpiredOutputBoundary {
         RemoveExpiredState currState = removeExpiredViewModel.getState();
         currState.setExpiredFoodItems(removeExpiredOutputData.getExpiredFoodItems());
         removeExpiredViewModel.setState(currState);
-        removeExpiredViewModel.firePropertyChange();
     }
 
     @Override
@@ -28,6 +27,5 @@ public class RemoveExpiredPresenter implements RemoveExpiredOutputBoundary {
         RemoveExpiredState currState = removeExpiredViewModel.getState();
         currState.setNoExpired("No expired food item today!");
         removeExpiredViewModel.setState(currState);
-        removeExpiredViewModel.firePropertyChange();
     }
 }

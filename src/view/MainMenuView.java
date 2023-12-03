@@ -101,14 +101,17 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
     public void removeExpired(RemoveExpiredController removeExpiredController,
                               RemoveExpiredViewModel removeExpiredViewModel) {
 
-        RemoveExpiredState currState = removeExpiredViewModel.getState();
         removeExpiredController.execute(Calendar.getInstance());
+        RemoveExpiredState currState = removeExpiredViewModel.getState();
 
         if (currState.getNoExpired() != null) {
             JOptionPane.showMessageDialog(this, currState.getNoExpired());
         } else {
             JOptionPane.showMessageDialog(this, currState.getExpiredFoodItems());
         }
+
+        currState.setNoExpired(null);
+        currState.setExpiredFoodItems(null);
     }
 
     @Override
@@ -127,8 +130,6 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
                 JOptionPane.showMessageDialog(this, state.getError());
             }
 
-        } else if (evt.getPropertyName().equals("remove food items")) {
-            RemoveExpiredState state = (RemoveExpiredState) evt.getNewValue();
         }
     }
 }

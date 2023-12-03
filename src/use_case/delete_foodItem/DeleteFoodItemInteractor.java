@@ -44,7 +44,11 @@ public class DeleteFoodItemInteractor implements DeleteFoodItemInputBoundary {
                 i += 1;
             }
 
-            if (found) {
+            if (!found) {
+                // if the food item to remove is not in the user inventory
+                deleteFoodItemPresenter.prepareFailView("No such food item.");
+
+            } else {
                 float foundAmount = foundFoodItem.getAmount();
 
                 if (floatAmount <= 0) {
@@ -70,11 +74,8 @@ public class DeleteFoodItemInteractor implements DeleteFoodItemInputBoundary {
                     DeleteFoodItemOutputData deleteFoodItemOutputData =
                             new DeleteFoodItemOutputData(foundFoodItem, floatAmount);
                     deleteFoodItemPresenter.prepareSuccessView(deleteFoodItemOutputData);
-                }
 
-            } else {
-                // if the food item to remove is not in the user inventory
-                deleteFoodItemPresenter.prepareFailView("No such food item.");
+                }
             }
 
         } catch (Exception e) {

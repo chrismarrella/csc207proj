@@ -11,7 +11,7 @@ public class RemoveExpiredViewModel extends ViewModel {
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
     public RemoveExpiredViewModel() {
-        super("Expired Food Items");
+        super("expired food items");
     }
 
     public RemoveExpiredState getState() {
