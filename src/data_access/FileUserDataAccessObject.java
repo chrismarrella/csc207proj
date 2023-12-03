@@ -215,14 +215,6 @@ public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, M
     }
 
     @Override
-    public void addItem(FoodItem foodItem) {
-        User user = accounts.get(0);
-        user.addItem(foodItem);
-        this.save();
-    }
-
-
-    @Override
     public List<String> standardizeNames(List<String> names) {
         return FoodNameParser.parseFoodItemNames(key, names);
     }

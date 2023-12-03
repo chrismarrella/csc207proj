@@ -73,18 +73,10 @@ public class GetRecipeView extends JPanel implements ActionListener, PropertyCha
         add(buttons);
 
         recipesPanel = new JPanel();
-//        recipesPanel.setPreferredSize(new Dimension(640, 500));
         JScrollPane scrollPane = new JScrollPane(recipesPanel);
         scrollPane.setPreferredSize(new Dimension(640,180));
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         add(scrollPane);
-
-//        resultTextArea = new JTextArea();
-//        resultTextArea.setEditable(false);
-//        resultTextArea.setLineWrap(true);
-//        resultTextArea.setWrapStyleWord(true);
-//        JScrollPane scrollPane = new JScrollPane(resultTextArea);
-//        add(scrollPane);
 
         generate.addActionListener(new ActionListener() {
 
@@ -146,11 +138,6 @@ public class GetRecipeView extends JPanel implements ActionListener, PropertyCha
     }
 
     private void showRecipes(List<Map<String, List<String>>> recipes) {
-//        resultTextArea.setText("");
-//        for (String recipe : recipes) {
-//            resultTextArea.append(recipe + "\n");
-//        }
-
         recipesPanel.removeAll();
         recipesPanel.setPreferredSize(new Dimension(600, 150 * recipes.size()));
 
