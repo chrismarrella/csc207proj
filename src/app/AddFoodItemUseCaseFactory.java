@@ -50,6 +50,7 @@ public class AddFoodItemUseCaseFactory {
          * @param addFoodItemDataAccessInterface    DAO for the add food item use case.
          *
          * @return the view for the Add food item use case.
+         * @throws IOException if the user data file cannot be opened.
          */
         try {
             AddFoodItemController addFoodItemController = createAddFoodItemUseCase(viewManagerModel, addFoodItemViewModel, userDataAccessObject);

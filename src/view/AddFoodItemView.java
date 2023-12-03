@@ -25,13 +25,13 @@ public class AddFoodItemView extends JPanel implements ActionListener, PropertyC
     private final AddFoodItemController addFoodItemController;
     private final MainMenuViewModel mainMenuViewModel;
     private final MainMenuController mainMenuController;
-    private final JButton addIngredient;
-    private final JButton mainMenu;
-    private final JTextField foodItemInputField = new JTextField(15);
-    private final JSpinner yearSpinner;
-    private final JSpinner monthSpinner;
-    private final JSpinner daySpinner;
-    private final JTextField amountInputField = new JTextField(15);
+    public final JButton addIngredient;
+    public final JButton mainMenu;
+    public final JTextField foodItemInputField = new JTextField(15);
+    public final JSpinner yearSpinner;
+    public final JSpinner monthSpinner;
+    public final JSpinner daySpinner;
+    public final JTextField amountInputField = new JTextField(15);
     Calendar calendar = Calendar.getInstance();
     int defaultMaxYearValue = calendar.get(Calendar.YEAR);
     // add one as it starts at 0
