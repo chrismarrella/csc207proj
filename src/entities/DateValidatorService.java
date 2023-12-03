@@ -2,7 +2,20 @@ package entities;
 import java.util.Calendar;
 import java.util.ArrayList;
 
+/**
+ * The class for the date validator.
+ * This class is used to validate the inputs of the expiry date.
+ */
 public class DateValidatorService implements DateValidator{
+
+    /**
+     * Validates the inputs of the expiry date. Note that the method checks for leap years and handles
+     * the months that only have 30 days. It also checks if the expiry date is before the current date.
+     * @param year    the year of the expiry date
+     * @param month    the month of the expiry date
+     * @param day    the day of the expiry date
+     * @return true if the expiry date is valid, false otherwise
+     */
     @Override
     public boolean dateIsValid(Integer year, Integer month, Integer day) {
         if (year % 4 == 0) {

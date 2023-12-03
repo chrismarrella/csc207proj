@@ -38,7 +38,13 @@ public class AddFoodItemView extends JPanel implements ActionListener, PropertyC
     int defaultMaxMonthValue = calendar.get(Calendar.MONTH) + 1;
     int defaultMaxDayValue = calendar.get(Calendar.DAY_OF_MONTH);
 
-
+    /**
+     * Constructor for the add food item view
+     * @param addFoodItemController    the controller for the add food item use case
+     * @param addFoodItemViewModel     the view model for the add food item use case
+     * @param mainMenuController       the controller for the main menu use case
+     * @param mainMenuViewModel        the view model for the main menu use case
+     */
     public AddFoodItemView(AddFoodItemController addFoodItemController, AddFoodItemViewModel addFoodItemViewModel, MainMenuController mainMenuController, MainMenuViewModel mainMenuViewModel) {
         this.addFoodItemViewModel = addFoodItemViewModel;
         this.addFoodItemController = addFoodItemController;
@@ -81,6 +87,14 @@ public class AddFoodItemView extends JPanel implements ActionListener, PropertyC
         buttons.add(addIngredient);
 
         addIngredient.addActionListener(new ActionListener() {
+
+            /**
+             * Action listener for the add ingredient button.
+             * The action listener will call the add food item controller to execute the use case.
+             * Afterwards, the input fields will be cleared, and the spinners set back to
+             * default values.
+             * @param e    the action event
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Add food item button clicked.");
@@ -105,6 +119,13 @@ public class AddFoodItemView extends JPanel implements ActionListener, PropertyC
             }
         });
         mainMenu.addActionListener(new ActionListener() {
+
+            /**
+             * Action listener for the main menu button. When clicked, the main menu controller
+             * will be called to execute the use case. Afterwards, the input fields will be cleared,
+             * the spinners set back to default values, and the state will be reset.
+             * @param e    the action event
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Main Menu button clicked.");
@@ -128,6 +149,13 @@ public class AddFoodItemView extends JPanel implements ActionListener, PropertyC
         });
         amountInputField.addKeyListener(
                 new KeyListener() {
+
+                    /**
+                     * Key listener for the amount input field. When a key is typed, the state
+                     * will be updated with the new amount. And view model will be updated by
+                     * setting this new state.
+                     * @param e    the key event
+                     */
                     @Override
                     public void keyTyped(KeyEvent e) {
                         AddFoodItemState currState = addFoodItemViewModel.getState();
@@ -148,6 +176,13 @@ public class AddFoodItemView extends JPanel implements ActionListener, PropertyC
         );
         foodItemInputField.addKeyListener(
                 new KeyListener() {
+
+                    /**
+                     * Key listener for the food item input field. When a key is typed, the state
+                     * will be updated with the new ingredient. And view model will be updated by
+                     * setting this new state.
+                     * @param e    the key event
+                     */
                     @Override
                     public void keyTyped(KeyEvent e) {
                         AddFoodItemState currState = addFoodItemViewModel.getState();
@@ -168,6 +203,12 @@ public class AddFoodItemView extends JPanel implements ActionListener, PropertyC
         );
         yearSpinner.addChangeListener(
                 new ChangeListener() {
+                    /**
+                     * Change listener for the year spinner. When the value is changed, the state
+                     * will be updated with the new year input. And view model will be updated by
+                     * setting this new state.
+                     * @param e    the change event
+                     */
                     @Override
                     public void stateChanged(ChangeEvent e) {
                         AddFoodItemState currState = addFoodItemViewModel.getState();
@@ -179,6 +220,12 @@ public class AddFoodItemView extends JPanel implements ActionListener, PropertyC
 
         monthSpinner.addChangeListener(
                 new ChangeListener() {
+                    /**
+                     * Change listener for the month spinner. When the value is changed, the state
+                     * will be updated with the new month input. And view model will be updated by
+                     * setting this new state.
+                     * @param e    the change event
+                     */
                     @Override
                     public void stateChanged(ChangeEvent e) {
                         AddFoodItemState currState = addFoodItemViewModel.getState();
@@ -190,6 +237,12 @@ public class AddFoodItemView extends JPanel implements ActionListener, PropertyC
 
         daySpinner.addChangeListener(
                 new ChangeListener() {
+                    /**
+                     * Change listener for the day spinner. When the value is changed, the state
+                     * will be updated with the new day input. And view model will be updated by
+                     * setting this new state.
+                     * @param e    the change event
+                     */
                     @Override
                     public void stateChanged(ChangeEvent e) {
                         AddFoodItemState currState = addFoodItemViewModel.getState();
@@ -210,7 +263,11 @@ public class AddFoodItemView extends JPanel implements ActionListener, PropertyC
         this.add(buttons);
     }
 
-
+    /**
+     * Action performed method for the add food item view. When the add ingredient button is clicked,
+     * the add food item controller will be called to execute the use case.
+     * @param e the event to be processed
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(addIngredient)) {
@@ -228,6 +285,12 @@ public class AddFoodItemView extends JPanel implements ActionListener, PropertyC
 
     }
 
+    /**
+     * Property change method for the add food item view. When the state is changed, the view will
+     * be updated accordingly. If there is an error, the corresponding error message will be
+     * displayed.
+     * @param evt    the property change event
+     */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if ("state".equals(evt.getPropertyName())) {
