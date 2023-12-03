@@ -16,6 +16,7 @@ public class MainMenuViewModel extends ViewModel {
     public static final String GO_TO_ADD_FOOD_ITEM = "Add Food Item";
     public static final String GO_TO_REMOVE_FOOD_ITEM = "Remove Food Item";
     public static final String GO_TO_INVENTORY = "Inventory";
+    public static final String GO_TO_MAIN_MENU = "Main Menu";
 
     private MainMenuState state = new MainMenuState();
 
@@ -31,7 +32,7 @@ public class MainMenuViewModel extends ViewModel {
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
     public void firePropertyChange() {
-        pcs.firePropertyChange("state", null, state);
+        pcs.firePropertyChange("main menu", null, state);
     }
 
     public void addPropertyChangeListener(PropertyChangeListener listener) {

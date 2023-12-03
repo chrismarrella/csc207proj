@@ -1,7 +1,7 @@
 package entities;
 import java.util.Calendar;
 public class FoodItem {
-    private final String name;
+    private String name;
     private final Calendar expirationDate;
     private Float amount;
 
@@ -12,6 +12,13 @@ public class FoodItem {
         this.expirationDate.set(Calendar.YEAR, year);
         this.expirationDate.set(Calendar.MONTH, month - 1);
         this.expirationDate.set(Calendar.DAY_OF_MONTH, day);
+        this.amount = amount;
+    }
+
+    public FoodItem(String name, float amount) {
+        // Used specifically for GetShoppingList use case, no need for the expiration date
+        this.name = name;
+        this.expirationDate = null;
         this.amount = amount;
     }
 
@@ -37,4 +44,6 @@ public class FoodItem {
     public void setAmount(Float amount) {
         this.amount = amount;
     }
+
+    public void setName(String name) { this.name = name;}
 }

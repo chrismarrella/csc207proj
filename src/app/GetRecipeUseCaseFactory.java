@@ -5,11 +5,19 @@ import interface_adapter.get_recipe.GetRecipeController;
 import interface_adapter.get_recipe.GetRecipePresenter;
 import interface_adapter.get_recipe.GetRecipeViewModel;
 import interface_adapter.main_menu.MainMenuController;
+import interface_adapter.main_menu.MainMenuViewModel;
 import use_case.get_recipe.GetRecipeDataAccessInterface;
 import use_case.get_recipe.GetRecipeInputBoundary;
 import use_case.get_recipe.GetRecipeInteractor;
 import use_case.get_recipe.GetRecipeOutputBoundary;
 import view.GetRecipeView;
+
+import use_case.get_shopping_list.*;
+import interface_adapter.get_shopping_list.GetShoppingListController;
+import interface_adapter.get_shopping_list.GetShoppingListPresenter;
+import interface_adapter.get_shopping_list.GetShoppingListViewModel;
+import use_case.get_shopping_list.GetShoppingListDataAccessInterface;
+
 
 import javax.swing.*;
 import java.io.IOException;
@@ -20,6 +28,11 @@ public class GetRecipeUseCaseFactory {
 
     public static GetRecipeView create(ViewManagerModel viewManagerModel,
                                        GetRecipeViewModel getRecipeViewModel,
+                                       GetRecipeDataAccessInterface getRecipeDataAccessInterface,
+                                       GetShoppingListViewModel getShoppingListViewModel,
+                                       GetShoppingListDataAccessInterface getShoppingListDataAccessInterface,
+                                       MainMenuController mainMenuController,
+                                       MainMenuViewModel mainMenuViewModel) {
                                        GetRecipeDataAccessInterface getRecipeDataAccessInterface) {
         /**
          * Creates a GetRecipeView for the GetRecipe use case
@@ -32,7 +45,8 @@ public class GetRecipeUseCaseFactory {
          */
         try {
             GetRecipeController getRecipeController = createGetRecipeUseCase(getRecipeViewModel, getRecipeDataAccessInterface);
-            return new GetRecipeView(viewManagerModel, getRecipeViewModel, getRecipeController);
+            GetShoppingListController getShoppingListController = createGetShoppingListUseCase(getShoppingListViewModel, getShoppingListDataAccessInterface);
+            return new GetRecipeView(viewManagerModel, getRecipeViewModel, getRecipeController, getShoppingListViewModel, getShoppingListController, mainMenuViewModel, mainMenuController);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Could not create recipes.");
         }
@@ -58,6 +72,15 @@ public class GetRecipeUseCaseFactory {
 
         return new GetRecipeController(getRecipeInteractor);
 
+    }
+
+    private static GetShoppingListController createGetShoppingListUseCase(GetShoppingListViewModel getShoppingListViewModel,
+                                                                          GetShoppingListDataAccessInterface getShoppingListDataAccessInterface) throws IOException {
+        GetShoppingListOutputBoundary getShoppingListPresenter = new GetShoppingListPresenter(getShoppingListViewModel);
+
+        GetShoppingListInputBoundary getShoppingListInteractor = new GetShoppingListInteractor(getShoppingListPresenter, getShoppingListDataAccessInterface);
+
+        return new GetShoppingListController(getShoppingListInteractor);
     }
 
 }
