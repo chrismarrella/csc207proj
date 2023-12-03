@@ -6,7 +6,9 @@ import okhttp3.Request;
 import okhttp3.Response;
 import org.json.JSONException;
 import org.json.JSONObject;
+import use_case.add_fooditem.AddFoodItemDataAccessInterface;
 import use_case.get_recipe.GetRecipeDataAccessInterface;
+import use_case.get_shopping_list.GetShoppingListDataAccessInterface;
 import use_case.main_menu.MainMenuDataAccessInterface;
 import use_case.delete_foodItem.DeleteFoodItemDataAccessInterface;
 import use_case.removeExpired.RemoveExpiredDataAccessInterface;
@@ -15,7 +17,7 @@ import use_case.update_restrictions.UpdateRestrictionsDataAccessInterface;
 import java.io.*;
 import java.util.*;
 
-public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, MainMenuDataAccessInterface, DeleteFoodItemDataAccessInterface, UpdateRestrictionsDataAccessInterface, RemoveExpiredDataAccessInterface {
+public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, MainMenuDataAccessInterface, DeleteFoodItemDataAccessInterface, UpdateRestrictionsDataAccessInterface, RemoveExpiredDataAccessInterface, AddFoodItemDataAccessInterface, GetShoppingListDataAccessInterface {
     private final File csvFile;
 
     private final Map<String, Integer> headers = new LinkedHashMap<>();
@@ -104,6 +106,11 @@ public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, M
             res.add(accounts.get(key));
         }
         return res;
+    }
+
+    public List<FoodItem> getInventory() {
+        User user = accounts.get(0);
+        return new ArrayList<FoodItem>(user.getInventory().getQueue());
     }
 
     private void save() {
@@ -206,4 +213,18 @@ public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, M
         accounts.get(0).addItem(item);
         this.save();
     }
+
+    @Override
+    public void addItem(FoodItem foodItem) {
+        User user = accounts.get(0);
+        user.addItem(foodItem);
+        this.save();
+    }
+
+
+    @Override
+    public List<String> standardizeNames(List<String> names) {
+        return FoodNameParser.parseFoodItemNames(key, names);
+    }
+
 }
