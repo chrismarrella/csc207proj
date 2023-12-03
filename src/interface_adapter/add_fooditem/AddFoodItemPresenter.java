@@ -1,11 +1,7 @@
 package interface_adapter.add_fooditem;
 
 import use_case.add_fooditem.AddFoodItemOutputBoundary;
-import use_case.add_fooditem.AddFoodItemOutputData;
-import interface_adapter.add_fooditem.AddFoodItemViewModel;
-import interface_adapter.add_fooditem.AddFoodItemState;
 
-import java.util.Objects;
 /**
  * Presenter responsible for handling the output data from the add food item use case.
  * This class acts as a bridge between the interactor and the view model.
