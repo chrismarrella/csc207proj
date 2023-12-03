@@ -47,4 +47,15 @@ public class UpdateRestrictionsPresenter implements UpdateRestrictionsOutputBoun
         updateRestrictionsState.setError(error);
         updateRestrictionsViewModel.firePropertyChange();
     }
+
+    /**
+     * Prepares the popup for the view to display when a checkbox restriction is successfully applied.
+     * @param success The success message to be displayed.
+     */
+
+    @Override
+    public void prepareCheckedView(String success) {
+        UpdateRestrictionsState updateRestrictionsState = updateRestrictionsViewModel.getCurrState();
+        updateRestrictionsState.setError(null);
+    }
 }

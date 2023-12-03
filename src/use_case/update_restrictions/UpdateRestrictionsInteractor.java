@@ -53,14 +53,7 @@ public class UpdateRestrictionsInteractor implements UpdateRestrictionsInputBoun
                 // Remove the existing restriction and add the new one
                 dietaryPreferences.removeRestriction(restriction, dietaryPreferences.getRestriction(restriction));
                 dietaryPreferences.addRestriction(restriction, value);
-                urOutputBoundary.prepareUpdatedView("Successfully Updated restriction: " + restriction);
-                System.out.println("Second if statement passed: " + dietaryPreferences.getAllKeys());
-                urDataAccessInterface.save(user);
-            } else {
-                // Update or add the restriction
-                dietaryPreferences.removeRestriction(restriction, dietaryPreferences.getRestriction(restriction));
-                dietaryPreferences.addRestriction(restriction, value);
-                urOutputBoundary.prepareUpdatedView("Successfully Added Restriction: " + restriction);
+                urOutputBoundary.prepareCheckedView("Successfully Updated restriction: " + restriction);
                 System.out.println("Second if statement passed: " + dietaryPreferences.getAllKeys());
                 urDataAccessInterface.save(user);
             }

@@ -8,4 +8,5 @@ public interface UpdateRestrictionsOutputBoundary {
     void prepareUpdatedView(String success);
 
     void prepareFailView(String error);
+    void prepareCheckedView(String success);
 }

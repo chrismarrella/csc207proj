@@ -20,7 +20,7 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
     public final String viewName = "main menu";
     public final JButton GoToGetRecipes;
     private final MainMenuViewModel mainMenuViewModel;
-    private final JButton GoToUpdateRestrictions;
+    final JButton GoToUpdateRestrictions;
     private final MainMenuController mainMenuController;
 
     public MainMenuView(MainMenuController mainMenuController ,MainMenuViewModel mainMenuViewModel) {

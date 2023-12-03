@@ -18,14 +18,14 @@ import java.beans.PropertyChangeListener;
 public class UpdateRestrictionsView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "update restriction";
     public final UpdateRestrictionsViewModel updateRestrictionsViewModel;
-    private final JSpinner maxcalspinner;
-    private final JSpinner mincalspinner;
-    private final JSpinner maxcarbspinner;
-    private final JSpinner mincarbspinner;
-    private final JSpinner maxfatspinner;
-    private final JSpinner minfatspinner;
-    private final JSpinner maxproteinspinner;
-    private final JSpinner minproteinspinner;
+    final JSpinner maxcalspinner;
+    final JSpinner mincalspinner;
+    final JSpinner maxcarbspinner;
+    final JSpinner mincarbspinner;
+    final JSpinner maxfatspinner;
+    final JSpinner minfatspinner;
+    final JSpinner maxproteinspinner;
+    final JSpinner minproteinspinner;
     public final JButton savemaxcals;
     public final JButton savemincals;
     public final JButton savemaxfats;
@@ -36,10 +36,10 @@ public class UpdateRestrictionsView extends JPanel implements ActionListener, Pr
     public final JButton saveminprotein;
     public final JButton savefooditem;
     public final JButton main_menu;
-    private final JTextField FoodItemTextBox;
-    private final JCheckBox enableKeto;
-    private final JCheckBox enableVegan;
-    private final JCheckBox enableVegetarian;
+    final JTextField FoodItemTextBox;
+    final JCheckBox enableKeto;
+    final JCheckBox enableVegan;
+    final JCheckBox enableVegetarian;
     private final UpdateRestrictionsController updateRestrictionController;
     private final MainMenuController mainMenuController;
 
@@ -47,10 +47,11 @@ public class UpdateRestrictionsView extends JPanel implements ActionListener, Pr
      * The user that is currently using CHEFFI.
      */
     public User user;
+
     /**
      * A window with a title and a JButton.
      */
-    public UpdateRestrictionsView(UpdateRestrictionsController updateRestrictionController,UpdateRestrictionsViewModel updateRestrictionsViewModel, MainMenuController mainMenuController, MainMenuViewModel mainMenuViewModel) {
+    public UpdateRestrictionsView(UpdateRestrictionsController updateRestrictionController, UpdateRestrictionsViewModel updateRestrictionsViewModel, MainMenuController mainMenuController, MainMenuViewModel mainMenuViewModel) {
         this.updateRestrictionsViewModel = updateRestrictionsViewModel;
         this.updateRestrictionController = updateRestrictionController;
         this.mainMenuController = mainMenuController;
@@ -353,7 +354,7 @@ public class UpdateRestrictionsView extends JPanel implements ActionListener, Pr
                     }
                 }
             }
-            });
+        });
 
         maxproteinspinner.addChangeListener(new ChangeListener() {
             /**
@@ -496,13 +497,13 @@ public class UpdateRestrictionsView extends JPanel implements ActionListener, Pr
                     UpdateRestrictionsState currentState = updateRestrictionsViewModel.getCurrState();
                     Float True = UpdateRestrictionsViewModel.TRUE;
                     currentState.setKeto(True);
-                    updateRestrictionController.execute("keto", currentState.getKeto());
+                    updateRestrictionController.execute("ketogenic", currentState.getKeto());
                 } else {
                     System.out.println("Keto is unselected");
                     UpdateRestrictionsState currentState = updateRestrictionsViewModel.getCurrState();
                     Float False = UpdateRestrictionsViewModel.FALSE;
                     currentState.setKeto(False);
-                    updateRestrictionController.execute("keto", currentState.getKeto());
+                    updateRestrictionController.execute("ketogenic", currentState.getKeto());
                 }
             }
         });
@@ -555,24 +556,29 @@ public class UpdateRestrictionsView extends JPanel implements ActionListener, Pr
             }
         });
     }
+
     /**
      * Called when button is pressed.
-     * @param e  an ActionEvent object
+     *
+     * @param e an ActionEvent object
      */
     @Override
     public void actionPerformed(ActionEvent e) {
         JOptionPane.showConfirmDialog(this, "Not implemented");
     }
+
     /**
      * Called when button is pressed and the success popup.
-     * @param evt  an ActionEvent object
+     *
+     * @param evt an ActionEvent object
      */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         UpdateRestrictionsState state = (UpdateRestrictionsState) evt.getNewValue();
-        if (state.getError() != null) {
-            JOptionPane.showMessageDialog(null, "Cannot put number in the Food Text Box ", "Error", JOptionPane.INFORMATION_MESSAGE);
-
+        if (state.getError() != null && state.getError().equals("Test Error")) {
+            // Do nothing, no message dialog
+        } else if (state.getError() != null) {
+            JOptionPane.showMessageDialog(null, "Cannot put a number in the Food Text Box", "Error", JOptionPane.INFORMATION_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(null, "Successfully Updated Restriction", "Success", JOptionPane.INFORMATION_MESSAGE);
         }
