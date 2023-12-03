@@ -1,6 +1,6 @@
 package use_case.delete_fooditem;
 
-public abstract class DeleteFoodItemInputData {
+public class DeleteFoodItemInputData {
     final private String foodItem;
 
     // The amount is a string because the error regarding the data type and the number is handled in the interactor.
@@ -28,6 +28,4 @@ public abstract class DeleteFoodItemInputData {
     public String getAmount() {
         return amount;
     }
-
-    public abstract void execute(String foodItemName, String amount);
 }
