@@ -1,16 +1,11 @@
 package view;
 
-import interface_adapter.ViewManagerModel;
-import interface_adapter.get_recipe.GetRecipeViewModel;
 import interface_adapter.main_menu.MainMenuViewModel;
 import interface_adapter.main_menu.MainMenuState;
 import interface_adapter.main_menu.MainMenuController;
-import interface_adapter.removeExpired.RemoveExpiredController;
-import interface_adapter.removeExpired.RemoveExpiredPresenter;
-import interface_adapter.removeExpired.RemoveExpiredState;
-import interface_adapter.removeExpired.RemoveExpiredViewModel;
-import use_case.main_menu.MainMenuInputData;
-import use_case.main_menu.MainMenuInteractor;
+import interface_adapter.remove_expired.RemoveExpiredController;
+import interface_adapter.remove_expired.RemoveExpiredState;
+import interface_adapter.remove_expired.RemoveExpiredViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,7 +13,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.time.LocalDateTime;
 import java.util.Calendar;
 
 
@@ -29,12 +23,21 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
     private final RemoveExpiredViewModel removeExpiredViewModel;
     private final RemoveExpiredController removeExpiredController;
     public final JButton GoToGetRecipes;
-    private final JButton GoToUpdateRestrictions;
-    private final JButton GoToDeleteFoodItem;
-    private final JButton GoToAddFoodItem;
+    public final JButton GoToUpdateRestrictions;
+    public final JButton GoToDeleteFoodItem;
+    public final JButton GoToAddFoodItem;
 
+    /**
+     * This is the constructor for the main menu view
+     * @param mainMenuController the controller for the main menu view.
+     * @param mainMenuViewModel the view model for the main menu view.
+     * @param removeExpiredController the controller for the remove expired view.
+     * @param removeExpiredViewModel the view model for the remove expired view.
+     */
     public MainMenuView(MainMenuController mainMenuController, MainMenuViewModel mainMenuViewModel,
                         RemoveExpiredController removeExpiredController, RemoveExpiredViewModel removeExpiredViewModel) {
+
+        // Instantiating the view models and controllers
         this.mainMenuViewModel = mainMenuViewModel;
         this.mainMenuController = mainMenuController;
         this.removeExpiredViewModel = removeExpiredViewModel;
@@ -58,13 +61,14 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
         buttons.add(GoToUpdateRestrictions);
         add(buttons);
 
+        // Go to Add Food Item button
+        GoToAddFoodItem = new JButton(MainMenuViewModel.GO_TO_ADD_FOOD_ITEM);
+        buttons.add(GoToAddFoodItem);
+        add(buttons);
+
         // Go to Delete Food Item button
         GoToDeleteFoodItem = new JButton(MainMenuViewModel.GO_TO_REMOVE_FOOD_ITEM);
         buttons.add(GoToDeleteFoodItem);
-        add(buttons);
-
-        GoToAddFoodItem = new JButton(MainMenuViewModel.GO_TO_ADD_FOOD_ITEM);
-        buttons.add(GoToAddFoodItem);
         add(buttons);
 
         GoToGetRecipes.addActionListener(new ActionListener() {
@@ -100,6 +104,9 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
         });
 
         GoToDeleteFoodItem.addActionListener(new ActionListener() {
+            /**
+             * @param evt the event to be processed when the delete food item button is clicked.
+             */
             public void actionPerformed(ActionEvent evt) {
                 if (evt.getSource().equals(GoToDeleteFoodItem)) {
                     MainMenuState currentState = mainMenuViewModel.getState();
@@ -111,9 +118,16 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
+        // Remove expired food items use case is triggered here, when the program starts running.
         removeExpired(this.removeExpiredController, this.removeExpiredViewModel);
     }
 
+    /**
+     * This method is used to remove expired food items from the user's inventory.
+     * Executes the remove expired food items use case.
+     * @param removeExpiredController the controller for the remove expired view.
+     * @param removeExpiredViewModel the view model for the remove expired view.
+     */
     public void removeExpired(RemoveExpiredController removeExpiredController,
                               RemoveExpiredViewModel removeExpiredViewModel) {
 
@@ -121,11 +135,14 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
         RemoveExpiredState currState = removeExpiredViewModel.getState();
 
         if (currState.getNoExpired() != null) {
+            // fail view when there are no expired food items
             JOptionPane.showMessageDialog(this, currState.getNoExpired());
         } else {
+            // success view when there are expired food items
             JOptionPane.showMessageDialog(this, currState.getExpiredFoodItems());
         }
 
+        // setting the state to null to prevent error
         currState.setNoExpired(null);
         currState.setExpiredFoodItems(null);
     }

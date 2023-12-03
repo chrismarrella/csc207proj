@@ -1,17 +1,13 @@
 package data_access;
 
 import entities.*;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-import org.json.JSONException;
 import org.json.JSONObject;
 import use_case.add_fooditem.AddFoodItemDataAccessInterface;
 import use_case.get_recipe.GetRecipeDataAccessInterface;
 import use_case.get_shopping_list.GetShoppingListDataAccessInterface;
 import use_case.main_menu.MainMenuDataAccessInterface;
-import use_case.delete_foodItem.DeleteFoodItemDataAccessInterface;
-import use_case.removeExpired.RemoveExpiredDataAccessInterface;
+import use_case.delete_fooditem.DeleteFoodItemDataAccessInterface;
+import use_case.remove_expired.RemoveExpiredDataAccessInterface;
 import use_case.update_restrictions.UpdateRestrictionsDataAccessInterface;
 
 import java.io.*;
@@ -190,6 +186,11 @@ public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, M
         return res;
     }
 
+    /**
+     * Remove a specific item from inventory.
+     * @param item FoodItem to be removed from inventory.
+     * @return boolean whether the item was successfully removed.
+     */
     @Override
     public boolean removeSpecificItem(FoodItem item) {
         boolean res = accounts.get(0).removeSpecificItem(item);
@@ -197,17 +198,28 @@ public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, M
         return res;
     }
 
+    /**
+     * Get the inventory of the user.
+     * @return the inventory of the user as a priority queue of food items.
+     */
     @Override
     public PriorityQueue<FoodItem> getQueue() {
         return accounts.get(0).getQueue();
     }
 
+    /**
+     * Remove the oldest food item from inventory, from the top of the priority queue.
+     */
     @Override
     public void removeItem() {
         accounts.get(0).removeItem();
         this.save();
     }
 
+    /**
+     * Add item to inventory.
+     * @param item FoodItem to be added to the inventory.
+     */
     @Override
     public void addItem(FoodItem item) {
         accounts.get(0).addItem(item);
