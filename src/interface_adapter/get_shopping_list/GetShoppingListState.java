@@ -11,7 +11,7 @@ public class GetShoppingListState {
     private String error = null;
 
     /**
-     * Constructor for GetShoppingListState
+     * Updates the state with the given parameters
      * @param groceryItems List of grocery items
      * @param error Error message to be displayed
      */
@@ -35,8 +35,8 @@ public class GetShoppingListState {
     public String getError() { return this.error; }
 
     /**
-     * Getter for groceryItems
-     * @return List of of items in the shopping list
+     * Getter for shoppingList
+     * @return List of items in the shopping list
      */
     public List<String> getShoppingList() { return shoppingList; }
 }

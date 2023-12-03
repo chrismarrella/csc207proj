@@ -13,14 +13,14 @@ public class GetShoppingListController {
 
     /**
      * Constructor for GetShoppingListController
-     * @param getShoppingListInteractor GetShoppingListInteractor to be used
+     * @param getShoppingListInteractor GetShoppingListInputBoundary to be used
      */
     public GetShoppingListController(GetShoppingListInputBoundary getShoppingListInteractor) {
         this.getShoppingListInteractor = getShoppingListInteractor;
     }
 
     /**
-     * Executes the GetShoppingList use case by calling the Interactor
+     * Executes the GetShoppingList use case by calling the getShoppingListInteractor
      * @param recipeIngredients Ingredients required for the recipe
      */
     public void execute(List<String> recipeIngredients) {

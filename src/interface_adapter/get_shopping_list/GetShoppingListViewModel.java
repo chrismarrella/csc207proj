@@ -25,7 +25,7 @@ public class GetShoppingListViewModel extends ViewModel {
      */
     public GetShoppingListState getState() { return this.currState; }
 
-    /** Adds a PropertyChangeListener to the PropertyChangeSupport
+    /** Adds a PropertyChangeListener to the PropertyChangeSupport member
      * @param listener PropertyChangeListener to be added
      */
     public void addPropertyChangeListener(PropertyChangeListener listener) {
@@ -41,6 +41,7 @@ public class GetShoppingListViewModel extends ViewModel {
 
     /**
      * Getter for the state of the ViewModel
+     * @return List of ingredients required for the recipe
      */
     public List<String> getShoppingList() { return currState.getShoppingList(); }
 }

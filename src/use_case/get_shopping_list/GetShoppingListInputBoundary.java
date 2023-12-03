@@ -5,7 +5,7 @@ package use_case.get_shopping_list;
  */
 public interface GetShoppingListInputBoundary {
     /**
-     * Executes the use case
+     * Executes the use case given the input data
      * @param getShoppingListInputData Input data for the use case (the ingredients required for the recipe)
      */
     void execute(GetShoppingListInputData getShoppingListInputData);
