@@ -1,12 +1,16 @@
 package view;
 
+import entities.Recipe;
 import interface_adapter.get_recipe.GetRecipeController;
 import interface_adapter.get_recipe.GetRecipeState;
 import interface_adapter.get_recipe.GetRecipeViewModel;
+import interface_adapter.ViewManagerModel;
 import interface_adapter.get_shopping_list.GetShoppingListController;
 import interface_adapter.get_shopping_list.GetShoppingListState;
 import interface_adapter.get_shopping_list.GetShoppingListViewModel;
-import interface_adapter.ViewManagerModel;
+import interface_adapter.main_menu.MainMenuState;
+import interface_adapter.main_menu.MainMenuController;
+import interface_adapter.main_menu.MainMenuViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -27,6 +31,8 @@ public class GetRecipeView extends JPanel implements ActionListener, PropertyCha
     private final GetShoppingListViewModel getShoppingListViewModel;
     private final ViewManagerModel viewManagerModel;
     private final GetRecipeController getRecipeController;
+    private final MainMenuViewModel mainMenuViewModel;
+    private final MainMenuController mainMenuController;
     private final GetShoppingListController getShoppingListController;
 
     private final JButton generate;
@@ -36,13 +42,16 @@ public class GetRecipeView extends JPanel implements ActionListener, PropertyCha
                          GetRecipeViewModel getRecipeViewModel,
                          GetRecipeController getRecipeController,
                          GetShoppingListViewModel getShoppingListViewModel,
-                         GetShoppingListController getShoppingListController) {
+                         GetShoppingListController getShoppingListController,
+                         MainMenuViewModel mainMenuViewModel,
+                         MainMenuController mainMenuController) {
         this.getRecipeViewModel = getRecipeViewModel;
         this.viewManagerModel = viewManagerModel;
         this.getRecipeController = getRecipeController;
+        this.mainMenuViewModel = mainMenuViewModel;
+        this.mainMenuController = mainMenuController;
         this.getShoppingListViewModel = getShoppingListViewModel;
         this.getShoppingListController = getShoppingListController;
-        ShoppingListGenerator.setPath("./output/Shopping_List.md");
         getRecipeViewModel.addPropertyChangeListener(this);
         getShoppingListViewModel.addPropertyChangeListener(this);
 
@@ -63,18 +72,10 @@ public class GetRecipeView extends JPanel implements ActionListener, PropertyCha
         add(buttons);
 
         recipesPanel = new JPanel();
-//        recipesPanel.setPreferredSize(new Dimension(640, 500));
         JScrollPane scrollPane = new JScrollPane(recipesPanel);
         scrollPane.setPreferredSize(new Dimension(640,180));
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         add(scrollPane);
-
-//        resultTextArea = new JTextArea();
-//        resultTextArea.setEditable(false);
-//        resultTextArea.setLineWrap(true);
-//        resultTextArea.setWrapStyleWord(true);
-//        JScrollPane scrollPane = new JScrollPane(resultTextArea);
-//        add(scrollPane);
 
         generate.addActionListener(new ActionListener() {
 
@@ -82,9 +83,11 @@ public class GetRecipeView extends JPanel implements ActionListener, PropertyCha
             public void actionPerformed(ActionEvent evt) {
                 System.out.println("Generate button clicked.");
                 getRecipeController.execute();
-                getRecipeViewModel.firePropertyChange();
-                List<Map<String, List<String>>> recipes = getRecipeViewModel.getRecipes();
-                showRecipes(recipes);
+//                getRecipeViewModel.firePropertyChange();
+                if (getRecipeViewModel.getState().getError() == null) {
+                    List<Map<String, List<String>>> recipes = getRecipeViewModel.getRecipes();
+                    showRecipes(recipes);
+                }
             }
         });
 
@@ -92,7 +95,10 @@ public class GetRecipeView extends JPanel implements ActionListener, PropertyCha
             @Override
             public void actionPerformed(ActionEvent evt) {
                 if (evt.getSource().equals(MainMenu)) {
-                    // Assuming the viewName for GetRecipeView is "get recipe"
+                    System.out.println("Main Menu button clicked.");
+                    MainMenuState currState = mainMenuViewModel.getState();
+                    currState.setView_name("main menu");
+                    mainMenuController.execute(currState.getView_name());
                 }
             }
         });
@@ -131,10 +137,6 @@ public class GetRecipeView extends JPanel implements ActionListener, PropertyCha
     }
 
     private void showRecipes(List<Map<String, List<String>>> recipes) {
-//        for (String recipe : recipes) {
-//            resultTextArea.append(recipe + "\n");
-//        }
-
         recipesPanel.removeAll();
         recipesPanel.setPreferredSize(new Dimension(600, 150 * recipes.size()));
 
@@ -179,14 +181,16 @@ public class GetRecipeView extends JPanel implements ActionListener, PropertyCha
     public void propertyChange(PropertyChangeEvent evt) {
         if(evt.getPropertyName().equals("recipeState")) {
             GetRecipeState state = (GetRecipeState) evt.getNewValue();
-            if (state.getError() != null)
-                JOptionPane.showMessageDialog(this, "Recipes: Will finalize when API works");
+            if (state.getError() != null) {
+                String error = state.getError();
+                JOptionPane.showMessageDialog(this, error);
+            }
         }
         else {
             GetShoppingListState state = (GetShoppingListState) evt.getNewValue();
             if (state.getError() == null) {
                 System.out.println(state.getShoppingList());
-                ShoppingListGenerator.writeShoppingListToFile(state.getShoppingList());
+                writeShoppingListToFile(state.getShoppingList(), "./output/Shopping_List.md");
             }
             else {
                 JOptionPane.showMessageDialog(this, state.getError());
@@ -195,39 +199,26 @@ public class GetRecipeView extends JPanel implements ActionListener, PropertyCha
         }
 
     }
-
-    private static class ShoppingListGenerator {
-        private static FileWriter shoppingListFile;
-
-        private static void setPath(String filePath) {
-            try {
-                shoppingListFile = new FileWriter(filePath);
+    private void writeShoppingListToFile(List<String> shoppingList, String filePath) {
+        try {
+            FileWriter shoppingListFile = new FileWriter(filePath);
+            BufferedWriter bufferedWriter = new BufferedWriter(shoppingListFile);
+            bufferedWriter.write("**Shopping List**");
+            bufferedWriter.newLine();
+            bufferedWriter.newLine();
+            bufferedWriter.write("|Name    | Amount |");
+            bufferedWriter.newLine();
+            bufferedWriter.write("|-----| ---:|");
+            bufferedWriter.newLine();
+            for (String foodItem : shoppingList) {
+                String[] foodItemData = foodItem.split(":");
+                bufferedWriter.write("| " + foodItemData[0] + " | " + foodItemData[1] + " |");
+                bufferedWriter.newLine();
             }
-            catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            bufferedWriter.close();
         }
-
-        private static void writeShoppingListToFile(List<String> shoppingList) {
-            try {
-                BufferedWriter bufferedWriter = new BufferedWriter(shoppingListFile);
-                bufferedWriter.write("**Shopping List**");
-                bufferedWriter.newLine();
-                bufferedWriter.newLine();
-                bufferedWriter.write("|Name    | Amount |");
-                bufferedWriter.newLine();
-                bufferedWriter.write("|-----| ---:|");
-                bufferedWriter.newLine();
-                for (String foodItem : shoppingList) {
-                    String[] foodItemData = foodItem.split(":");
-                    bufferedWriter.write("| " + foodItemData[0] + " | " + foodItemData[1] + " |");
-                    bufferedWriter.newLine();
-                }
-                bufferedWriter.close();
-            }
-            catch (Exception e) {
-                throw new RuntimeException(e);
-            }
+        catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 }

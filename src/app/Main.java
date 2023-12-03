@@ -3,15 +3,23 @@ package app;
 import data_access.FileUserDataAccessObject;
 import entities.UserFactory;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.delete_foodItem.DeleteFoodItemViewModel;
 import interface_adapter.get_recipe.GetRecipeViewModel;
 import interface_adapter.get_shopping_list.GetShoppingListViewModel;
 import interface_adapter.main_menu.MainMenuController;
+import interface_adapter.add_fooditem.AddFoodItemController;
+import interface_adapter.add_fooditem.AddFoodItemViewModel;
+import use_case.main_menu.MainMenuInteractor;
 import interface_adapter.update_restrictions.UpdateRestrictionsViewModel;
+import interface_adapter.removeExpired.RemoveExpiredViewModel;
 import interface_adapter.main_menu.MainMenuViewModel;
 
+import use_case.main_menu.MainMenuInputBoundary;
+import view.DeleteFoodItemView;
 import view.GetRecipeView;
 import view.MainMenuView;
 import view.UpdateRestrictionsView;
+import view.AddFoodItemView;
 import view.ViewManager;
 
 import javax.swing.*;
@@ -36,6 +44,7 @@ public class Main {
 
         JPanel views = new JPanel(cardLayout);
         application.add(views);
+
         MainMenuViewModel mainMenuViewModel = new MainMenuViewModel();
         ViewManagerModel viewManagerModel = new ViewManagerModel();
         new ViewManager(views, cardLayout, viewManagerModel);
@@ -43,7 +52,9 @@ public class Main {
         UpdateRestrictionsViewModel updateRestrictionsViewModel = new UpdateRestrictionsViewModel();
         GetRecipeViewModel getrecipeViewModel = new GetRecipeViewModel();
         GetShoppingListViewModel getShoppingListViewModel = new GetShoppingListViewModel();
-
+        AddFoodItemViewModel addFoodItemViewModel = new AddFoodItemViewModel();
+        DeleteFoodItemViewModel deleteFoodItemViewModel = new DeleteFoodItemViewModel();
+        RemoveExpiredViewModel removeExpiredViewModel = new RemoveExpiredViewModel();
 
         FileUserDataAccessObject userDataAccessObject;
         try {
@@ -54,15 +65,21 @@ public class Main {
 
         MainMenuController mainMenuController = MainMenuUseCaseFactory.createMainMenuUseCase(viewManagerModel, mainMenuViewModel, userDataAccessObject, new UserFactory());
         MainMenuView mainMenuView = MainMenuUseCaseFactory.create(viewManagerModel,
-                mainMenuViewModel, getrecipeViewModel, userDataAccessObject, new UserFactory());
+                mainMenuViewModel, userDataAccessObject, new UserFactory(), removeExpiredViewModel);
         views.add(mainMenuView, mainMenuView.viewName);
 
         UpdateRestrictionsView updateRestrictionsView = UpdateRestrictionsUseCaseFactory.create(viewManagerModel, updateRestrictionsViewModel, userDataAccessObject, mainMenuController, mainMenuViewModel);
         views.add(updateRestrictionsView, updateRestrictionsView.viewName);
 
-        GetRecipeView getRecipeView = GetRecipeUseCaseFactory.create(viewManagerModel, getrecipeViewModel, userDataAccessObject, getShoppingListViewModel, userDataAccessObject);
+        GetRecipeView getRecipeView = GetRecipeUseCaseFactory.create(viewManagerModel, getrecipeViewModel, userDataAccessObject, getShoppingListViewModel, userDataAccessObject, mainMenuController, mainMenuViewModel);
         views.add(getRecipeView, getRecipeView.viewName);
 
+        DeleteFoodItemView deleteFoodItemView = DeleteFoodItemUseCaseFactory.create(viewManagerModel,
+                deleteFoodItemViewModel, mainMenuViewModel, mainMenuController, userDataAccessObject);
+        views.add(deleteFoodItemView, deleteFoodItemView.viewName);
+
+        AddFoodItemView addFoodItemView = AddFoodItemUseCaseFactory.create(viewManagerModel, addFoodItemViewModel, mainMenuViewModel, mainMenuController, userDataAccessObject);
+        views.add(addFoodItemView, addFoodItemView.viewName);
 
         viewManagerModel.setActiveView(mainMenuView.viewName);
         viewManagerModel.firePropertyChange();
