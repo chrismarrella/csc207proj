@@ -132,6 +132,10 @@ public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, M
     }
 
     public List<FoodItem> getInventory() {
+        /**
+         * Fetch the inventory of a user
+         * @returns a list of FoodItems in the first user's inventory
+         */
         User user = accounts.get(0);
         return new ArrayList<FoodItem>(user.getInventory().getQueue());
     }
@@ -230,6 +234,11 @@ public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, M
 
     @Override
     public boolean removeSpecificItem(FoodItem item) {
+        /**
+         * Remove a specific item from the user's inventory
+         * @param item  item to be removed
+         * @returns true if the item was successfully removed, false otherwise
+         */
         boolean res = accounts.get(0).removeSpecificItem(item);
         this.save();
         return res;
@@ -237,23 +246,39 @@ public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, M
 
     @Override
     public PriorityQueue<FoodItem> getQueue() {
+        /**
+         * Fetch the inventory of a user
+         * @returns a priority queue of FoodItems in the first user's inventory
+         */
         return accounts.get(0).getQueue();
     }
 
     @Override
     public void removeItem() {
+        /**
+         * Remove the first item in the user's inventory
+         */
         accounts.get(0).removeItem();
         this.save();
     }
 
     @Override
     public void addItem(FoodItem item) {
+        /**
+         * Add an item to the user's inventory
+         * @param item  item to be added
+         */
         accounts.get(0).addItem(item);
         this.save();
     }
 
     @Override
     public List<String> standardizeNames(List<String> names) {
+        /**
+         * Standardize the names of food items
+         * @param names  list of food item names
+         * @returns a list of standardized food item names
+         */
         return FoodNameParser.parseFoodItemNames(key, names);
     }
 

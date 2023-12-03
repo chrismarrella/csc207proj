@@ -103,10 +103,6 @@ public class RecipeGetter {
         assert res.get(1).equals(excludedFood.toString());
         assert res.get(2).equals(diet.toString());
         assert res.get(3).equals(newPrefs);
-//        res.set(0, includedFood.toString());
-//        res.set(1, excludedFood.toString());
-//        res.set(2, diet.toString());
-//        res.set(3, newPrefs);
 
         return res;
     }
