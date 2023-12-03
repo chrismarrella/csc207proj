@@ -6,6 +6,9 @@ import entities.UserFactory;
 import java.util.HashMap;
 
 public class MainMenuInteractor implements MainMenuInputBoundary {
+    /**
+     * This class represents the interactor for the main menu.
+     */
     final MainMenuOutputBoundary mainMenuPresenter;
 
     final MainMenuDataAccessInterface userDataAccessObject;
@@ -15,6 +18,12 @@ public class MainMenuInteractor implements MainMenuInputBoundary {
     public MainMenuInteractor(MainMenuOutputBoundary mainMenuPresenter,
                               MainMenuDataAccessInterface userDataAccessObject,
                               UserFactory userFactory) {
+        /**
+         * This constructor instantiates a new MainMenuInteractor object.
+         * @param mainMenuPresenter The presenter for the main menu.
+         * @param userDataAccessObject The data access object for the main menu.
+         * @param userFactory The factory for the user.
+         */
         this.mainMenuPresenter = mainMenuPresenter;
         this.userDataAccessObject = userDataAccessObject;
         this.userFactory = userFactory;
@@ -22,6 +31,10 @@ public class MainMenuInteractor implements MainMenuInputBoundary {
     }
     @Override
     public void execute(String view_name) {
+        /**
+         * This method executes the interactor for the main menu.
+         * @param view_name The name of the view.
+         */
         if (userDataAccessObject.getAllUsers().isEmpty()) {
             User user = userFactory.create(new HashMap<>());
             user.addRestriction("minCarbs", 10F);
