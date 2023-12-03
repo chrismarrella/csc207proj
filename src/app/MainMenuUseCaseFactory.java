@@ -36,6 +36,15 @@ public class MainMenuUseCaseFactory {
             FileUserDataAccessObject dataAccessObject,
             UserFactory userFactory,
             RemoveExpiredViewModel removeExpiredViewModel) {
+        /**
+         * This method creates the main menu view.
+         * @param viewManagerModel The view manager model.
+         * @param mainMenuViewModel The view model for the main menu view.
+         * @param dataAccessObject The data access object for the main menu view.
+         * @param userFactory The user factory for the main menu view.
+         * @param removeExpiredViewModel The view model for the remove expired view.
+         * @return The main menu view.
+         */
         try {
             MainMenuController mainMenuController = createMainMenuUseCase(viewManagerModel, mainMenuViewModel, dataAccessObject, userFactory);
             RemoveExpiredController removeExpiredController = createRemoveExpiredUseCase(viewManagerModel,
@@ -53,6 +62,15 @@ public class MainMenuUseCaseFactory {
             MainMenuViewModel mainMenuViewModel,
             MainMenuDataAccessInterface dataAccessInterface,
             UserFactory userFactory) throws IOException {
+        /**
+         * This method creates the main menu controller.
+         * @param viewManagerModel The view manager model.
+         * @param mainMenuViewModel The view model for the main menu view.
+         * @param dataAccessInterface The data access object for the main menu view.
+         * @param userFactory The user factory for the main menu view.
+         * @throws IOException If the user data csv file cannot be opened.
+         * @return The main menu controller.
+         */
 
         // Notice how we pass this method's parameters to the Presenter.
         MainMenuOutputBoundary mainMenuOutputBoundary = new MainMenuPresenter(viewManagerModel,
@@ -67,6 +85,14 @@ public class MainMenuUseCaseFactory {
     private static RemoveExpiredController createRemoveExpiredUseCase(
             ViewManagerModel viewManagerModel, RemoveExpiredViewModel removeExpiredViewModel,
             RemoveExpiredDataAccessInterface removeExpiredDataAccessInterface) throws IOException {
+        /**
+         * This method creates the remove expired controller.
+         * @param viewManagerModel The view manager model.
+         * @param removeExpiredViewModel The view model for the remove expired view.
+         * @param removeExpiredDataAccessInterface The data access object for removing expired food items.
+         * @throws IOException If the user data csv file cannot be opened.
+         * @return The remove expired controller.
+         */
 
         RemoveExpiredOutputBoundary removeExpiredOutputBoundary =
                 new RemoveExpiredPresenter(removeExpiredViewModel, viewManagerModel);

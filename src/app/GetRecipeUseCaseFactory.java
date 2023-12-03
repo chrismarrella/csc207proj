@@ -33,13 +33,17 @@ public class GetRecipeUseCaseFactory {
                                        GetShoppingListDataAccessInterface getShoppingListDataAccessInterface,
                                        MainMenuController mainMenuController,
                                        MainMenuViewModel mainMenuViewModel) {
-                                       GetRecipeDataAccessInterface getRecipeDataAccessInterface) {
         /**
          * Creates a GetRecipeView for the GetRecipe use case
          *
          * @param viewManagerModel  general viewManagerModel.
          * @param getRecipeViewModel    ViewModel for the get recipe view.
          * @param getRecipeDataAccessInterface  Data Access object for the get recipes use case
+         * @param getShoppingListViewModel  ViewModel for the get shopping list view.
+         * @param getShoppingListDataAccessInterface  Data Access object for the get shopping list use case
+         * @param mainMenuController  controller for the main menu use case.
+         * @param mainMenuViewModel  ViewModel for the main menu view.
+         *
          * @return the GetRecipe view
          *
          */
@@ -76,6 +80,13 @@ public class GetRecipeUseCaseFactory {
 
     private static GetShoppingListController createGetShoppingListUseCase(GetShoppingListViewModel getShoppingListViewModel,
                                                                           GetShoppingListDataAccessInterface getShoppingListDataAccessInterface) throws IOException {
+        /**
+         * Creates the controller for the GetShoppingList use case
+         * @param getShoppingListViewModel    ViewModel for the get shopping list view.
+         * @param getShoppingListDataAccessInterface  Data Access object for the get shopping list use case
+         * @throws IOException  If OutputBoundary or Interactor is instantiated incorrectly
+         * @return the GetShoppingList controller
+         */
         GetShoppingListOutputBoundary getShoppingListPresenter = new GetShoppingListPresenter(getShoppingListViewModel);
 
         GetShoppingListInputBoundary getShoppingListInteractor = new GetShoppingListInteractor(getShoppingListPresenter, getShoppingListDataAccessInterface);
