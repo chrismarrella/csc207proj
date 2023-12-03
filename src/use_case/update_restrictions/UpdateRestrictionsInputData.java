@@ -10,8 +10,8 @@ public class UpdateRestrictionsInputData {
 
     /**
      * Constructor for UpdateRestrictionsInputData.
-     * @param restriction
-     * @param value
+     * @param restriction The dietary restriction.
+     * @param value The amount of that restriction in a float or 1.0 for true or 0.0 for false.
      */
     public UpdateRestrictionsInputData(String restriction, Float value) {
         this.restriction = restriction;

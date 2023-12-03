@@ -18,14 +18,14 @@ import java.beans.PropertyChangeListener;
 public class UpdateRestrictionsView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "update restriction";
     public final UpdateRestrictionsViewModel updateRestrictionsViewModel;
-    final JSpinner maxcalspinner;
-    final JSpinner mincalspinner;
-    final JSpinner maxcarbspinner;
-    final JSpinner mincarbspinner;
-    final JSpinner maxfatspinner;
-    final JSpinner minfatspinner;
-    final JSpinner maxproteinspinner;
-    final JSpinner minproteinspinner;
+    public final JSpinner maxcalspinner;
+    public final JSpinner mincalspinner;
+    public final JSpinner maxcarbspinner;
+    public final JSpinner mincarbspinner;
+    public final JSpinner maxfatspinner;
+    public final JSpinner minfatspinner;
+    public final JSpinner maxproteinspinner;
+    public final JSpinner minproteinspinner;
     public final JButton savemaxcals;
     public final JButton savemincals;
     public final JButton savemaxfats;
@@ -36,10 +36,10 @@ public class UpdateRestrictionsView extends JPanel implements ActionListener, Pr
     public final JButton saveminprotein;
     public final JButton savefooditem;
     public final JButton main_menu;
-    final JTextField FoodItemTextBox;
-    final JCheckBox enableKeto;
-    final JCheckBox enableVegan;
-    final JCheckBox enableVegetarian;
+    public final JTextField FoodItemTextBox;
+    public final JCheckBox enableKeto;
+    public final JCheckBox enableVegan;
+    public final JCheckBox enableVegetarian;
     private final UpdateRestrictionsController updateRestrictionController;
     private final MainMenuController mainMenuController;
 

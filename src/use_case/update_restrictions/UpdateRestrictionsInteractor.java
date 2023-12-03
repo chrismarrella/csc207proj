@@ -12,9 +12,9 @@ import java.util.HashSet;
  * The UpdateRestrictionsInteractor class is responsible for executing the update restrictions use case.
  */
 public class UpdateRestrictionsInteractor implements UpdateRestrictionsInputBoundary {
-    final UpdateRestrictionsDataAccessInterface urDataAccessInterface;
-    final UpdateRestrictionsOutputBoundary urOutputBoundary;
-    final UserDietaryPreferences usermap;
+    public final UpdateRestrictionsDataAccessInterface urDataAccessInterface;
+    public final UpdateRestrictionsOutputBoundary urOutputBoundary;
+    public final UserDietaryPreferences usermap;
 
     /**
      * Constructor for UpdateRestrictionsInteractor.
