@@ -17,7 +17,7 @@ public class GetShoppingListOutputData {
      * Constructor for GetShoppingListOutputData
      * @param recipeItems List of FoodItems required for the recipe
      * @param userInventory List of FoodItems in the user's inventory
-     * @param useCaseFailed Whether or not the use case failed
+     * @param useCaseFailed Whether the use case failed
      */
     public GetShoppingListOutputData(List<FoodItem> recipeItems, List<FoodItem> userInventory, boolean useCaseFailed) {
         this.useCaseFailed = useCaseFailed;
@@ -43,7 +43,7 @@ public class GetShoppingListOutputData {
     }
 
     /**
-     * Getter for useCaseFailed
+     * Getter for foodItemData
      * @return List of FoodItems from the shopping list
      */
     public List<String> getFoodItemData() { return foodItemData; };
