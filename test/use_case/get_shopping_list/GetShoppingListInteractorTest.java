@@ -62,14 +62,14 @@ public class GetShoppingListInteractorTest {
         }
     }
     @BeforeEach
-    public void init() {
+    void init() {
         getShoppingListPresenter = new testOutputBoundary();
         dataAccessInterface = new testDataAccessInterface();
         getShoppingListInteractor = new GetShoppingListInteractor(getShoppingListPresenter, dataAccessInterface);
     }
 
     @Test
-    public void testBasicSuccessView() {
+    void testBasicSuccessView() {
         List<String> recipeIngredients = new ArrayList<>();
         recipeIngredients.add("apple:1.0");
         recipeIngredients.add("banana:2.0");
@@ -84,7 +84,7 @@ public class GetShoppingListInteractorTest {
     }
 
     @Test
-    public void testSuccessViewWithFilledInventory() {
+    void testSuccessViewWithFilledInventory() {
         List<String> recipeIngredients = new ArrayList<>();
         recipeIngredients.add("apple:1.0");
         recipeIngredients.add("banana:2.0");
@@ -100,7 +100,7 @@ public class GetShoppingListInteractorTest {
     }
 
     @Test
-    public void testFailViewWithEmptyRecipeItems() {
+    void testFailViewWithEmptyRecipeItems() {
         List<String> recipeIngredients = new ArrayList<>();
         GetShoppingListInputData inputData = new GetShoppingListInputData(recipeIngredients);
         getShoppingListInteractor.execute(inputData);
