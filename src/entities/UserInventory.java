@@ -27,7 +27,7 @@ public class UserInventory implements Inventory, Iterable<FoodItem> {
         return this.inventory;
     }
 
-    private class FoodItemComparator implements Comparator<FoodItem> {
+    public class FoodItemComparator implements Comparator<FoodItem> {
         @Override
         public int compare(FoodItem item1, FoodItem item2) {
             return item1.getCalendarObject().compareTo(item2.getCalendarObject());
@@ -56,5 +56,4 @@ public class UserInventory implements Inventory, Iterable<FoodItem> {
             return temp[index++];
         }
     }
-
 }

@@ -15,10 +15,25 @@ import view.AddFoodItemView;
 import javax.swing.*;
 import java.io.IOException;
 
+/**
+ * The factory for the add food item use case.
+ * This class is used to create the view for the add food item use case.
+ */
 public class AddFoodItemUseCaseFactory {
     private AddFoodItemUseCaseFactory() {
     }
 
+    /**
+     * Creates a AddFoodItemView for the AddFoodItem use case.
+     *
+     * @param viewManagerModel   general viewManagerModel.
+     * @param addFoodItemViewModel      ViewModel for the add food item view.
+     * @param mainMenuViewModel   ViewModel for the main menu view.
+     * @param mainMenuController  controller for the main menu use case.
+     * @param userDataAccessObject    DAO for the add food item use case.
+     *
+     * @return the view for the Add food item use case.
+     */
     public static AddFoodItemView create(
             ViewManagerModel viewManagerModel,
             AddFoodItemViewModel addFoodItemViewModel,
@@ -35,6 +50,7 @@ public class AddFoodItemUseCaseFactory {
          * @param addFoodItemDataAccessInterface    DAO for the add food item use case.
          *
          * @return the view for the Add food item use case.
+         * @throws IOException if the user data file cannot be opened.
          */
         try {
             AddFoodItemController addFoodItemController = createAddFoodItemUseCase(viewManagerModel, addFoodItemViewModel, userDataAccessObject);

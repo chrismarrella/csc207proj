@@ -7,10 +7,14 @@ import interface_adapter.remove_expired.RemoveExpiredController;
 import interface_adapter.remove_expired.RemoveExpiredState;
 import interface_adapter.remove_expired.RemoveExpiredViewModel;
 import use_case.main_menu.MainMenuInputBoundary;
+import view.MainMenuView;
 import use_case.remove_expired.RemoveExpiredInputBoundary;
 import use_case.remove_expired.RemoveExpiredInputData;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
 
 import static org.junit.jupiter.api.Assertions.*;
 

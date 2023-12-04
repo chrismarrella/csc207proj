@@ -1,5 +1,7 @@
 package view;
 
+import interface_adapter.ViewManagerModel;
+import interface_adapter.get_recipe.GetRecipeViewModel;
 import interface_adapter.main_menu.MainMenuViewModel;
 import interface_adapter.main_menu.MainMenuState;
 import interface_adapter.main_menu.MainMenuController;
