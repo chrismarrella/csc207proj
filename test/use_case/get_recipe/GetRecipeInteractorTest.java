@@ -101,12 +101,20 @@ class GetRecipeInteractorTest {
 
     @Test
     public void testExecuteValid() {
+        /**
+         * This test is to check if the execute method will return a list of recipes that meets the user's dietary
+         * preferences and user's inventory
+         */
         getRecipeInteractor = new GetRecipeInteractor(getRecipeDataAccessInterface1, getRecipeOutputBoundary);
         getRecipeInteractor.execute();
     }
 
     @Test
     public void testExecuteInvalid() {
+        /**
+         * This test is to check if the execute method will return an error message when there is no recipe that meets
+         * the user's dietary preferences and user's inventory
+         */
         getRecipeInteractor = new GetRecipeInteractor(getRecipeDataAccessInterface2, getRecipeOutputBoundary);
         getRecipeInteractor.execute();
     }
