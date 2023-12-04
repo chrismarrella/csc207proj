@@ -9,7 +9,6 @@ import java.util.PriorityQueue;
 import static org.junit.jupiter.api.Assertions.*;
 
 class UserTest {
-
     private User user;
     @BeforeEach
     void setUp() {
@@ -75,5 +74,11 @@ class UserTest {
         Set<String> keys = user.getAllKeys();
         assertEquals(1, keys.size());
         assertTrue(keys.contains("apple"));
+    }
+
+    @Test
+    void testGetRestriction() {
+        assertEquals(1.0f, user.getRestriction("apple"));
+
     }
 }
