@@ -17,6 +17,14 @@ public class RecipeGetter {
 
     private final List<String> diets = Arrays.asList("Vegetarian", "Ketogenic", "Vegan");
 
+    /**
+     * Retrieve a JSONObject from the api endpoint that contains information about the recipes that are specified
+     * by settings
+     *
+     * @param settings  List of objects that contain settings that can be easily inputted into the http request
+     * @param key   API key for authentication
+     * @return JSONObject that contains recipes specified by the settings
+     */
     public JSONObject getRecipe(String key, List<Object> settings) {
         String incFood = (String) settings.get(0);
         String excFood = (String) settings.get(1);
@@ -42,8 +50,20 @@ public class RecipeGetter {
         }
     }
 
+    /**
+     * Create a list of objects that contains strings and floats that can be easily passed into the http request
+     * from the provided ingredients and dietary preferences.
+     *
+     * index 0 will be included food items, index 1 will be excluded food items, index 2 will be diet,
+     * index 3 will be macros
+     *
+     * @param ingredients   List of food items of ingredients that should be used in the recipe
+     * @param dietaryPreferences    The dietary preferences being specified
+     * @return A list of objects, where index 0 will be included food items, index 1 will be excluded food items,
+     * index 2 will be diet, and index 3 will be macros
+     */
     public List<Object> preferenceConverter(List<FoodItem> ingredients, DietaryPreferences dietaryPreferences) {
-        // index 0 will be included food items, index 1 will be excluded food items, index 2 will be diet, index 3 will be macros
+
         Set<String> prefs = dietaryPreferences.getAllKeys();
         List<Object> res = new ArrayList<>(4);
         StringBuilder includedFood = new StringBuilder();
@@ -83,14 +103,18 @@ public class RecipeGetter {
         assert res.get(1).equals(excludedFood.toString());
         assert res.get(2).equals(diet.toString());
         assert res.get(3).equals(newPrefs);
-//        res.set(0, includedFood.toString());
-//        res.set(1, excludedFood.toString());
-//        res.set(2, diet.toString());
-//        res.set(3, newPrefs);
 
         return res;
     }
 
+    /**
+     * Get the ingredients from the provided recipe id
+     *
+     * @param id    The id of the specified recipe
+     * @param key   The api key used for the http request
+     * @return JSONObject containing the necessary ingredients for the provided recipe id
+     *
+     */
     public JSONObject getIngredients(Integer id, String key) {
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
@@ -107,6 +131,14 @@ public class RecipeGetter {
         }
     }
 
+    /**
+     * Get the nutrients from the provided recipe id
+     *
+     * @param id    The id of the specified recipe
+     * @param key   The api key used for the http request
+     * @return JSONObject containing the nutritional value for the provided recipe id
+     *
+     */
     public JSONObject getNutrients(Integer id, String key) {
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
@@ -123,6 +155,14 @@ public class RecipeGetter {
         }
     }
 
+    /**
+     * Get the instructions from the provided recipe id
+     *
+     * @param id    The id of the specified recipe
+     * @param key   The api key used for the http request
+     * @return JSONObject containing the instructions on how to cook the provided recipe corresponding to the id
+     *
+     */
     public JSONObject getInstructions(Integer id, String key) {
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();

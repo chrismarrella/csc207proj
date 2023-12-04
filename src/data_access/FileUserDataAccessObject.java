@@ -1,20 +1,19 @@
 package data_access;
 
 import entities.*;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-import org.json.JSONException;
 import org.json.JSONObject;
+import use_case.add_fooditem.AddFoodItemDataAccessInterface;
 import use_case.get_recipe.GetRecipeDataAccessInterface;
 import use_case.get_shopping_list.GetShoppingListDataAccessInterface;
 import use_case.main_menu.MainMenuDataAccessInterface;
+import use_case.delete_fooditem.DeleteFoodItemDataAccessInterface;
+import use_case.remove_expired.RemoveExpiredDataAccessInterface;
 import use_case.update_restrictions.UpdateRestrictionsDataAccessInterface;
 
 import java.io.*;
 import java.util.*;
 
-public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, MainMenuDataAccessInterface, UpdateRestrictionsDataAccessInterface, GetShoppingListDataAccessInterface {
+public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, MainMenuDataAccessInterface, DeleteFoodItemDataAccessInterface, UpdateRestrictionsDataAccessInterface, RemoveExpiredDataAccessInterface, AddFoodItemDataAccessInterface, GetShoppingListDataAccessInterface {
     private final File csvFile;
 
     private final Map<String, Integer> headers = new LinkedHashMap<>();
@@ -23,8 +22,15 @@ public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, M
 
     private UserFactory userFactory;
 
-    private final String key = "2be678a560c44dcd818f331ebb96b006";
+    private final String key = "1178e228ddeb4ba484e64911de9db1a8";
 
+    /**
+     * Data access object
+     *
+     * @param csvPath   File data is written too
+     * @param userFactory   User factory to create new users
+     * @throws IOException  if file readers are incorrectly initialized
+     */
     public FileUserDataAccessObject(String csvPath, UserFactory userFactory) throws IOException {
         this.userFactory = userFactory;
 
@@ -88,15 +94,27 @@ public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, M
         }
     }
 
+    /**
+     * Save a new user to accounts
+     * @param user  user to be added to accounts
+     */
     public void save(User user) {
         accounts.put(0, user);
         this.save();
     }
 
+    /**
+     * Fetch a user from accounts
+     * @param userNum   number associated with user in accounts
+     */
     public User get(int userNum) {
         return accounts.get(userNum);
     }
 
+    /**
+     * Fetch all users in accounts
+     * @return a list of all Users in accounts
+     */
     public List<User> getAllUsers() {
         List<User> res = new ArrayList<>();
         for (int key: accounts.keySet()) {
@@ -105,11 +123,19 @@ public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, M
         return res;
     }
 
+    /**
+     * Fetch the inventory of a user
+     * @return a list of FoodItems in the first user's inventory
+     */
     public List<FoodItem> getInventory() {
         User user = accounts.get(0);
         return new ArrayList<FoodItem>(user.getInventory().getQueue());
     }
 
+    /**
+     * Save all users in accounts to the csv file by formatting inventory and dietary preferences in a specific
+     * format so that it can be easily parsed again when we initialize the data access object.
+     */
     private void save() {
         BufferedWriter writer;
         try {
@@ -157,11 +183,23 @@ public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, M
             throw new RuntimeException(e);
         }
     }
+
+    /**
+     * Fetch the dietary preferences of a user
+     * @return Dietary preferences object of the first user in accounts.
+     */
     public DietaryPreferences retrievePreferences() {
         User user = accounts.get(0);
         return user.getDietaryRestrictions();
     }
 
+    /**
+     * Using user information, find recipes that coincide with items in the user's inventory
+     * that expire in a week, and also the dietary preferences that the user has specified.
+     *
+     * @param preferences   the user's dietary preferences
+     * @return a list of Recipes that are relevant to the user's inventory and dietary preferences.
+     */
     public List<Recipe> retrieveRecipes(DietaryPreferences preferences) {
         User user = accounts.get(0);
         InventoryChecker checker = new InventoryChecker();
@@ -187,7 +225,51 @@ public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, M
         return res;
     }
 
+    /**
+     * Remove a specific item from the user's inventory
+     * @param item  item to be removed
+     * @return true if the item was successfully removed, false otherwise
+     */
+    @Override
+    public boolean removeSpecificItem(FoodItem item) {
+        boolean res = accounts.get(0).removeSpecificItem(item);
+        this.save();
+        return res;
+    }
 
+    /**
+     * Fetch the inventory of a user
+     * @return a priority queue of FoodItems in the first user's inventory
+     */
+    @Override
+    public PriorityQueue<FoodItem> getQueue() {
+        return accounts.get(0).getQueue();
+    }
+
+    /**
+     * Remove the first item in the user's inventory
+     */
+    @Override
+    public void removeItem() {
+        accounts.get(0).removeItem();
+        this.save();
+    }
+
+    /**
+     * Add an item to the user's inventory
+     * @param item  item to be added
+     */
+    @Override
+    public void addItem(FoodItem item) {
+        accounts.get(0).addItem(item);
+        this.save();
+    }
+
+    /**
+     * Standardize the names of food items
+     * @param names  list of food item names
+     * @return a list of standardized food item names
+     */
     @Override
     public List<String> standardizeNames(List<String> names) {
         return FoodNameParser.parseFoodItemNames(key, names);

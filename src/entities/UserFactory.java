@@ -1,8 +1,16 @@
 package entities;
 import java.util.Map;
 
+/**
+ * This class represents a factory for creating users.
+ */
 public class UserFactory {
-    // does this have to be static???
+    /**
+     * Create a user
+     * @param dietaryRestrictions the dietary restrictions of the user
+     *
+     * @return a User object
+     */
     public User create(Map<String, Float> dietaryRestrictions) {
         return new User(dietaryRestrictions);
     }

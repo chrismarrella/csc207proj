@@ -5,6 +5,9 @@ import entities.UserFactory;
 
 import java.util.HashMap;
 
+/**
+ * This class represents the interactor for the main menu.
+ */
 public class MainMenuInteractor implements MainMenuInputBoundary {
     final MainMenuOutputBoundary mainMenuPresenter;
 
@@ -12,6 +15,12 @@ public class MainMenuInteractor implements MainMenuInputBoundary {
 
     final UserFactory userFactory;
 
+    /**
+     * This constructor instantiates a new MainMenuInteractor object.
+     * @param mainMenuPresenter The presenter for the main menu.
+     * @param userDataAccessObject The data access object for the main menu.
+     * @param userFactory The factory for the user.
+     */
     public MainMenuInteractor(MainMenuOutputBoundary mainMenuPresenter,
                               MainMenuDataAccessInterface userDataAccessObject,
                               UserFactory userFactory) {
@@ -20,6 +29,11 @@ public class MainMenuInteractor implements MainMenuInputBoundary {
         this.userFactory = userFactory;
 
     }
+
+    /**
+     * This method executes the interactor for the main menu.
+     * @param view_name The name of the view.
+     */
     @Override
     public void execute(String view_name) {
         if (userDataAccessObject.getAllUsers().isEmpty()) {
