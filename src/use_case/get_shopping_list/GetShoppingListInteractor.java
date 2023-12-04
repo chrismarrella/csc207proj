@@ -7,15 +7,28 @@ import entities.Recipe;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Interactor for GetShoppingList
+ */
 public class GetShoppingListInteractor implements GetShoppingListInputBoundary {
 
     private GetShoppingListOutputBoundary getShoppingListPresenter;
     private GetShoppingListDataAccessInterface dataAccessInterface;
 
+    /**
+     * Constructor for GetShoppingListInteractor
+     * @param getRecipePresenter Presenter for GetShoppingList
+     * @param dataAccessInterface DAO for GetShoppingList
+     */
     public GetShoppingListInteractor(GetShoppingListOutputBoundary getRecipePresenter, GetShoppingListDataAccessInterface dataAccessInterface) {
         this.getShoppingListPresenter = getRecipePresenter;
         this.dataAccessInterface = dataAccessInterface;
     }
+
+    /**
+     * Executes the GetShoppingList use case
+     * @param inputData Input data for GetShoppingList
+     */
     public void execute(GetShoppingListInputData inputData) {
         List<FoodItem> recipeIngredients = inputDataToFoodItems(inputData);
         if(!recipeIngredients.isEmpty()) {
