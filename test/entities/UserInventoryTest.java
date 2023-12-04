@@ -1,7 +1,6 @@
 package entities;
 
 import static org.junit.jupiter.api.Assertions.*;
-import entities.UserInventory.FoodItemComparator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -9,11 +8,6 @@ import java.util.Arrays;
 import java.util.Iterator;
 
 public class UserInventoryTest {
-
-    private UserInventory userInventory;
-    private FoodItemComparator comparator;
-    private InventoryChecker inventoryChecker;
-
     @Test
     void testIterator() {
         UserInventory userInventory = new UserInventory();
