@@ -38,8 +38,8 @@ public class GetRecipeView extends JPanel implements ActionListener, PropertyCha
     private final MainMenuController mainMenuController;
     private final GetShoppingListController getShoppingListController;
 
-    private final JButton generate;
-    private final JPanel recipesPanel;
+    public final JButton generate;
+    public final JPanel recipesPanel;
 
     /**
      * Constructor for GetRecipeView

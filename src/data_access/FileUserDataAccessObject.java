@@ -1,17 +1,13 @@
 package data_access;
 
 import entities.*;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-import org.json.JSONException;
 import org.json.JSONObject;
 import use_case.add_fooditem.AddFoodItemDataAccessInterface;
 import use_case.get_recipe.GetRecipeDataAccessInterface;
 import use_case.get_shopping_list.GetShoppingListDataAccessInterface;
 import use_case.main_menu.MainMenuDataAccessInterface;
-import use_case.delete_foodItem.DeleteFoodItemDataAccessInterface;
-import use_case.removeExpired.RemoveExpiredDataAccessInterface;
+import use_case.delete_fooditem.DeleteFoodItemDataAccessInterface;
+import use_case.remove_expired.RemoveExpiredDataAccessInterface;
 import use_case.update_restrictions.UpdateRestrictionsDataAccessInterface;
 
 import java.io.*;
@@ -36,7 +32,6 @@ public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, M
      * @throws IOException  if file readers are incorrectly initialized
      */
     public FileUserDataAccessObject(String csvPath, UserFactory userFactory) throws IOException {
-
         this.userFactory = userFactory;
 
         csvFile = new File(csvPath);

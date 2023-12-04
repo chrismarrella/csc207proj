@@ -104,5 +104,4 @@ public class UserInventory implements Inventory, Iterable<FoodItem> {
             return temp[index++];
         }
     }
-
 }

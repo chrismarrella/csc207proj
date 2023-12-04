@@ -1,21 +1,19 @@
 package app;
 
 import data_access.FileUserDataAccessObject;
-import entities.User;
 import entities.UserFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.main_menu.MainMenuController;
 import interface_adapter.main_menu.MainMenuViewModel;
 import interface_adapter.main_menu.MainMenuPresenter;
-import interface_adapter.get_recipe.GetRecipeViewModel;
 import use_case.main_menu.MainMenuDataAccessInterface;
-import interface_adapter.removeExpired.RemoveExpiredController;
-import interface_adapter.removeExpired.RemoveExpiredPresenter;
-import interface_adapter.removeExpired.RemoveExpiredViewModel;
-import use_case.removeExpired.RemoveExpiredDataAccessInterface;
-import use_case.removeExpired.RemoveExpiredInputBoundary;
-import use_case.removeExpired.RemoveExpiredInteractor;
-import use_case.removeExpired.RemoveExpiredOutputBoundary;
+import interface_adapter.remove_expired.RemoveExpiredController;
+import interface_adapter.remove_expired.RemoveExpiredPresenter;
+import interface_adapter.remove_expired.RemoveExpiredViewModel;
+import use_case.remove_expired.RemoveExpiredDataAccessInterface;
+import use_case.remove_expired.RemoveExpiredInputBoundary;
+import use_case.remove_expired.RemoveExpiredInteractor;
+import use_case.remove_expired.RemoveExpiredOutputBoundary;
 import view.MainMenuView;
 import use_case.main_menu.MainMenuOutputBoundary;
 import use_case.main_menu.MainMenuInputBoundary;
@@ -72,7 +70,6 @@ public class MainMenuUseCaseFactory {
             MainMenuViewModel mainMenuViewModel,
             MainMenuDataAccessInterface dataAccessInterface,
             UserFactory userFactory) throws IOException {
-
         // Notice how we pass this method's parameters to the Presenter.
         MainMenuOutputBoundary mainMenuOutputBoundary = new MainMenuPresenter(viewManagerModel,
                 mainMenuViewModel);
@@ -94,7 +91,6 @@ public class MainMenuUseCaseFactory {
     private static RemoveExpiredController createRemoveExpiredUseCase(
             ViewManagerModel viewManagerModel, RemoveExpiredViewModel removeExpiredViewModel,
             RemoveExpiredDataAccessInterface removeExpiredDataAccessInterface) throws IOException {
-
         RemoveExpiredOutputBoundary removeExpiredOutputBoundary =
                 new RemoveExpiredPresenter(removeExpiredViewModel, viewManagerModel);
         RemoveExpiredInputBoundary removeExpiredInteractor =
