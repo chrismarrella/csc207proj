@@ -33,11 +33,11 @@ class InventoryCheckerTest {
         //2 days from now
         FoodItem item1 = new FoodItem("sam", year, month, day, 1);
 
-        calendar.add(Calendar.DAY_OF_MONTH, 5);
+        calendar.add(Calendar.DAY_OF_MONTH, 4);
         year = calendar.get(Calendar.YEAR);
         month = calendar.get(Calendar.MONTH) + 1;
         day = calendar.get(Calendar.DAY_OF_MONTH);
-        //7 days from now
+        //6 days from now
         FoodItem item2 = new FoodItem("junhee", year, month, day, 1);
 
         calendar.add(Calendar.DAY_OF_MONTH, 3);
