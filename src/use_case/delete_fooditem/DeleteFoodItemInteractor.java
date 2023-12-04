@@ -1,21 +1,27 @@
-package use_case.delete_foodItem;
+package use_case.delete_fooditem;
 
 import entities.FoodItem;
-import entities.Inventory;
 
 import java.util.ArrayList;
-import java.util.PriorityQueue;
 
 public class DeleteFoodItemInteractor implements DeleteFoodItemInputBoundary {
     DeleteFoodItemOutputBoundary deleteFoodItemPresenter;
     DeleteFoodItemDataAccessInterface deleteFoodItemDataAccessObject;
 
+    /**
+     * @param deleteFoodItemDataAccessObject The data access object that stores the user's inventory.
+     * @param deleteFoodItemPresenter The presenter that displays the result of the use case.
+     */
     public DeleteFoodItemInteractor(DeleteFoodItemDataAccessInterface deleteFoodItemDataAccessObject,
                                     DeleteFoodItemOutputBoundary deleteFoodItemPresenter) {
         this.deleteFoodItemDataAccessObject = deleteFoodItemDataAccessObject;
         this.deleteFoodItemPresenter = deleteFoodItemPresenter;
     }
 
+    /**
+     * Deletes the specified food item of certain amount from the user's inventory.
+     * @param deleteFoodItemInputData The input data for the use case.
+     */
     @Override
     public void execute(DeleteFoodItemInputData deleteFoodItemInputData) {
         String foodItem = deleteFoodItemInputData.getFoodItem();
@@ -52,12 +58,15 @@ public class DeleteFoodItemInteractor implements DeleteFoodItemInputBoundary {
                 float foundAmount = foundFoodItem.getAmount();
 
                 if (floatAmount <= 0) {
+                    // if the input amount is not a positive number
                     deleteFoodItemPresenter.prepareFailView("Input amount is not a valid number.");
 
                 } else if (floatAmount > foundAmount) {
+                    // if the input amount is larger than the amount of food item in the inventory
                     deleteFoodItemPresenter.prepareFailView("Too large amount.");
 
                 } else {
+                    // if the input amount is valid
 
                     if (floatAmount < foundAmount) {
                         // when certain amount of food is removed and there's some leftover in the inventory
@@ -79,6 +88,7 @@ public class DeleteFoodItemInteractor implements DeleteFoodItemInputBoundary {
             }
 
         } catch (Exception e) {
+            // if the input amount is not a number
             deleteFoodItemPresenter.prepareFailView("Input amount is not a valid number.");
         }
     }

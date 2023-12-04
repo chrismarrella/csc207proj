@@ -1,4 +1,4 @@
-package use_case.removeExpired;
+package use_case.remove_expired;
 
 import entities.FoodItem;
 
@@ -8,6 +8,10 @@ public class RemoveExpiredOutputData {
 
     private String expiredFoodItems;
 
+    /**
+     * This method creates the output data with the list of expired food items in the user's inventory.
+     * @param foodItems the list of expired food items in the user's inventory.
+     */
     public RemoveExpiredOutputData(ArrayList<FoodItem> foodItems) {
         this.expiredFoodItems = "Expired food items in your inventory: ";
         for (FoodItem item : foodItems) {
@@ -15,6 +19,10 @@ public class RemoveExpiredOutputData {
         }
     }
 
+    /**
+     * This method gets the string of expired food items in the user's inventory.
+     * @return the string of the names of expired food items in the user's inventory.
+     */
     public String getExpiredFoodItems() {
         return expiredFoodItems;
     }

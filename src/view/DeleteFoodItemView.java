@@ -3,9 +3,9 @@ package view;
 import interface_adapter.main_menu.MainMenuController;
 import interface_adapter.main_menu.MainMenuState;
 import interface_adapter.main_menu.MainMenuViewModel;
-import interface_adapter.delete_foodItem.DeleteFoodItemController;
-import interface_adapter.delete_foodItem.DeleteFoodItemState;
-import interface_adapter.delete_foodItem.DeleteFoodItemViewModel;
+import interface_adapter.delete_fooditem.DeleteFoodItemController;
+import interface_adapter.delete_fooditem.DeleteFoodItemState;
+import interface_adapter.delete_fooditem.DeleteFoodItemViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,15 +24,24 @@ public class DeleteFoodItemView extends JPanel implements ActionListener, Proper
     private final MainMenuViewModel mainMenuViewModel;
     private final MainMenuController mainMenuController;
 
-    private JTextField foodItemInputField = new JTextField(10);
-    private final JTextField amountInputField = new JTextField(10);
-    private final JButton enter;
-    private final JButton cancel;
+    public JTextField foodItemInputField = new JTextField(10);
+    public final JTextField amountInputField = new JTextField(10);
+    public final JButton enter;
+    public final JButton cancel;
 
+    /**
+     * This method creates a delete food item view.
+     * @param deleteFoodItemViewModel the view model for delete food item use case.
+     * @param deleteFoodItemController the controller for delete food item use case.
+     * @param mainMenuViewModel the view model for main menu.
+     * @param mainMenuController the controller for main menu.
+     */
     public DeleteFoodItemView(DeleteFoodItemViewModel deleteFoodItemViewModel,
                               DeleteFoodItemController deleteFoodItemController,
                               MainMenuViewModel mainMenuViewModel,
                               MainMenuController mainMenuController) {
+
+        // instantiate the view models and controllers
         this.deleteFoodItemViewModel = deleteFoodItemViewModel;
         this.deleteFoodItemController = deleteFoodItemController;
         this.mainMenuViewModel = mainMenuViewModel;
@@ -42,6 +51,7 @@ public class DeleteFoodItemView extends JPanel implements ActionListener, Proper
         JLabel title = new JLabel(DeleteFoodItemViewModel.TITLE_LABEL);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+        // create the input fields and labels using LabelTextPanel class
         LabelTextPanel foodItemInput = new LabelTextPanel(
                 new JLabel(DeleteFoodItemViewModel.DELETE_LABEL), foodItemInputField
         );
@@ -55,6 +65,7 @@ public class DeleteFoodItemView extends JPanel implements ActionListener, Proper
         cancel = new JButton(DeleteFoodItemViewModel.CANCEL_BUTTON_LABEL);
         buttons.add(cancel);
 
+        // execute the delete food item use case when the enter button is clicked
         enter.addActionListener(
                 new ActionListener() {
                     @Override
@@ -68,6 +79,7 @@ public class DeleteFoodItemView extends JPanel implements ActionListener, Proper
                     }
         });
 
+        // go back to main menu when the cancel button is clicked
         cancel.addActionListener(
                 new ActionListener() {
                     @Override
@@ -80,6 +92,7 @@ public class DeleteFoodItemView extends JPanel implements ActionListener, Proper
                 }
         );
 
+        // set the food item input field when a key is typed
         foodItemInputField.addKeyListener(
                 new KeyListener() {
                     @Override
@@ -102,6 +115,7 @@ public class DeleteFoodItemView extends JPanel implements ActionListener, Proper
                 }
         );
 
+        // set the amount input field when a key is typed
         amountInputField.addKeyListener(
                 new KeyListener() {
                     @Override
@@ -132,17 +146,27 @@ public class DeleteFoodItemView extends JPanel implements ActionListener, Proper
         this.add(buttons);
     }
 
+    /**
+     * React to a button click that results in evt, print out the action command.
+     * @param e the action event.
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         System.out.println("Click " + e.getActionCommand());
     }
 
+    /**
+     * This method is called when a bound property is changed.
+     * @param evt the property change event.
+     */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals("delete food item")) {
             DeleteFoodItemState state = (DeleteFoodItemState) evt.getNewValue();
 
             // pop-up error messages for each error cases
+            // when an error occurs, the input fields are set to the previous input
+            // notice that the error messages are set to null after they are displayed
             if (state.getFoodItemError() != null) {
                 JOptionPane.showMessageDialog(this, state.getFoodItemError());
                 state.setFoodItemError(null);
@@ -161,7 +185,11 @@ public class DeleteFoodItemView extends JPanel implements ActionListener, Proper
         }
     }
 
-    private void setFields(DeleteFoodItemState state) {
+    /**
+     * This method sets the input fields to the previous input.
+     * @param state the state of delete food item use case.
+     */
+    public void setFields(DeleteFoodItemState state) {
         foodItemInputField.setText(state.getFoodItem());
     }
 
