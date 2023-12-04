@@ -27,12 +27,12 @@ public class DeleteFoodItemUseCaseFactory {
      * @param mainMenuViewModel The view model for the main menu view.
      * @param mainMenuController The controller for the main menu view.
      * @param deleteFoodItemDataAccessInterface The data access object for deleting a food item.
-     * @return The delete food item view.
      */
     public static DeleteFoodItemView create(
             ViewManagerModel viewManagerModel, DeleteFoodItemViewModel deleteFoodItemViewModel,
             MainMenuViewModel mainMenuViewModel, MainMenuController mainMenuController,
             DeleteFoodItemDataAccessInterface deleteFoodItemDataAccessInterface) {
+
         try {
             DeleteFoodItemController deleteFoodItemController = createDeleteFoodItemUseCase(viewManagerModel,
                     deleteFoodItemViewModel, mainMenuViewModel, deleteFoodItemDataAccessInterface);
@@ -51,13 +51,13 @@ public class DeleteFoodItemUseCaseFactory {
      * @param deleteFoodItemViewModel The view model for the delete food item view.
      * @param mainMenuViewModel The view model for the main menu view.
      * @param deleteFoodItemDataAccessInterface The data access object for deleting a food item.
-     * @return The delete food item controller.
      * @throws IOException If the user data csv file cannot be opened.
      */
     private static DeleteFoodItemController createDeleteFoodItemUseCase(
             ViewManagerModel viewManagerModel, DeleteFoodItemViewModel deleteFoodItemViewModel,
             MainMenuViewModel mainMenuViewModel, DeleteFoodItemDataAccessInterface deleteFoodItemDataAccessInterface)
             throws IOException {
+
         DeleteFoodItemOutputBoundary deleteFoodItemOutputBoundary =
                 new DeleteFoodItemPresenter(deleteFoodItemViewModel, mainMenuViewModel, viewManagerModel);
 

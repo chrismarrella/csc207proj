@@ -8,6 +8,9 @@ import java.beans.PropertyChangeSupport;
 
 import java.util.List;
 
+/**
+ * This class represents the view model for the main menu.
+ */
 public class MainMenuViewModel extends ViewModel {
     public static final String TITLE_LABEL = "Welcome to CHEFFI";
     public static final String GO_TO_SHOPPING_LIST_BUTTON_LABEL = "Shopping List";
@@ -20,21 +23,43 @@ public class MainMenuViewModel extends ViewModel {
 
     private MainMenuState state = new MainMenuState();
 
+    private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
+
+    /**
+     * Constructor for MainMenuViewModel
+     *
+     */
     public MainMenuViewModel() {
         super("Main Menu");
     }
 
+    /**
+     * Set the state for the main menu
+     * @param state the state for the main menu
+     */
     public void setState(MainMenuState state) {
         this.state = state;
     }
-    public MainMenuState getState() { return state; }
 
-    private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
+    /**
+     * Get the state for the main menu
+     * @return the state for the main menu
+     */
+    public MainMenuState getState() {
+        return state;
+    }
 
+    /**
+     * Fire a property change for the main menu
+     */
     public void firePropertyChange() {
         pcs.firePropertyChange("main menu", null, state);
     }
 
+    /**
+     * Add a property change listener for the main menu
+     * @param listener the listener to add
+     */
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         this.pcs.addPropertyChangeListener(listener);
     }

@@ -24,6 +24,13 @@ public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, M
 
     private final String key = "1178e228ddeb4ba484e64911de9db1a8";
 
+    /**
+     * Data access object
+     *
+     * @param csvPath   File data is written too
+     * @param userFactory   User factory to create new users
+     * @throws IOException  if file readers are incorrectly initialized
+     */
     public FileUserDataAccessObject(String csvPath, UserFactory userFactory) throws IOException {
         this.userFactory = userFactory;
 
@@ -87,15 +94,27 @@ public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, M
         }
     }
 
+    /**
+     * Save a new user to accounts
+     * @param user  user to be added to accounts
+     */
     public void save(User user) {
         accounts.put(0, user);
         this.save();
     }
 
+    /**
+     * Fetch a user from accounts
+     * @param userNum   number associated with user in accounts
+     */
     public User get(int userNum) {
         return accounts.get(userNum);
     }
 
+    /**
+     * Fetch all users in accounts
+     * @return a list of all Users in accounts
+     */
     public List<User> getAllUsers() {
         List<User> res = new ArrayList<>();
         for (int key: accounts.keySet()) {
@@ -104,11 +123,19 @@ public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, M
         return res;
     }
 
+    /**
+     * Fetch the inventory of a user
+     * @return a list of FoodItems in the first user's inventory
+     */
     public List<FoodItem> getInventory() {
         User user = accounts.get(0);
         return new ArrayList<FoodItem>(user.getInventory().getQueue());
     }
 
+    /**
+     * Save all users in accounts to the csv file by formatting inventory and dietary preferences in a specific
+     * format so that it can be easily parsed again when we initialize the data access object.
+     */
     private void save() {
         BufferedWriter writer;
         try {
@@ -156,11 +183,23 @@ public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, M
             throw new RuntimeException(e);
         }
     }
+
+    /**
+     * Fetch the dietary preferences of a user
+     * @return Dietary preferences object of the first user in accounts.
+     */
     public DietaryPreferences retrievePreferences() {
         User user = accounts.get(0);
         return user.getDietaryRestrictions();
     }
 
+    /**
+     * Using user information, find recipes that coincide with items in the user's inventory
+     * that expire in a week, and also the dietary preferences that the user has specified.
+     *
+     * @param preferences   the user's dietary preferences
+     * @return a list of Recipes that are relevant to the user's inventory and dietary preferences.
+     */
     public List<Recipe> retrieveRecipes(DietaryPreferences preferences) {
         User user = accounts.get(0);
         InventoryChecker checker = new InventoryChecker();
@@ -187,9 +226,9 @@ public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, M
     }
 
     /**
-     * Remove a specific item from inventory.
-     * @param item FoodItem to be removed from inventory.
-     * @return boolean whether the item was successfully removed.
+     * Remove a specific item from the user's inventory
+     * @param item  item to be removed
+     * @return true if the item was successfully removed, false otherwise
      */
     @Override
     public boolean removeSpecificItem(FoodItem item) {
@@ -199,8 +238,8 @@ public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, M
     }
 
     /**
-     * Get the inventory of the user.
-     * @return the inventory of the user as a priority queue of food items.
+     * Fetch the inventory of a user
+     * @return a priority queue of FoodItems in the first user's inventory
      */
     @Override
     public PriorityQueue<FoodItem> getQueue() {
@@ -208,7 +247,7 @@ public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, M
     }
 
     /**
-     * Remove the oldest food item from inventory, from the top of the priority queue.
+     * Remove the first item in the user's inventory
      */
     @Override
     public void removeItem() {
@@ -217,8 +256,8 @@ public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, M
     }
 
     /**
-     * Add item to inventory.
-     * @param item FoodItem to be added to the inventory.
+     * Add an item to the user's inventory
+     * @param item  item to be added
      */
     @Override
     public void addItem(FoodItem item) {
@@ -226,6 +265,11 @@ public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, M
         this.save();
     }
 
+    /**
+     * Standardize the names of food items
+     * @param names  list of food item names
+     * @return a list of standardized food item names
+     */
     @Override
     public List<String> standardizeNames(List<String> names) {
         return FoodNameParser.parseFoodItemNames(key, names);

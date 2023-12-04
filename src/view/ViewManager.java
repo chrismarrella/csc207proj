@@ -7,9 +7,8 @@ import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-
 /**
- * Manages the views of the application.
+ * This class represents the view manager.
  */
 public class ViewManager implements PropertyChangeListener {
     private final CardLayout cardLayout;
@@ -17,10 +16,10 @@ public class ViewManager implements PropertyChangeListener {
     private ViewManagerModel viewManagerModel;
 
     /**
-     * Constructs a ViewManager.
-     * @param views JPanel views is the panel that contains all the views.
-     * @param cardLayout CardLayout cardLayout is the layout of the views.
-     * @param viewManagerModel ViewManagerModel viewManagerModel is the model of the view manager.
+     * This constructor instantiates a new view manager.
+     * @param views The views.
+     * @param cardLayout The card layout.
+     * @param viewManagerModel The view manager model.
      */
     public ViewManager(JPanel views, CardLayout cardLayout, ViewManagerModel viewManagerModel) {
         this.views = views;
@@ -30,8 +29,8 @@ public class ViewManager implements PropertyChangeListener {
     }
 
     /**
-     * Changes the view.
-     * @param evt PropertyChangeEvent evt is the event that triggers the change of view.
+     * This method handles the property change.
+     * @param evt The property change event.
      */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {

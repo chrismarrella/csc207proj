@@ -24,6 +24,9 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * This class represents the view for getting a recipe.
+ */
 public class GetRecipeView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "get recipe";
     public final JButton MainMenu;
@@ -38,6 +41,17 @@ public class GetRecipeView extends JPanel implements ActionListener, PropertyCha
     public final JButton generate;
     public final JPanel recipesPanel;
 
+    /**
+     * Constructor for GetRecipeView
+     * @param viewManagerModel the view manager model
+     * @param getRecipeViewModel the view model for getting a recipe
+     * @param getRecipeController the controller for getting a recipe
+     * @param getShoppingListViewModel the view model for getting a shopping list
+     * @param getShoppingListController the controller for getting a shopping list
+     * @param mainMenuViewModel the view model for the main menu
+     * @param mainMenuController the controller for the main menu
+     *
+     */
     public GetRecipeView(ViewManagerModel viewManagerModel,
                          GetRecipeViewModel getRecipeViewModel,
                          GetRecipeController getRecipeController,
@@ -79,6 +93,10 @@ public class GetRecipeView extends JPanel implements ActionListener, PropertyCha
 
         generate.addActionListener(new ActionListener() {
 
+            /**
+             * This method handles the action of clicking the generate button.
+             * @param evt the action event
+             */
             @Override
             public void actionPerformed(ActionEvent evt) {
                 System.out.println("Generate button clicked.");
@@ -92,6 +110,10 @@ public class GetRecipeView extends JPanel implements ActionListener, PropertyCha
         });
 
         MainMenu.addActionListener(new ActionListener() {
+            /**
+             * This method handles the action of clicking the main menu button.
+             * @param evt the action event
+             */
             @Override
             public void actionPerformed(ActionEvent evt) {
                 if (evt.getSource().equals(MainMenu)) {
@@ -177,6 +199,10 @@ public class GetRecipeView extends JPanel implements ActionListener, PropertyCha
         System.out.println("Cancel not implemented yet.");
     }
 
+    /**
+     * This method handles the action of clicking the main menu button.
+     * @param evt the action event
+     */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if(evt.getPropertyName().equals("recipeState")) {

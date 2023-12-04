@@ -29,13 +29,13 @@ public class MainMenuUseCaseFactory {
     private MainMenuUseCaseFactory() {}
 
     /**
-     * Creates the main menu view.
-     * @param viewManagerModel ViewManagerModel is the model that keeps track of which view is currently showing.
-     * @param mainMenuViewModel MainMenuViewModel is the model that contains the data for the main menu view.
-     * @param dataAccessObject FileUserDataAccessObject is the data access object that contains the data for the user.
-     * @param userFactory UserFactory is the factory that creates the user.
-     * @param removeExpiredViewModel RemoveExpiredViewModel is the model that contains the data for the remove expired view.
-     * @return MainMenuView is the view that is created.
+     * This method creates the main menu view.
+     * @param viewManagerModel The view manager model.
+     * @param mainMenuViewModel The view model for the main menu view.
+     * @param dataAccessObject The data access object for the main menu view.
+     * @param userFactory The user factory for the main menu view.
+     * @param removeExpiredViewModel The view model for the remove expired view.
+     * @return  The main menu view.
      */
     public static MainMenuView create(
             ViewManagerModel viewManagerModel,
@@ -44,8 +44,7 @@ public class MainMenuUseCaseFactory {
             UserFactory userFactory,
             RemoveExpiredViewModel removeExpiredViewModel) {
         try {
-            MainMenuController mainMenuController =
-                    createMainMenuUseCase(viewManagerModel, mainMenuViewModel, dataAccessObject, userFactory);
+            MainMenuController mainMenuController = createMainMenuUseCase(viewManagerModel, mainMenuViewModel, dataAccessObject, userFactory);
             RemoveExpiredController removeExpiredController = createRemoveExpiredUseCase(viewManagerModel,
                     removeExpiredViewModel, dataAccessObject);
 
@@ -58,13 +57,13 @@ public class MainMenuUseCaseFactory {
     }
 
     /**
-     * Creates the main menu use case.
-     * @param viewManagerModel ViewManagerModel is the model that keeps track of which view is currently showing.
-     * @param mainMenuViewModel MainMenuViewModel is the model that contains the data for the main menu view.
-     * @param dataAccessInterface MainMenuDataAccessInterface is the data access object that contains the data for the user.
-     * @param userFactory UserFactory is the factory that creates the user.
-     * @return MainMenuController is the controller that is created.
-     * @throws IOException FileUserDataAccessObject may involve file operations that can result in an IOException.
+     * This method creates the main menu controller.
+     * @param viewManagerModel The view manager model.
+     * @param mainMenuViewModel The view model for the main menu view.
+     * @param dataAccessInterface The data access object for the main menu view.
+     * @param userFactory The user factory for the main menu view.
+     * @throws IOException If the user data csv file cannot be opened.
+     * @return  The main menu controller.
      */
     public static MainMenuController createMainMenuUseCase(
             ViewManagerModel viewManagerModel,
@@ -81,16 +80,16 @@ public class MainMenuUseCaseFactory {
         return new MainMenuController(mainMenuInteractor);
     }
 
-    /** Creates the remove expired use case.
-     * @param viewManagerModel ViewManagerModel is the model that keeps track of which view is currently showing.
-     * @param removeExpiredViewModel RemoveExpiredViewModel is the model that contains the data for the remove expired view.
-     * @param removeExpiredDataAccessInterface RemoveExpiredDataAccessInterface is the data access object that contains the data for the remove expired view.
-     * @return RemoveExpiredController is the controller that is created.
-     * @throws IOException FileUserDataAccessObject may involve file operations that can result in an IOException.
+    /**
+     * This method creates the remove expired controller.
+     * @param viewManagerModel The view manager model.
+     * @param removeExpiredViewModel The view model for the remove expired view.
+     * @param removeExpiredDataAccessInterface The data access object for removing expired food items.
+     * @throws IOException If the user data csv file cannot be opened.
+     * @return  The remove expired controller.
      */
     private static RemoveExpiredController createRemoveExpiredUseCase(
-            ViewManagerModel viewManagerModel,
-            RemoveExpiredViewModel removeExpiredViewModel,
+            ViewManagerModel viewManagerModel, RemoveExpiredViewModel removeExpiredViewModel,
             RemoveExpiredDataAccessInterface removeExpiredDataAccessInterface) throws IOException {
         RemoveExpiredOutputBoundary removeExpiredOutputBoundary =
                 new RemoveExpiredPresenter(removeExpiredViewModel, viewManagerModel);

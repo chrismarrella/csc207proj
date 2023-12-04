@@ -24,15 +24,15 @@ public class AddFoodItemUseCaseFactory {
     }
 
     /**
-     * Creates a AddFoodItemView for the AddFoodItem use case.
+     * Creates a AddFoodItemView for the AddFoodItem use case
      *
      * @param viewManagerModel   general viewManagerModel.
      * @param addFoodItemViewModel      ViewModel for the add food item view.
      * @param mainMenuViewModel   ViewModel for the main menu view.
      * @param mainMenuController  controller for the main menu use case.
      * @param userDataAccessObject    DAO for the add food item use case.
-     *
-     * @return the view for the Add food item use case.
+     * @throws IOException if the user data file cannot be opened.
+     * @return  the view for the Add food item use case.
      */
     public static AddFoodItemView create(
             ViewManagerModel viewManagerModel,
@@ -40,18 +40,6 @@ public class AddFoodItemUseCaseFactory {
             MainMenuViewModel mainMenuViewModel,
             MainMenuController mainMenuController,
             AddFoodItemDataAccessInterface userDataAccessObject) {
-        /**
-         * Creates a AddFoodItemView for the AddFoodItem use case
-         *
-         * @param viewManagerModel   general viewManagerModel.
-         * @param addFoodItemViewModel      ViewModel for the add food item view.
-         * @param mainMenuViewModel   ViewModel for the main menu view.
-         * @param mainMenuController  controller for the main menu use case.
-         * @param addFoodItemDataAccessInterface    DAO for the add food item use case.
-         *
-         * @return the view for the Add food item use case.
-         * @throws IOException if the user data file cannot be opened.
-         */
         try {
             AddFoodItemController addFoodItemController = createAddFoodItemUseCase(viewManagerModel, addFoodItemViewModel, userDataAccessObject);
             return new AddFoodItemView(addFoodItemController, addFoodItemViewModel, mainMenuController, mainMenuViewModel);
