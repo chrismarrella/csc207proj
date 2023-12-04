@@ -1,24 +1,65 @@
 package entities;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class InventoryCheckerTest {
 
+    private static Calendar calendar;
+    @BeforeAll
+    static void setUp() {
+        calendar = Calendar.getInstance();
+    }
+
     /**
      * Test week checker with different "food" items :)
      */
     @Test
     void testWeekChecker() {
-        FoodItem item1 = new FoodItem("sam", 2023, 12, 4, 1);
-        FoodItem item2 = new FoodItem("junhee", 2023, 12, 9, 1);
-        FoodItem item3 = new FoodItem("sasha", 2023, 12, 11, 1);
-        FoodItem item4 = new FoodItem("chris", 2023, 12, 12, 1);
-        FoodItem item5 = new FoodItem("jin hao", 2023, 12, 15, 1);
+        int year;
+        int month;
+        int day;
+
+        calendar.add(Calendar.DAY_OF_MONTH, 2);
+        year = calendar.get(Calendar.YEAR);
+        month = calendar.get(Calendar.MONTH) + 1;
+        day = calendar.get(Calendar.DAY_OF_MONTH);
+        //2 days from now
+        FoodItem item1 = new FoodItem("sam", year, month, day, 1);
+
+        calendar.add(Calendar.DAY_OF_MONTH, 4);
+        year = calendar.get(Calendar.YEAR);
+        month = calendar.get(Calendar.MONTH) + 1;
+        day = calendar.get(Calendar.DAY_OF_MONTH);
+        //6 days from now
+        FoodItem item2 = new FoodItem("junhee", year, month, day, 1);
+
+        calendar.add(Calendar.DAY_OF_MONTH, 3);
+        year = calendar.get(Calendar.YEAR);
+        month = calendar.get(Calendar.MONTH) + 1;
+        day = calendar.get(Calendar.DAY_OF_MONTH);
+        //10 days from now
+        FoodItem item3 = new FoodItem("sasha", year, month, day, 1);
+
+        calendar.add(Calendar.MONTH, 1);
+        year = calendar.get(Calendar.YEAR);
+        month = calendar.get(Calendar.MONTH) + 1;
+        day = calendar.get(Calendar.DAY_OF_MONTH);
+        //~1 month from now
+        FoodItem item4 = new FoodItem("chris", year, month, day, 1);
+
+        calendar.add(Calendar.YEAR, 1);
+        year = calendar.get(Calendar.YEAR);
+        month = calendar.get(Calendar.MONTH) + 1;
+        day = calendar.get(Calendar.DAY_OF_MONTH);
+        //~1 year from now
+        FoodItem item5 = new FoodItem("jin hao", year, month, day, 1);
 
         List<FoodItem> res = new ArrayList<>();
         res.add(item1);

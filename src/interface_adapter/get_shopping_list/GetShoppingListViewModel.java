@@ -38,7 +38,7 @@ public class GetShoppingListViewModel extends ViewModel {
     public void firePropertyChange() {
         pcs.firePropertyChange("shoppingListState", null, currState);
     }
-
+  
     /**
      * Getter for the state of the ViewModel
      * @return List of ingredients required for the recipe
