@@ -59,7 +59,7 @@ public class RecipeGetter {
      *
      * @param ingredients   List of food items of ingredients that should be used in the recipe
      * @param dietaryPreferences    The dietary preferences being specified
-     * @returns A list of objects, where index 0 will be included food items, index 1 will be excluded food items,
+     * @return A list of objects, where index 0 will be included food items, index 1 will be excluded food items,
      * index 2 will be diet, and index 3 will be macros
      */
     public List<Object> preferenceConverter(List<FoodItem> ingredients, DietaryPreferences dietaryPreferences) {
@@ -112,7 +112,7 @@ public class RecipeGetter {
      *
      * @param id    The id of the specified recipe
      * @param key   The api key used for the http request
-     * @returns JSONObject containing the necessary ingredients for the provided recipe id
+     * @return JSONObject containing the necessary ingredients for the provided recipe id
      *
      */
     public JSONObject getIngredients(Integer id, String key) {
@@ -136,7 +136,7 @@ public class RecipeGetter {
      *
      * @param id    The id of the specified recipe
      * @param key   The api key used for the http request
-     * @returns JSONObject containing the nutritional value for the provided recipe id
+     * @return JSONObject containing the nutritional value for the provided recipe id
      *
      */
     public JSONObject getNutrients(Integer id, String key) {
@@ -160,7 +160,7 @@ public class RecipeGetter {
      *
      * @param id    The id of the specified recipe
      * @param key   The api key used for the http request
-     * @returns JSONObject containing the instructions on how to cook the provided recipe corresponding to the id
+     * @return JSONObject containing the instructions on how to cook the provided recipe corresponding to the id
      *
      */
     public JSONObject getInstructions(Integer id, String key) {

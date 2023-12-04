@@ -12,7 +12,6 @@ public class GetRecipeController {
      * Constructor for GetRecipeController
      * @param getRecipeInteractor the interactor for getting a recipe
      *
-     * @return a GetRecipeController object
      */
     public GetRecipeController(GetRecipeInputBoundary getRecipeInteractor) {
         this.getRecipeInteractor = getRecipeInteractor;

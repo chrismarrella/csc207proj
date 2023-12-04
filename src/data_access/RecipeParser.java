@@ -13,7 +13,7 @@ public class RecipeParser {
      * Get the ids of the recipes returned in the JSONObject
      *
      * @param callResult the JSONObject that is returned by the getRecipe method
-     * @returns a list of integers that contains the ids for each recipe in callResult
+     * @return a list of integers that contains the ids for each recipe in callResult
      */
     public List<Integer> getIds(JSONObject callResult) {
         JSONArray res = callResult.getJSONArray("results");
@@ -31,7 +31,7 @@ public class RecipeParser {
      * Get the names of the recipes return in the JSONObject
      *
      * @param callResult the JSONObject that is returned by the getRecipe method
-     * @returns a list of strings that contains the names for each recipe in callResult
+     * @return a list of strings that contains the names for each recipe in callResult
      */
     public List<String> getNames(JSONObject callResult) {
         JSONArray res = callResult.getJSONArray("results");
@@ -49,7 +49,7 @@ public class RecipeParser {
      * Converts a JSONObject containing instructions into a list of strings with those instructions
      *
      * @param callResult the JSONObject that is returned by the getInstructions method
-     * @returns a list of strings that contains the instructions from the JSONObject fetched by getInstructions
+     * @return a list of strings that contains the instructions from the JSONObject fetched by getInstructions
      */
     public List<String> parseInstructions(JSONObject callResult) {
         JSONArray res = callResult.getJSONArray("steps");
@@ -67,7 +67,7 @@ public class RecipeParser {
      * Converts a JSONObject containing the nutritional value of a recipe into a list of strings with those nutrients
      *
      * @param callResult the JSONObject that is returned by the getNutrients method
-     * @returns a map of strings to floats where the strings are Calories, Saturated Fat, Carbohydrates, or Protein
+     * @return a map of strings to floats where the strings are Calories, Saturated Fat, Carbohydrates, or Protein
      * and the corresponding nutritional value specified in the recipe
      */
     public Map<String, Float> parseMacros(JSONObject callResult) {
@@ -90,7 +90,7 @@ public class RecipeParser {
      * Converts a JSONObject containing the ingredients needed for a recipe into a list of FoodItems
      *
      * @param callResult the JSONObject that is returned by the getIngredients method
-     * @returns a list of FoodItems from the provided JSON
+     * @return a list of FoodItems from the provided JSON
      */
     public List<FoodItem> parseIngredients(JSONObject callResult) {
         JSONArray res = callResult.getJSONArray("ingredients");

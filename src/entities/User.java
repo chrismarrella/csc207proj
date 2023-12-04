@@ -13,7 +13,6 @@ public class User {
      * Constructor for User
      * @param dietaryRestrictions the dietary restrictions of the user
      *
-     * @return a User object
      */
     public User(Map<String, Float> dietaryRestrictions) {
         this.inventory = new UserInventory();

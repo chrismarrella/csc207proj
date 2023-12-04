@@ -23,7 +23,6 @@ public class GetRecipeViewModel extends ViewModel {
     /**
      * Constructor for GetRecipeViewModel
      *
-     * @return a GetRecipeViewModel object
      */
     public GetRecipeViewModel() {
         super("Get Recipe");

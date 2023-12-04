@@ -37,7 +37,7 @@ public class GetRecipeUseCaseFactory {
      * @param mainMenuController  controller for the main menu use case.
      * @param mainMenuViewModel  ViewModel for the main menu view.
      *
-     * @return the GetRecipe view
+     * @return  the GetRecipe view
      *
      */
     public static GetRecipeView create(ViewManagerModel viewManagerModel,
@@ -65,7 +65,7 @@ public class GetRecipeUseCaseFactory {
      * @param getRecipeViewModel    ViewModel for the get recipe view.
      * @param getRecipeDataAccessInterface  Data Access object for the get recipes use case
      * @throws IOException  If OutputBoundary or Interactor is instantiated incorrectly
-     * @return the GetRecipe controller
+     * @return  the GetRecipe controller
      *
      */
     private static GetRecipeController createGetRecipeUseCase(GetRecipeViewModel getRecipeViewModel,
@@ -83,7 +83,7 @@ public class GetRecipeUseCaseFactory {
      * @param getShoppingListViewModel    ViewModel for the get shopping list view.
      * @param getShoppingListDataAccessInterface  Data Access object for the get shopping list use case
      * @throws IOException  If OutputBoundary or Interactor is instantiated incorrectly
-     * @return the GetShoppingList controller
+     * @return  the GetShoppingList controller
      */
     private static GetShoppingListController createGetShoppingListUseCase(GetShoppingListViewModel getShoppingListViewModel,
                                                                           GetShoppingListDataAccessInterface getShoppingListDataAccessInterface) throws IOException {

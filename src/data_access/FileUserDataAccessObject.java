@@ -118,7 +118,7 @@ public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, M
 
     /**
      * Fetch all users in accounts
-     * @returns a list of all Users in accounts
+     * @return a list of all Users in accounts
      */
     public List<User> getAllUsers() {
         List<User> res = new ArrayList<>();
@@ -130,7 +130,7 @@ public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, M
 
     /**
      * Fetch the inventory of a user
-     * @returns a list of FoodItems in the first user's inventory
+     * @return a list of FoodItems in the first user's inventory
      */
     public List<FoodItem> getInventory() {
         User user = accounts.get(0);
@@ -191,7 +191,7 @@ public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, M
 
     /**
      * Fetch the dietary preferences of a user
-     * @returns Dietary preferences object of the first user in accounts.
+     * @return Dietary preferences object of the first user in accounts.
      */
     public DietaryPreferences retrievePreferences() {
         User user = accounts.get(0);
@@ -203,7 +203,7 @@ public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, M
      * that expire in a week, and also the dietary preferences that the user has specified.
      *
      * @param preferences   the user's dietary preferences
-     * @returns a list of Recipes that are relevant to the user's inventory and dietary preferences.
+     * @return a list of Recipes that are relevant to the user's inventory and dietary preferences.
      */
     public List<Recipe> retrieveRecipes(DietaryPreferences preferences) {
         User user = accounts.get(0);
@@ -233,7 +233,7 @@ public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, M
     /**
      * Remove a specific item from the user's inventory
      * @param item  item to be removed
-     * @returns true if the item was successfully removed, false otherwise
+     * @return true if the item was successfully removed, false otherwise
      */
     @Override
     public boolean removeSpecificItem(FoodItem item) {
@@ -244,7 +244,7 @@ public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, M
 
     /**
      * Fetch the inventory of a user
-     * @returns a priority queue of FoodItems in the first user's inventory
+     * @return a priority queue of FoodItems in the first user's inventory
      */
     @Override
     public PriorityQueue<FoodItem> getQueue() {
@@ -273,7 +273,7 @@ public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, M
     /**
      * Standardize the names of food items
      * @param names  list of food item names
-     * @returns a list of standardized food item names
+     * @return a list of standardized food item names
      */
     @Override
     public List<String> standardizeNames(List<String> names) {

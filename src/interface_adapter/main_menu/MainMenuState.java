@@ -12,7 +12,6 @@ public class MainMenuState {
      * Constructor for MainMenuState
      * @param copy the state to copy
      *
-     * @return a MainMenuState object
      */
     public MainMenuState(MainMenuState copy) {
         success = copy.success;
@@ -23,7 +22,6 @@ public class MainMenuState {
     /**
      * Constructor for MainMenuState
      *
-     * @return a MainMenuState object
      */
     public MainMenuState() {
     }

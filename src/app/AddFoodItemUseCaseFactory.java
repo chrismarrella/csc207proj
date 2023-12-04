@@ -28,7 +28,7 @@ public class AddFoodItemUseCaseFactory {
      * @param mainMenuController  controller for the main menu use case.
      * @param userDataAccessObject    DAO for the add food item use case.
      *
-     * @return the view for the Add food item use case.
+     * @return  the view for the Add food item use case.
      */
     public static AddFoodItemView create(
             ViewManagerModel viewManagerModel,

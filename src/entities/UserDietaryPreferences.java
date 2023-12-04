@@ -14,7 +14,6 @@ public class UserDietaryPreferences implements DietaryPreferences{
      * Constructor for UserDietaryPreferences
      * @param dietaryRestrictions the dietary restrictions of the user
      *
-     * @return a UserDietaryPreferences object
      */
     public UserDietaryPreferences(Map<String, Float> dietaryRestrictions) {
         this.dietaryRestrictions = dietaryRestrictions;

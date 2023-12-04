@@ -14,7 +14,6 @@ public class GetRecipePresenter implements GetRecipeOutputBoundary {
      * Constructor for GetRecipePresenter
      * @param getRecipeViewModel the view model for getting a recipe
      *
-     * @return a GetRecipePresenter object
      */
     public GetRecipePresenter(GetRecipeViewModel getRecipeViewModel) {
         this.getRecipeViewModel = getRecipeViewModel;

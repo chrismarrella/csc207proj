@@ -13,7 +13,6 @@ public class FoodItem {
      * @param day the day of expiration
      * @param amount the amount of the food item
      *
-     * @return a FoodItem object
      * Note: January is considered as month 0
      */
     public FoodItem(String name, int year, int month, int day, float amount) {
@@ -30,7 +29,6 @@ public class FoodItem {
      * @param name the name of the food item
      * @param amount the amount of the food item
      *
-     * @return a FoodItem object
      */
     public FoodItem(String name, float amount) {
         // Used specifically for GetShoppingList use case, no need for the expiration date

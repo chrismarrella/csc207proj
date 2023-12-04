@@ -24,7 +24,6 @@ public class Recipe {
      * @param ingredients the ingredients for the recipe
      * @param macros the macros for the recipe
      *
-     * @return a Recipe object
      */
     public Recipe(String name, List<String> instructions, List<FoodItem> ingredients,
                   Map<String, Float> macros) {
@@ -101,7 +100,7 @@ public class Recipe {
     /**
      * Converts a recipe into a map of strings to lists of strings
      *
-     * @returns a map of strings to lists of strings where the strings are Name, Ingredients, Instructions, or Macros
+     * @return a map of strings to lists of strings where the strings are Name, Ingredients, Instructions, or Macros
      * and the corresponding value is the name of the recipe, the ingredients for the recipe, the instructions for
      * the recipe, or the macros for the recipe
      */
@@ -133,7 +132,7 @@ public class Recipe {
     /**
      * Converts a recipe into a string
      *
-     * @returns a string representation of the recipe
+     * @return a string representation of the recipe
      */
     @Override
     public String toString() {

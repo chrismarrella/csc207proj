@@ -18,7 +18,6 @@ public class MainMenuPresenter implements MainMenuOutputBoundary {
      * @param viewManagerModel the view manager model for the main menu
      * @param mainMenuViewModel the view model for the main menu
      *
-     * @return a MainMenuPresenter object
      */
     public MainMenuPresenter(ViewManagerModel viewManagerModel, MainMenuViewModel mainMenuViewModel) {
         this.viewManagerModel = viewManagerModel;

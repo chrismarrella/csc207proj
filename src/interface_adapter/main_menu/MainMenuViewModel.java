@@ -28,7 +28,6 @@ public class MainMenuViewModel extends ViewModel {
     /**
      * Constructor for MainMenuViewModel
      *
-     * @return a MainMenuViewModel object
      */
     public MainMenuViewModel() {
         super("Main Menu");

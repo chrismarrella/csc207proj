@@ -13,7 +13,6 @@ public class UserInventory implements Inventory, Iterable<FoodItem> {
     /**
      * Constructor for UserInventory
      *
-     * @return a UserInventory object
      */
     public UserInventory() {
         this.inventory = new PriorityQueue<>(new FoodItemComparator());

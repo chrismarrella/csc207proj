@@ -14,7 +14,6 @@ public class MainMenuController {
      * Constructor for MainMenuController
      * @param userMainMenuUseCaseInteractor the interactor for the main menu
      *
-     * @return a MainMenuController object
      */
     public MainMenuController(MainMenuInputBoundary userMainMenuUseCaseInteractor) {
         this.userMainMenuUseCaseInteractor = userMainMenuUseCaseInteractor;
