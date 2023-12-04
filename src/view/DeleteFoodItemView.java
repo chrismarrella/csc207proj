@@ -189,7 +189,7 @@ public class DeleteFoodItemView extends JPanel implements ActionListener, Proper
      * This method sets the input fields to the previous input.
      * @param state the state of delete food item use case.
      */
-    private void setFields(DeleteFoodItemState state) {
+    public void setFields(DeleteFoodItemState state) {
         foodItemInputField.setText(state.getFoodItem());
     }
 

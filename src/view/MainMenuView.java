@@ -141,10 +141,6 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
             // success view when there are expired food items
             JOptionPane.showMessageDialog(this, currState.getExpiredFoodItems());
         }
-
-        // setting the state to null to prevent error
-        currState.setNoExpired(null);
-        currState.setExpiredFoodItems(null);
     }
 
     @Override
