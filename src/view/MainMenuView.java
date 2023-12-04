@@ -30,7 +30,6 @@ public class MainMenuView extends JPanel implements ActionListener, PropertyChan
     private final RemoveExpiredViewModel removeExpiredViewModel;
     private final RemoveExpiredController removeExpiredController;
     public final JButton GoToGetRecipes;
-    private final JButton GoToUpdateRestrictions;
     private final JButton GoToDeleteFoodItem;
     private final JButton GoToAddFoodItem;
 
