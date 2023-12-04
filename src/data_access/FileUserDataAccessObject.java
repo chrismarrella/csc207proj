@@ -28,17 +28,14 @@ public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, M
 
     private final String key = "1178e228ddeb4ba484e64911de9db1a8";
 
+    /**
+     * Data access object
+     *
+     * @param csvPath   File data is written too
+     * @param userFactory   User factory to create new users
+     * @throws IOException  if file readers are incorrectly initialized
+     */
     public FileUserDataAccessObject(String csvPath, UserFactory userFactory) throws IOException {
-        /**
-         * Data access object
-         *
-         * @param csvFile   File data is written too
-         * @param headers    Headers of the csv file that delineate what data is being stored
-         * @param accounts  Map containing all users
-         * @param userFactory   User factory to create new users
-         * @param key   api key
-         * @throws IOException  if file readers are incorrectly initialized
-         */
 
         this.userFactory = userFactory;
 
@@ -102,28 +99,28 @@ public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, M
         }
     }
 
+    /**
+     * Save a new user to accounts
+     * @param user  user to be added to accounts
+     */
     public void save(User user) {
-        /**
-         * Save a new user to accounts
-         * @param user  user to be added to accounts
-         */
         accounts.put(0, user);
         this.save();
     }
 
+    /**
+     * Fetch a user from accounts
+     * @param userNum   number associated with user in accounts
+     */
     public User get(int userNum) {
-        /**
-         * Fetch a user from accounts
-         * @param userNum   number associated with user in accounts
-         */
         return accounts.get(userNum);
     }
 
+    /**
+     * Fetch all users in accounts
+     * @returns a list of all Users in accounts
+     */
     public List<User> getAllUsers() {
-        /**
-         * Fetch all users in accounts
-         * @returns a list of all Users in accounts
-         */
         List<User> res = new ArrayList<>();
         for (int key: accounts.keySet()) {
             res.add(accounts.get(key));
@@ -131,20 +128,20 @@ public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, M
         return res;
     }
 
+    /**
+     * Fetch the inventory of a user
+     * @returns a list of FoodItems in the first user's inventory
+     */
     public List<FoodItem> getInventory() {
-        /**
-         * Fetch the inventory of a user
-         * @returns a list of FoodItems in the first user's inventory
-         */
         User user = accounts.get(0);
         return new ArrayList<FoodItem>(user.getInventory().getQueue());
     }
 
+    /**
+     * Save all users in accounts to the csv file by formatting inventory and dietary preferences in a specific
+     * format so that it can be easily parsed again when we initialize the data access object.
+     */
     private void save() {
-        /**
-         * Save all users in accounts to the csv file by formatting inventory and dietary preferences in a specific
-         * format so that it can be easily parsed again when we initialize the data access object.
-         */
         BufferedWriter writer;
         try {
             writer = new BufferedWriter(new FileWriter(csvFile));
@@ -191,23 +188,24 @@ public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, M
             throw new RuntimeException(e);
         }
     }
+
+    /**
+     * Fetch the dietary preferences of a user
+     * @returns Dietary preferences object of the first user in accounts.
+     */
     public DietaryPreferences retrievePreferences() {
-        /**
-         * Fetch the dietary preferences of a user
-         * @returns Dietary preferences object of the first user in accounts.
-         */
         User user = accounts.get(0);
         return user.getDietaryRestrictions();
     }
 
+    /**
+     * Using user information, find recipes that coincide with items in the user's inventory
+     * that expire in a week, and also the dietary preferences that the user has specified.
+     *
+     * @param preferences   the user's dietary preferences
+     * @returns a list of Recipes that are relevant to the user's inventory and dietary preferences.
+     */
     public List<Recipe> retrieveRecipes(DietaryPreferences preferences) {
-        /**
-         * Using user information, find recipes that coincide with items in the user's inventory
-         * that expire in a week, and also the dietary preferences that the user has specified.
-         *
-         * @param preferences   the user's dietary preferences
-         * @returns a list of Recipes that are relevant to the user's inventory and dietary preferences.
-         */
         User user = accounts.get(0);
         InventoryChecker checker = new InventoryChecker();
         RecipeGetter getter = new RecipeGetter();
@@ -232,53 +230,53 @@ public class FileUserDataAccessObject implements GetRecipeDataAccessInterface, M
         return res;
     }
 
+    /**
+     * Remove a specific item from the user's inventory
+     * @param item  item to be removed
+     * @returns true if the item was successfully removed, false otherwise
+     */
     @Override
     public boolean removeSpecificItem(FoodItem item) {
-        /**
-         * Remove a specific item from the user's inventory
-         * @param item  item to be removed
-         * @returns true if the item was successfully removed, false otherwise
-         */
         boolean res = accounts.get(0).removeSpecificItem(item);
         this.save();
         return res;
     }
 
+    /**
+     * Fetch the inventory of a user
+     * @returns a priority queue of FoodItems in the first user's inventory
+     */
     @Override
     public PriorityQueue<FoodItem> getQueue() {
-        /**
-         * Fetch the inventory of a user
-         * @returns a priority queue of FoodItems in the first user's inventory
-         */
         return accounts.get(0).getQueue();
     }
 
+    /**
+     * Remove the first item in the user's inventory
+     */
     @Override
     public void removeItem() {
-        /**
-         * Remove the first item in the user's inventory
-         */
         accounts.get(0).removeItem();
         this.save();
     }
 
+    /**
+     * Add an item to the user's inventory
+     * @param item  item to be added
+     */
     @Override
     public void addItem(FoodItem item) {
-        /**
-         * Add an item to the user's inventory
-         * @param item  item to be added
-         */
         accounts.get(0).addItem(item);
         this.save();
     }
 
+    /**
+     * Standardize the names of food items
+     * @param names  list of food item names
+     * @returns a list of standardized food item names
+     */
     @Override
     public List<String> standardizeNames(List<String> names) {
-        /**
-         * Standardize the names of food items
-         * @param names  list of food item names
-         * @returns a list of standardized food item names
-         */
         return FoodNameParser.parseFoodItemNames(key, names);
     }
 

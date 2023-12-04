@@ -22,18 +22,19 @@ public class DeleteFoodItemUseCaseFactory {
 
     }
 
+    /**
+     * This method creates the delete food item view.
+     * @param viewManagerModel The view manager model.
+     * @param deleteFoodItemViewModel The view model for the delete food item view.
+     * @param mainMenuViewModel The view model for the main menu view.
+     * @param mainMenuController The controller for the main menu view.
+     * @param deleteFoodItemDataAccessInterface The data access object for deleting a food item.
+     */
     public static DeleteFoodItemView create(
             ViewManagerModel viewManagerModel, DeleteFoodItemViewModel deleteFoodItemViewModel,
             MainMenuViewModel mainMenuViewModel, MainMenuController mainMenuController,
             DeleteFoodItemDataAccessInterface deleteFoodItemDataAccessInterface) {
-        /**
-         * This method creates the delete food item view.
-         * @param viewManagerModel The view manager model.
-         * @param deleteFoodItemViewModel The view model for the delete food item view.
-         * @param mainMenuViewModel The view model for the main menu view.
-         * @param mainMenuController The controller for the main menu view.
-         * @param deleteFoodItemDataAccessInterface The data access object for deleting a food item.
-         */
+
         try {
             DeleteFoodItemController deleteFoodItemController = createDeleteFoodItemUseCase(viewManagerModel,
                     deleteFoodItemViewModel, mainMenuViewModel, deleteFoodItemDataAccessInterface);
@@ -47,17 +48,18 @@ public class DeleteFoodItemUseCaseFactory {
         return null;
     }
 
+    /** This method creates the delete food item controller.
+     * @param viewManagerModel The view manager model.
+     * @param deleteFoodItemViewModel The view model for the delete food item view.
+     * @param mainMenuViewModel The view model for the main menu view.
+     * @param deleteFoodItemDataAccessInterface The data access object for deleting a food item.
+     * @throws IOException If the user data csv file cannot be opened.
+     */
     private static DeleteFoodItemController createDeleteFoodItemUseCase(
             ViewManagerModel viewManagerModel, DeleteFoodItemViewModel deleteFoodItemViewModel,
             MainMenuViewModel mainMenuViewModel, DeleteFoodItemDataAccessInterface deleteFoodItemDataAccessInterface)
             throws IOException {
-        /** This method creates the delete food item controller.
-         * @param viewManagerModel The view manager model.
-         * @param deleteFoodItemViewModel The view model for the delete food item view.
-         * @param mainMenuViewModel The view model for the main menu view.
-         * @param deleteFoodItemDataAccessInterface The data access object for deleting a food item.
-         * @throws IOException If the user data csv file cannot be opened.
-         */
+
         DeleteFoodItemOutputBoundary deleteFoodItemOutputBoundary =
                 new DeleteFoodItemPresenter(deleteFoodItemViewModel, mainMenuViewModel, viewManagerModel);
 

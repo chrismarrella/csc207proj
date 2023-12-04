@@ -4,10 +4,10 @@ import entities.User;
 
 import java.util.List;
 
+/**
+ * This interface represents the data access interface for the main menu.
+ */
 public interface MainMenuDataAccessInterface {
-    /**
-     * This interface represents the data access interface for the main menu.
-     */
     void save(User user);
 
     List<User> getAllUsers();

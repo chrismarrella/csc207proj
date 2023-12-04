@@ -4,10 +4,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * This class represents a recipe.
+ */
 public class Recipe {
-    /**
-     * This class represents a recipe.
-     */
     // Temporary
     public String recipeText;
 
@@ -16,95 +16,96 @@ public class Recipe {
     private List<FoodItem> ingredients;
     private Map<String, Float> macros;
 
+
+    /**
+     * Constructor for Recipe
+     * @param name the name of the recipe
+     * @param instructions the instructions for the recipe
+     * @param ingredients the ingredients for the recipe
+     * @param macros the macros for the recipe
+     *
+     * @return a Recipe object
+     */
     public Recipe(String name, List<String> instructions, List<FoodItem> ingredients,
                   Map<String, Float> macros) {
-        /**
-         * Constructor for Recipe
-         * @param name the name of the recipe
-         * @param instructions the instructions for the recipe
-         * @param ingredients the ingredients for the recipe
-         * @param macros the macros for the recipe
-         *
-         * @return a Recipe object
-         */
         this.name = name;
         this.instructions = instructions;
         this.ingredients = ingredients;
         this.macros = macros;
     }
 
+    /**
+     * Get the name of the recipe
+     * @return the name of the recipe
+     */
     public String getName() {
-        /**
-         * Get the name of the recipe
-         * @return the name of the recipe
-         */
         return this.name;
     }
 
+    /**
+     * Set the name of the recipe
+     * @param name the name of the recipe
+     */
     public void setName(String name) {
-        /**
-         * Set the name of the recipe
-         * @param name the name of the recipe
-         */
         this.name = name;
     }
 
+    /**
+     * Get the instructions for the recipe
+     * @return the instructions for the recipe
+     */
     public List<String> getInstructions() {
-        /**
-         * Get the instructions for the recipe
-         * @return the instructions for the recipe
-         */
         return this.instructions;
     }
 
+    /**
+     * Set the instructions for the recipe
+     * @param instructions the instructions for the recipe
+     */
     public void setInstructions(List<String> instructions) {
-        /**
-         * Set the instructions for the recipe
-         * @param instructions the instructions for the recipe
-         */
         this.instructions = instructions;
     }
 
+    /**
+     * Get the ingredients for the recipe
+     * @return the ingredients for the recipe
+     */
     public List<FoodItem> getIngredients() {
-        /**
-         * Get the ingredients for the recipe
-         * @return the ingredients for the recipe
-         */
         return this.ingredients;
     }
 
+    /**
+     * Set the ingredients for the recipe
+     * @param ingredients the ingredients for the recipe
+     */
     public void setIngredients(List<FoodItem> ingredients) {
-        /**
-         * Set the ingredients for the recipe
-         * @param ingredients the ingredients for the recipe
-         */
         this.ingredients = ingredients;
     }
 
+    /**
+     * Get the macros for the recipe
+     * @return the macros for the recipe
+     */
     public Map<String, Float> getMacros() {
-        /**
-         * Get the macros for the recipe
-         * @return the macros for the recipe
-         */
         return this.macros;
     }
 
+    /**
+     * Set the macros for the recipe
+     * @param macros the macros for the recipe
+     */
     public void setMacros(Map<String, Float> macros) {
-        /**
-         * Set the macros for the recipe
-         * @param macros the macros for the recipe
-         */
         this.macros = macros;
     }
 
+    /**
+     * Converts a recipe into a map of strings to lists of strings
+     *
+     * @returns a map of strings to lists of strings where the strings are Name, Ingredients, Instructions, or Macros
+     * and the corresponding value is the name of the recipe, the ingredients for the recipe, the instructions for
+     * the recipe, or the macros for the recipe
+     */
     public Map<String, List<String>> toMap() {
-        /**
-         * Converts a recipe into a map of strings to lists of strings
-         *
-         * @returns a map of strings to lists of strings where the strings are Name, Ingredients, Instructions, or Macros
-         * and the corresponding value is the name of the recipe, the ingredients for the recipe, the instructions for
-         * the recipe, or the macros for the recipe
-         */
         Map<String, List<String>> pref = new HashMap<>();
         List<String> foods = new ArrayList<>();
         List<String> name = new ArrayList<>();
@@ -129,13 +130,13 @@ public class Recipe {
         return pref;
     }
 
+    /**
+     * Converts a recipe into a string
+     *
+     * @returns a string representation of the recipe
+     */
     @Override
     public String toString() {
-        /**
-         * Converts a recipe into a string
-         *
-         * @returns a string representation of the recipe
-         */
         StringBuilder newInstructions = new StringBuilder();
         for (String instruction: this.instructions) {
             newInstructions.append(instruction);

@@ -5,30 +5,30 @@ import entities.Recipe;
 
 import java.util.List;
 
+/**
+ * This class represents the interactor for getting a recipe.
+ */
 public class GetRecipeInteractor implements GetRecipeInputBoundary {
-    /**
-     * This class represents the interactor for getting a recipe.
-     */
 
     private GetRecipeOutputBoundary getRecipePresenter;
     private GetRecipeDataAccessInterface getRecipeDataAccessObject;
 
+    /**
+     * Constructor for GetRecipeInteractor
+     * @param getRecipeDataAccessObject the data access object for getting a recipe
+     * @param getRecipePresenter the presenter for getting a recipe
+     *
+     */
     public GetRecipeInteractor(GetRecipeDataAccessInterface getRecipeDataAccessObject,
                                GetRecipeOutputBoundary getRecipePresenter) {
-        /**
-         * Constructor for GetRecipeInteractor
-         * @param getRecipeDataAccessObject the data access object for getting a recipe
-         * @param getRecipePresenter the presenter for getting a recipe
-         *
-         */
         this.getRecipeDataAccessObject = getRecipeDataAccessObject;
         this.getRecipePresenter = getRecipePresenter;
     }
 
+    /**
+     * Execute the interactor for getting a recipe
+     */
     public void execute() {
-        /**
-         * Execute the interactor for getting a recipe
-         */
         DietaryPreferences dietaryPreferences = getRecipeDataAccessObject.retrievePreferences();
         List<Recipe> recipes = getRecipeDataAccessObject.retrieveRecipes(dietaryPreferences);
 

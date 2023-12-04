@@ -9,10 +9,10 @@ import java.beans.PropertyChangeSupport;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * This class represents the view model for getting a recipe.
+ */
 public class GetRecipeViewModel extends ViewModel {
-    /**
-     * This class represents the view model for getting a recipe.
-     */
     public static final String TITLE_LABEL = "Get Recipe";
     public static final String GET_RECIPE_BUTTON_LABEL = "Generate Recipe";
     public static final String MAIN_MENU = "Main Menu";
@@ -20,51 +20,51 @@ public class GetRecipeViewModel extends ViewModel {
 
     private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 
+    /**
+     * Constructor for GetRecipeViewModel
+     *
+     * @return a GetRecipeViewModel object
+     */
     public GetRecipeViewModel() {
-        /**
-         * Constructor for GetRecipeViewModel
-         *
-         * @return a GetRecipeViewModel object
-         */
         super("Get Recipe");
     }
 
+    /**
+     * Set the state for getting a recipe
+     * @param state the state for getting a recipe
+     */
     public void setState(GetRecipeState state) {
-        /**
-         * Set the state for getting a recipe
-         * @param state the state for getting a recipe
-         */
         this.currState = state;
     }
+
+    /**
+     * Get the state for getting a recipe
+     * @return the state for getting a recipe
+     */
     public GetRecipeState getState() {
-        /**
-         * Get the state for getting a recipe
-         * @return the state for getting a recipe
-         */
         return currState;
     }
 
-
+    /**
+     * Add a property change listener for getting a recipe
+     * @param listener the listener to add
+     */
     public void addPropertyChangeListener(PropertyChangeListener listener) {
-        /**
-         * Add a property change listener for getting a recipe
-         * @param listener the listener to add
-         */
         this.pcs.addPropertyChangeListener(listener);
     }
 
+    /**
+     * Fire a property change for getting a recipe
+     */
     public void firePropertyChange() {
-        /**
-         * Fire a property change for getting a recipe
-         */
         pcs.firePropertyChange("recipeState", null, currState);
     }
 
+    /**
+     * Get the recipes for getting a recipe
+     * @return the list of recipes returned from the use case
+     */
     public List<Map<String, List<String>>> getRecipes() {
-        /**
-         * Get the recipes for getting a recipe
-         * @return the list of recipes returned from the use case
-         */
         return currState.getRecipes();
     }
 }
