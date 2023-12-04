@@ -1,8 +1,5 @@
 package view;
 
-import data_access.FileUserDataAccessObject;
-import entities.FoodItem;
-import entities.UserFactory;
 import interface_adapter.delete_fooditem.DeleteFoodItemController;
 import interface_adapter.delete_fooditem.DeleteFoodItemState;
 import interface_adapter.delete_fooditem.DeleteFoodItemViewModel;
@@ -14,17 +11,6 @@ import org.junit.jupiter.api.Test;
 import use_case.delete_fooditem.DeleteFoodItemInputBoundary;
 import use_case.delete_fooditem.DeleteFoodItemInputData;
 import use_case.main_menu.MainMenuInputBoundary;
-
-import java.awt.*;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.io.PrintStream;
-import java.lang.reflect.InvocationTargetException;
-import java.util.EventListener;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -104,6 +90,9 @@ public class DeleteFoodItemViewTest {
         assertEquals("Remove", view.enter.getText());
     }
 
+    /**
+     * Tests the action of the enter button when it fails because the input food item is not in the user inventory.
+     */
     @Test
     public void testEnterButtonActionFail1() {
         // Simulate pressing the enter button
@@ -114,6 +103,9 @@ public class DeleteFoodItemViewTest {
         assertNull(viewModel.getState().getFoodItemError());
     }
 
+    /**
+     * Tests the action of the enter button when it fails because the input amount is too large.
+     */
     @Test
     public void testEnterButtonActionFail2() {
         // Simulate pressing the enter button
@@ -124,6 +116,9 @@ public class DeleteFoodItemViewTest {
         assertNull(viewModel.getState().getAmountError());
     }
 
+    /**
+     * Tests the action of the enter button when it fails because the input amount is not a vaild number.
+     */
     @Test
     public void testEnterButtonActionFail3() {
         // Simulate pressing the enter button
@@ -134,6 +129,9 @@ public class DeleteFoodItemViewTest {
         assertNull(viewModel.getState().getAmountDataTypeError());
     }
 
+    /**
+     * Tests the action of the set fields method.
+     */
     @Test
     public void testSetFields(){
         DeleteFoodItemState state = viewModel.getState();

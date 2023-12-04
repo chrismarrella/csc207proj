@@ -3,8 +3,6 @@ package use_case.remove_expired;
 import entities.FoodItem;
 import entities.User;
 import entities.UserFactory;
-import interface_adapter.remove_expired.RemoveExpiredController;
-import interface_adapter.remove_expired.RemoveExpiredState;
 import interface_adapter.remove_expired.RemoveExpiredViewModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,7 +12,6 @@ import java.util.HashMap;
 import java.util.PriorityQueue;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class RemoveExpiredInteractorTest {
 
