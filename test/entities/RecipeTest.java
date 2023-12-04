@@ -10,11 +10,12 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.*;
 
 class RecipeTest {
+
+    /**
+     * Test toMap() method
+     */
     @Test
     void testToMap() {
-        /**
-         * Test toMap() method
-         */
         List<String> instructions = new ArrayList<>();
         instructions.add("test1");
         instructions.add("test2");
@@ -37,11 +38,11 @@ class RecipeTest {
         assertEquals(res.get("Instructions"), recipe.toMap().get("Instructions"));
     }
 
+    /**
+     * Test toString() method
+     */
     @Test
     void testToString() {
-        /**
-         * Test toString() method
-         */
         List<String> instructions = new ArrayList<>();
         instructions.add("test1");
         instructions.add("test2");

@@ -9,11 +9,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class InventoryCheckerTest {
 
+    /**
+     * Test week checker with different "food" items :)
+     */
     @Test
     void testWeekChecker() {
-        /**
-         * Test week checker with different "food" items :)
-         */
         FoodItem item1 = new FoodItem("sam", 2023, 12, 4, 1);
         FoodItem item2 = new FoodItem("junhee", 2023, 12, 9, 1);
         FoodItem item3 = new FoodItem("sasha", 2023, 12, 11, 1);

@@ -15,19 +15,39 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * get recipe interactor tests
+ */
 class GetRecipeInteractorTest {
+    /**
+     * This class is to test the get recipe interactor
+     */
     private static class TestGetRecipeDataAccessInterface implements GetRecipeDataAccessInterface {
         private User user;
         private final String key = "1178e228ddeb4ba484e64911de9db1a8";
 
+        /**
+         * This is the constructor for the test get recipe data access interface
+         * @param user the user
+         */
         public TestGetRecipeDataAccessInterface(User user) {
             this.user = user;
         }
+
+        /**
+         * This method is to retrieve the user's dietary preferences
+         * @return the user's dietary preferences
+         */
         @Override
         public DietaryPreferences retrievePreferences() {
             return user.getDietaryRestrictions();
         }
 
+        /**
+         * This method is to retrieve the user's inventory
+         * @param preferences
+         * @return
+         */
         @Override
         public List<Recipe> retrieveRecipes(DietaryPreferences preferences) {
             InventoryChecker checker = new InventoryChecker();
@@ -60,6 +80,9 @@ class GetRecipeInteractorTest {
     private GetRecipeOutputBoundary getRecipeOutputBoundary;
     private UserDietaryPreferences preferences;
 
+    /**
+     * This method is to set up the test
+     */
     @BeforeEach
     void setUp() {
         UserFactory userFactory = new UserFactory();
@@ -82,6 +105,10 @@ class GetRecipeInteractorTest {
 
 
         getRecipeOutputBoundary = new GetRecipeOutputBoundary() {
+
+            /**
+             * This method is to check if the output data is correct
+             */
             @Override
             public void prepareSuccessView(GetRecipeOutputData name) {
                 Recipe recipe = new Recipe("Cannellini Bean and Asparagus Salad with Mushrooms", new ArrayList<>(), new ArrayList<>(), new HashMap<>());
@@ -92,6 +119,10 @@ class GetRecipeInteractorTest {
                 assertEquals(getRecipeOutputData.getRecipeData().get(0).get("Name"), name.getRecipeData().get(0).get("Name"));
             }
 
+            /**
+             * This method is to check if the error message is correct
+             * @param error the error message
+             */
             @Override
             public void prepareFailView(String error) {
                 assertEquals("no available recipes", error);
@@ -99,22 +130,22 @@ class GetRecipeInteractorTest {
         };
     }
 
+    /**
+     * This test is to check if the execute method will return a list of recipes that meets the user's dietary
+     * preferences and user's inventory
+     */
     @Test
     public void testExecuteValid() {
-        /**
-         * This test is to check if the execute method will return a list of recipes that meets the user's dietary
-         * preferences and user's inventory
-         */
         getRecipeInteractor = new GetRecipeInteractor(getRecipeDataAccessInterface1, getRecipeOutputBoundary);
         getRecipeInteractor.execute();
     }
 
+    /**
+     * This test is to check if the execute method will return an error message when there is no recipe that meets
+     * the user's dietary preferences and user's inventory
+     */
     @Test
     public void testExecuteInvalid() {
-        /**
-         * This test is to check if the execute method will return an error message when there is no recipe that meets
-         * the user's dietary preferences and user's inventory
-         */
         getRecipeInteractor = new GetRecipeInteractor(getRecipeDataAccessInterface2, getRecipeOutputBoundary);
         getRecipeInteractor.execute();
     }
