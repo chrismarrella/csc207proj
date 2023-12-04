@@ -80,6 +80,7 @@ class RecipeTest {
     @Test
     void testGetMacros() {
         assertEquals(macros, recipe.getMacros());
+    }
     /**
      * Test toMap() method
      */
