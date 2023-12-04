@@ -34,6 +34,9 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.*;
 
 class GetRecipeViewTest {
+    /**
+     * Tests for the GetRecipeView class
+     */
     private MainMenuInputBoundary mainMenuInputBoundary;
     private GetRecipeView getRecipeView;
     private MainMenuViewModel mainMenuViewModel;
@@ -48,19 +51,32 @@ class GetRecipeViewTest {
     private GetRecipeOutputBoundary getRecipeOutputBoundary;
 
     private class TestGetRecipeDataAccessInterface implements GetRecipeDataAccessInterface {
+        /**
+         * A test implementation of the GetRecipeDataAccessInterface
+         */
         private User user;
         private final String key = "c741074bc5c14385ba37b35cf3416734";
 
         public TestGetRecipeDataAccessInterface(User user) {
+            /**
+             * Constructor for the TestGetRecipeDataAccessInterface
+             * @param user: the user to be used for the test
+             */
             this.user = user;
         }
         @Override
         public DietaryPreferences retrievePreferences() {
+            /**
+             * Returns the user's dietary preferences
+             */
             return user.getDietaryRestrictions();
         }
 
         @Override
         public List<Recipe> retrieveRecipes(DietaryPreferences preferences) {
+            /**
+             * Returns a list of recipes that meet the user's dietary preferences
+             */
             InventoryChecker checker = new InventoryChecker();
             RecipeGetter getter = new RecipeGetter();
             RecipeParser parser = new RecipeParser();
@@ -87,11 +103,18 @@ class GetRecipeViewTest {
 
     @BeforeEach
     void setUp() {
+        /**
+         * Sets up the test environment
+         */
         getRecipeViewModel = new GetRecipeViewModel();
         getShoppingListViewModel = new GetShoppingListViewModel();
         getRecipeInputBoundary = new GetRecipeInputBoundary() {
             @Override
             public void execute() {
+                /**
+                 * Executes the use case
+
+                 */
                 DietaryPreferences dietaryPreferences = getRecipeDataAccessInterface.retrievePreferences();
                 List<Recipe> recipes = getRecipeDataAccessInterface.retrieveRecipes(dietaryPreferences);
 
@@ -105,6 +128,9 @@ class GetRecipeViewTest {
             }
         };
         getRecipeOutputBoundary = new GetRecipeOutputBoundary() {
+            /**
+             * A test implementation of the GetRecipeOutputBoundary
+             */
             @Override
             public void prepareSuccessView(GetRecipeOutputData name) {
                 Recipe recipe = new Recipe("Cannellini Bean and Asparagus Salad with Mushrooms", new ArrayList<>(), new ArrayList<>(), new HashMap<>());
@@ -128,6 +154,9 @@ class GetRecipeViewTest {
         getRecipeController = new GetRecipeController(getRecipeInputBoundary);
 
         mainMenuInputBoundary = new MainMenuInputBoundary() {
+            /**
+             * A test implementation of the MainMenuInputBoundary
+             */
             @Override
             public void execute(String view_name) {
                 MainMenuState currentState = mainMenuViewModel.getState();
@@ -163,38 +192,59 @@ class GetRecipeViewTest {
 
     @Test
     void testViewName() {
+        /**
+         * Tests if the view name is correct
+         */
         assertEquals("get recipe", getRecipeView.viewName);
     }
 
     @Test
     void testMainMenuButton() {
+        /**
+         * Tests if the main menu button is correct
+         */
         assertEquals("Main Menu", getRecipeView.MainMenu.getText());
     }
 
     @Test
     void testGenerateButton() {
+        /**
+         * Tests if the generate button is correct
+         */
         assertEquals("Generate Recipe", getRecipeView.generate.getText());
     }
 
     @Test
     void testRecipesPanel() {
+        /**
+         * Tests if the recipes panel is correct
+         */
         assertNotNull(getRecipeView.recipesPanel);
     }
 
     @Test
     void testMainMenuButtonPressed() {
+        /**
+         *  Tests if the main menu button is initialized correctly
+         */
         getRecipeView.MainMenu.doClick();
         assertEquals("main menu", mainMenuViewModel.getState().getView_name());
     }
 
     @Test
     void testGenerateButtonPressedNoError() {
+        /**
+         * Tests if the generate button is initialized correctly
+         */
         getRecipeView.generate.doClick();
         assert(!getRecipeViewModel.getState().getRecipes().isEmpty());
     }
 
     @Test
     void testGenerateButtonPressedWithError() {
+        /**
+         * Tests if the generate button is initialized correctly when there is an error
+         */
         UserFactory userFactory = new UserFactory();
         Map<String, Float> pref = new HashMap<>();
         pref.put("maxCarbs", 100f);
@@ -215,12 +265,18 @@ class GetRecipeViewTest {
 
     @Test
     void testShoppingListView() {
+        /**
+         * Tests if the shopping list view is initialized correctly
+         */
         getRecipeView.generate.doClick();
         assertEquals("Get Shopping List", getShoppingListViewModel.getViewName());
     }
 
     @Test
     void testShoppingListButtonPressedError() {
+        /**
+         * Tests if the shopping list button is initialized correctly when there is an error
+         */
         getRecipeView.generate.doClick();
         GetShoppingListState state = getShoppingListViewModel.getState();
         state.setShoppingListError("Test Error");
