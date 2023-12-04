@@ -9,8 +9,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Parses food item names from a list of ingredients using the Spoonacular API
+ */
 public class FoodNameParser {
 
+    /**
+     * Parses food item names from a list of ingredients using the Spoonacular API
+     * @param key Spoonacular API key
+     * @param foodItemNames List of ingredients
+     * @return List of food item names
+     */
     public static List<String> parseFoodItemNames(String key, List<String> foodItemNames) {
         String input = String.join("\n", foodItemNames);
         JSONArray jsonOutput = parseFoodItems(key, input);
